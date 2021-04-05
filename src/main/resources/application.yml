@@ -1,0 +1,26 @@
+admin:
+  user: admin
+  pass: 123456
+server:
+  port: 81
+  web:
+    resources:
+      static-locations: classpath:templates/
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_steel
+    username: root
+    password: 123456
+  web:
+    resources:
+      static-locations: classpath:static/,classpath:templates/
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      # 配置统一表前缀
+      table-prefix: t_

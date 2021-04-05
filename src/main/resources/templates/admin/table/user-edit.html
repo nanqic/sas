@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+    <div class="layui-form-item">
+        <label class="layui-form-label required">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" name="username"
+                   lay-verify="required" lay-reqtext="用户名不能为空"
+                   placeholder="请输入用户名" value=""
+                   class="layui-input">
+            <tip>填写自己的用户名称。</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">性别</label>
+        <div class="layui-input-block">
+            <input type="radio" name="sex" value="男" title="男">
+            <input type="radio" name="sex" value="女" title="女">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">手机</label>
+        <div class="layui-input-block">
+            <input type="number" value="" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input type="email" name="email" placeholder="请输入邮箱" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">城市</label>
+        <div class="layui-input-block">
+            <input type="text" name="city" lay-verify="required" lay-reqtext="城市不能为空" placeholder="请输入城市" value=""
+                   class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">积分</label>
+        <div class="layui-input-block">
+            <input type="number" name="experience" placeholder="请输入积分" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+</div>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    // 编辑页解码，得到原始对象
+    var rawData = JSON.parse(unescape(location.search).replace('?', ''))
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+        // 将父页面传来的数据加载到表单中
+        $("input[name='username']")[0].value = rawData.username
+        $("input[name='phone']")[0].value = rawData.phone
+        $("input[name='email']")[0].value = rawData.email
+        $("input[name='city']")[0].value = rawData.city
+        $("input[name='experience']")[0].value = rawData.experience
+
+        if(rawData.sex=='男') {
+            $("input[name='sex']:first").attr("checked","true")
+        } else {
+            $("input[name='sex']:last").attr("checked","true")
+
+        }
+
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            data.field.id = rawData.id
+            var datas = JSON.stringify(data.field)
+            $.ajax({
+                type: 'patch',
+                contentType: "application/json;charset=utf-8",
+                url: '/user',
+                data: datas,
+                dataType: 'json',
+                success: resp => {
+                    console.log(resp)
+                    var index = layer.alert("最终提交：" + datas, {
+                        title: '修改成功！'
+                    }, function () {
+
+                        // 关闭弹出层
+                        layer.close(index);
+
+                        var iframeIndex = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(iframeIndex);
+
+                    });
+                },
+                error: (resp) => {
+                    var index = layer.alert(resp, {
+                        title: '修改失败！'
+                    }, function () {
+
+                        // 关闭弹出层
+                        layer.close(index);
+
+                        var iframeIndex = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(iframeIndex);
+
+                    });
+                }
+            })
+            var index = layer.alert(datas, {
+                title: '最终的提交信息'
+            }, function () {
+
+                // 关闭弹出层
+                layer.close(index);
+
+                var iframeIndex = parent.layer.getFrameIndex(window.name);
+                parent.layer.close(iframeIndex);
+
+            });
+
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>
