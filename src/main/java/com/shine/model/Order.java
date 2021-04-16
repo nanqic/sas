@@ -1,6 +1,7 @@
 package com.shine.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Order implements Serializable {
     private Integer id;
@@ -10,6 +11,8 @@ public class Order implements Serializable {
     private Integer pid;
 
     private Integer amount;
+
+    private Date orderTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -65,6 +68,19 @@ public class Order implements Serializable {
         this.amount = amount;
     }
 
+    public Date getOrderTime() {
+        return orderTime;
+    }
+
+    public Order withOrderTime(Date orderTime) {
+        this.setOrderTime(orderTime);
+        return this;
+    }
+
+    public void setOrderTime(Date orderTime) {
+        this.orderTime = orderTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -75,6 +91,7 @@ public class Order implements Serializable {
         sb.append(", uid=").append(uid);
         sb.append(", pid=").append(pid);
         sb.append(", amount=").append(amount);
+        sb.append(", orderTime=").append(orderTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -95,7 +112,8 @@ public class Order implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
-            && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()));
+            && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
+            && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()));
     }
 
     @Override
@@ -106,6 +124,7 @@ public class Order implements Serializable {
         result = prime * result + ((getUid() == null) ? 0 : getUid().hashCode());
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
         result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
+        result = prime * result + ((getOrderTime() == null) ? 0 : getOrderTime().hashCode());
         return result;
     }
 }

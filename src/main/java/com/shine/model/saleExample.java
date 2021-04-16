@@ -224,133 +224,133 @@ public class saleExample {
             return (Criteria) this;
         }
 
-        public Criteria andAreaIsNull() {
-            addCriterion("area is null");
+        public Criteria andProvinceIsNull() {
+            addCriterion("province is null");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIsNotNull() {
-            addCriterion("area is not null");
+        public Criteria andProvinceIsNotNull() {
+            addCriterion("province is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAreaEqualTo(String value) {
-            addCriterion("area =", value, "area");
+        public Criteria andProvinceEqualTo(String value) {
+            addCriterion("province =", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaNotEqualTo(String value) {
-            addCriterion("area <>", value, "area");
+        public Criteria andProvinceNotEqualTo(String value) {
+            addCriterion("province <>", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaGreaterThan(String value) {
-            addCriterion("area >", value, "area");
+        public Criteria andProvinceGreaterThan(String value) {
+            addCriterion("province >", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaGreaterThanOrEqualTo(String value) {
-            addCriterion("area >=", value, "area");
+        public Criteria andProvinceGreaterThanOrEqualTo(String value) {
+            addCriterion("province >=", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaLessThan(String value) {
-            addCriterion("area <", value, "area");
+        public Criteria andProvinceLessThan(String value) {
+            addCriterion("province <", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaLessThanOrEqualTo(String value) {
-            addCriterion("area <=", value, "area");
+        public Criteria andProvinceLessThanOrEqualTo(String value) {
+            addCriterion("province <=", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaLike(String value) {
-            addCriterion("area like", value, "area");
+        public Criteria andProvinceLike(String value) {
+            addCriterion("province like", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaNotLike(String value) {
-            addCriterion("area not like", value, "area");
+        public Criteria andProvinceNotLike(String value) {
+            addCriterion("province not like", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIn(List<String> values) {
-            addCriterion("area in", values, "area");
+        public Criteria andProvinceIn(List<String> values) {
+            addCriterion("province in", values, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaNotIn(List<String> values) {
-            addCriterion("area not in", values, "area");
+        public Criteria andProvinceNotIn(List<String> values) {
+            addCriterion("province not in", values, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaBetween(String value1, String value2) {
-            addCriterion("area between", value1, value2, "area");
+        public Criteria andProvinceBetween(String value1, String value2) {
+            addCriterion("province between", value1, value2, "province");
             return (Criteria) this;
         }
 
-        public Criteria andAreaNotBetween(String value1, String value2) {
-            addCriterion("area not between", value1, value2, "area");
+        public Criteria andProvinceNotBetween(String value1, String value2) {
+            addCriterion("province not between", value1, value2, "province");
             return (Criteria) this;
         }
 
-        public Criteria andSaledIsNull() {
-            addCriterion("saled is null");
+        public Criteria andSoldIsNull() {
+            addCriterion("sold is null");
             return (Criteria) this;
         }
 
-        public Criteria andSaledIsNotNull() {
-            addCriterion("saled is not null");
+        public Criteria andSoldIsNotNull() {
+            addCriterion("sold is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSaledEqualTo(Integer value) {
-            addCriterion("saled =", value, "saled");
+        public Criteria andSoldEqualTo(Integer value) {
+            addCriterion("sold =", value, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledNotEqualTo(Integer value) {
-            addCriterion("saled <>", value, "saled");
+        public Criteria andSoldNotEqualTo(Integer value) {
+            addCriterion("sold <>", value, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledGreaterThan(Integer value) {
-            addCriterion("saled >", value, "saled");
+        public Criteria andSoldGreaterThan(Integer value) {
+            addCriterion("sold >", value, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledGreaterThanOrEqualTo(Integer value) {
-            addCriterion("saled >=", value, "saled");
+        public Criteria andSoldGreaterThanOrEqualTo(Integer value) {
+            addCriterion("sold >=", value, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledLessThan(Integer value) {
-            addCriterion("saled <", value, "saled");
+        public Criteria andSoldLessThan(Integer value) {
+            addCriterion("sold <", value, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledLessThanOrEqualTo(Integer value) {
-            addCriterion("saled <=", value, "saled");
+        public Criteria andSoldLessThanOrEqualTo(Integer value) {
+            addCriterion("sold <=", value, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledIn(List<Integer> values) {
-            addCriterion("saled in", values, "saled");
+        public Criteria andSoldIn(List<Integer> values) {
+            addCriterion("sold in", values, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledNotIn(List<Integer> values) {
-            addCriterion("saled not in", values, "saled");
+        public Criteria andSoldNotIn(List<Integer> values) {
+            addCriterion("sold not in", values, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledBetween(Integer value1, Integer value2) {
-            addCriterion("saled between", value1, value2, "saled");
+        public Criteria andSoldBetween(Integer value1, Integer value2) {
+            addCriterion("sold between", value1, value2, "sold");
             return (Criteria) this;
         }
 
-        public Criteria andSaledNotBetween(Integer value1, Integer value2) {
-            addCriterion("saled not between", value1, value2, "saled");
+        public Criteria andSoldNotBetween(Integer value1, Integer value2) {
+            addCriterion("sold not between", value1, value2, "sold");
             return (Criteria) this;
         }
 

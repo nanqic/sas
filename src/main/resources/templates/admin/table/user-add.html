@@ -19,7 +19,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">用户名</label>
         <div class="layui-input-block">
-            <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" value="" class="layui-input">
+            <input type="text" name="username" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" value=""
+                   class="layui-input">
             <tip>填写自己的用户名称。</tip>
         </div>
     </div>
@@ -33,7 +34,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">手机</label>
         <div class="layui-input-block">
-            <input type="number" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机" value="" class="layui-input">
+            <input type="number" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机" value=""
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -42,12 +44,27 @@
             <input type="email" name="email" placeholder="请输入邮箱" value="" class="layui-input">
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label required">城市</label>
-        <div class="layui-input-block">
-                <input type="text" name="city" lay-verify="required" lay-reqtext="城市不能为空" placeholder="请输入城市" value="" class="layui-input">
+
+
+    <div class="layui-form-item" id="area-picker">
+        <div class="layui-form-label" required>城市</div>
+        <div class="layui-input-inline" style="width: 200px;">
+            <select name="province" class="province-selector" data-value="" lay-filter="province-1">
+                <option value="">请选择省</option>
+            </select>
+        </div>
+        <div class="layui-input-inline" style="width: 200px;">
+            <select name="city" class="city-selector" data-value="" lay-filter="city-1">
+                <option value="">请选择市</option>
+            </select>
+        </div>
+        <div class="layui-input-inline" style="width: 200px;">
+            <select name="county" class="county-selector" data-value="" lay-filter="county-1">
+                <option value="">请选择区</option>
+            </select>
         </div>
     </div>
+
     <div class="layui-form-item">
         <div class="layui-input-block">
             <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
@@ -56,23 +73,35 @@
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form'], function () {
+    //配置插件目录
+    layui.config({
+        base: 'http://localhost:81/mods/'
+        , version: '1.0'
+    });
+    layui.use(['layer', 'form', 'layarea'], function () {
         var form = layui.form,
             layer = layui.layer,
+            layarea = layui.layarea,
             $ = layui.$;
+
+        layarea.render({
+            elem: '#area-picker',
+            change: () => {
+            }
+        });
 
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             var datas = JSON.stringify(data.field)
             $.ajax({
                 type: 'post',
-                contentType:"application/json;charset=utf-8",
+                contentType: "application/json;charset=utf-8",
                 url: '/user',
                 data: datas,
                 dataType: 'json',
                 success: resp => {
                     // console.log(resp)
-                    var index = layer.alert("用户："+data.field.username, {
+                    var index = layer.alert("用户：" + data.field.username, {
                         title: '添加成功！'
                     }, function () {
 
@@ -84,7 +113,7 @@
 
                     });
                 },
-                error: (resp)=>{
+                error: (resp) => {
                     var index = layer.alert(resp, {
                         title: '添加失败！'
                     }, function () {

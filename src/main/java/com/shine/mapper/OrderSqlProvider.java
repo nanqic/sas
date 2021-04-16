@@ -39,6 +39,10 @@ public class OrderSqlProvider {
             sql.VALUES("amount", "#{amount,jdbcType=INTEGER}");
         }
         
+        if (record.getOrderTime() != null) {
+            sql.VALUES("order_time", "#{orderTime,jdbcType=TIMESTAMP}");
+        }
+        
         return sql.toString();
     }
 
@@ -52,6 +56,7 @@ public class OrderSqlProvider {
         sql.SELECT("uid");
         sql.SELECT("pid");
         sql.SELECT("amount");
+        sql.SELECT("order_time");
         sql.FROM("t_order");
         applyWhere(sql, example, false);
         
@@ -85,6 +90,10 @@ public class OrderSqlProvider {
             sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
         }
         
+        if (record.getOrderTime() != null) {
+            sql.SET("order_time = #{record.orderTime,jdbcType=TIMESTAMP}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -97,6 +106,7 @@ public class OrderSqlProvider {
         sql.SET("uid = #{record.uid,jdbcType=INTEGER}");
         sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
+        sql.SET("order_time = #{record.orderTime,jdbcType=TIMESTAMP}");
         
         OrderExample example = (OrderExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -117,6 +127,10 @@ public class OrderSqlProvider {
         
         if (record.getAmount() != null) {
             sql.SET("amount = #{amount,jdbcType=INTEGER}");
+        }
+        
+        if (record.getOrderTime() != null) {
+            sql.SET("order_time = #{orderTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

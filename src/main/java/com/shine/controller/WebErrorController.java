@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class MyErrorController implements ErrorController {
+public class WebErrorController implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request){

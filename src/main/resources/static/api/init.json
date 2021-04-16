@@ -4,7 +4,7 @@
     "href": "admin/index.html"
   },
   "logoInfo": {
-    "title": "后台系统",
+    "title": "系统后台",
     "image": "images/logo.png",
     "href": ""
   },
@@ -59,18 +59,52 @@
         },
         {
           "title": "销售管理",
-          "href": "admin/index.html",
+          "href": "",
           "icon": "fa fa-window-maximize",
-          "target": "_self"
+          "target": "_self",
+          "child": [
+            {
+              "title": "商品库存",
+              "href": "admin/stock-list.html",
+              "icon": "fa fa-window-maximize",
+              "target": "_self"
+            },
+            {
+              "title": "新增库存",
+              "href": "admin/table/stock-add.html",
+              "icon": "fa fa-window-maximize",
+              "target": "_self"
+            },
+            {
+              "title": "已售商品",
+              "href": "admin/table/sold-list.html",
+              "icon": "fa fa-window-maximize",
+              "target": "_self"
+            }
+          ]
         },
         {
           "title": "订单管理",
-          "href": "admin/order-list.html",
+          "href": "",
           "icon": "fa fa-window-maximize",
-          "target": "_self"
+          "target": "_self",
+          "child": [
+            {
+              "title": "订单列表",
+              "href": "admin/product-list.html",
+              "icon": "fa fa-window-maximize",
+              "target": "_self"
+            },
+            {
+              "title": "历史订单",
+              "href": "admin/table/product-add.html",
+              "icon": "fa fa-window-maximize",
+              "target": "_self"
+            }
+          ]
         },
         {
-          "title": "异常页面",
+          "title": "数据分析",
           "href": "",
           "icon": "fa fa-home",
           "target": "_self",

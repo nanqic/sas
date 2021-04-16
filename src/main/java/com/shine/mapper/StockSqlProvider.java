@@ -1,80 +1,48 @@
 package com.shine.mapper;
 
-import com.shine.model.SystemMenu;
-import com.shine.model.SystemMenuExample.Criteria;
-import com.shine.model.SystemMenuExample.Criterion;
-import com.shine.model.SystemMenuExample;
+import com.shine.model.Stock;
+import com.shine.model.StockExample.Criteria;
+import com.shine.model.StockExample.Criterion;
+import com.shine.model.StockExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class SystemMenuSqlProvider {
-    public String countByExample(SystemMenuExample example) {
+public class StockSqlProvider {
+    public String countByExample(StockExample example) {
         SQL sql = new SQL();
-        sql.SELECT("count(*)").FROM("t_system_menu");
+        sql.SELECT("count(*)").FROM("t_stock");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(SystemMenuExample example) {
+    public String deleteByExample(StockExample example) {
         SQL sql = new SQL();
-        sql.DELETE_FROM("t_system_menu");
+        sql.DELETE_FROM("t_stock");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(SystemMenu record) {
+    public String insertSelective(Stock record) {
         SQL sql = new SQL();
-        sql.INSERT_INTO("t_system_menu");
+        sql.INSERT_INTO("t_stock");
         
         if (record.getPid() != null) {
             sql.VALUES("pid", "#{pid,jdbcType=INTEGER}");
         }
         
-        if (record.getTitle() != null) {
-            sql.VALUES("title", "#{title,jdbcType=VARCHAR}");
+        if (record.getAmount() != null) {
+            sql.VALUES("amount", "#{amount,jdbcType=INTEGER}");
         }
         
-        if (record.getIcon() != null) {
-            sql.VALUES("icon", "#{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getHref() != null) {
-            sql.VALUES("href", "#{href,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTarget() != null) {
-            sql.VALUES("target", "#{target,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            sql.VALUES("sort", "#{sort,jdbcType=INTEGER}");
-        }
-        
-        if (record.getStatus() != null) {
-            sql.VALUES("status", "#{status,jdbcType=TINYINT}");
-        }
-        
-        if (record.getRemark() != null) {
-            sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCreateAt() != null) {
-            sql.VALUES("create_at", "#{createAt,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateAt() != null) {
-            sql.VALUES("update_at", "#{updateAt,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getDeleteAt() != null) {
-            sql.VALUES("delete_at", "#{deleteAt,jdbcType=TIMESTAMP}");
+        if (record.getRegionId() != null) {
+            sql.VALUES("region_id", "#{regionId,jdbcType=TINYINT}");
         }
         
         return sql.toString();
     }
 
-    public String selectByExample(SystemMenuExample example) {
+    public String selectByExample(StockExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
             sql.SELECT_DISTINCT("id");
@@ -82,17 +50,9 @@ public class SystemMenuSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("pid");
-        sql.SELECT("title");
-        sql.SELECT("icon");
-        sql.SELECT("href");
-        sql.SELECT("target");
-        sql.SELECT("sort");
-        sql.SELECT("status");
-        sql.SELECT("remark");
-        sql.SELECT("create_at");
-        sql.SELECT("update_at");
-        sql.SELECT("delete_at");
-        sql.FROM("t_system_menu");
+        sql.SELECT("amount");
+        sql.SELECT("region_id");
+        sql.FROM("t_stock");
         applyWhere(sql, example, false);
         
         if (example != null && example.getOrderByClause() != null) {
@@ -103,11 +63,11 @@ public class SystemMenuSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        SystemMenu record = (SystemMenu) parameter.get("record");
-        SystemMenuExample example = (SystemMenuExample) parameter.get("example");
+        Stock record = (Stock) parameter.get("record");
+        StockExample example = (StockExample) parameter.get("example");
         
         SQL sql = new SQL();
-        sql.UPDATE("t_system_menu");
+        sql.UPDATE("t_stock");
         
         if (record.getId() != null) {
             sql.SET("id = #{record.id,jdbcType=INTEGER}");
@@ -117,44 +77,12 @@ public class SystemMenuSqlProvider {
             sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         }
         
-        if (record.getTitle() != null) {
-            sql.SET("title = #{record.title,jdbcType=VARCHAR}");
+        if (record.getAmount() != null) {
+            sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
         }
         
-        if (record.getIcon() != null) {
-            sql.SET("icon = #{record.icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getHref() != null) {
-            sql.SET("href = #{record.href,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTarget() != null) {
-            sql.SET("target = #{record.target,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            sql.SET("sort = #{record.sort,jdbcType=INTEGER}");
-        }
-        
-        if (record.getStatus() != null) {
-            sql.SET("status = #{record.status,jdbcType=TINYINT}");
-        }
-        
-        if (record.getRemark() != null) {
-            sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCreateAt() != null) {
-            sql.SET("create_at = #{record.createAt,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateAt() != null) {
-            sql.SET("update_at = #{record.updateAt,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getDeleteAt() != null) {
-            sql.SET("delete_at = #{record.deleteAt,jdbcType=TIMESTAMP}");
+        if (record.getRegionId() != null) {
+            sql.SET("region_id = #{record.regionId,jdbcType=TINYINT}");
         }
         
         applyWhere(sql, example, true);
@@ -163,72 +91,32 @@ public class SystemMenuSqlProvider {
 
     public String updateByExample(Map<String, Object> parameter) {
         SQL sql = new SQL();
-        sql.UPDATE("t_system_menu");
+        sql.UPDATE("t_stock");
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
-        sql.SET("title = #{record.title,jdbcType=VARCHAR}");
-        sql.SET("icon = #{record.icon,jdbcType=VARCHAR}");
-        sql.SET("href = #{record.href,jdbcType=VARCHAR}");
-        sql.SET("target = #{record.target,jdbcType=VARCHAR}");
-        sql.SET("sort = #{record.sort,jdbcType=INTEGER}");
-        sql.SET("status = #{record.status,jdbcType=TINYINT}");
-        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
-        sql.SET("create_at = #{record.createAt,jdbcType=TIMESTAMP}");
-        sql.SET("update_at = #{record.updateAt,jdbcType=TIMESTAMP}");
-        sql.SET("delete_at = #{record.deleteAt,jdbcType=TIMESTAMP}");
+        sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
+        sql.SET("region_id = #{record.regionId,jdbcType=TINYINT}");
         
-        SystemMenuExample example = (SystemMenuExample) parameter.get("example");
+        StockExample example = (StockExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(SystemMenu record) {
+    public String updateByPrimaryKeySelective(Stock record) {
         SQL sql = new SQL();
-        sql.UPDATE("t_system_menu");
+        sql.UPDATE("t_stock");
         
         if (record.getPid() != null) {
             sql.SET("pid = #{pid,jdbcType=INTEGER}");
         }
         
-        if (record.getTitle() != null) {
-            sql.SET("title = #{title,jdbcType=VARCHAR}");
+        if (record.getAmount() != null) {
+            sql.SET("amount = #{amount,jdbcType=INTEGER}");
         }
         
-        if (record.getIcon() != null) {
-            sql.SET("icon = #{icon,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getHref() != null) {
-            sql.SET("href = #{href,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getTarget() != null) {
-            sql.SET("target = #{target,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getSort() != null) {
-            sql.SET("sort = #{sort,jdbcType=INTEGER}");
-        }
-        
-        if (record.getStatus() != null) {
-            sql.SET("status = #{status,jdbcType=TINYINT}");
-        }
-        
-        if (record.getRemark() != null) {
-            sql.SET("remark = #{remark,jdbcType=VARCHAR}");
-        }
-        
-        if (record.getCreateAt() != null) {
-            sql.SET("create_at = #{createAt,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getUpdateAt() != null) {
-            sql.SET("update_at = #{updateAt,jdbcType=TIMESTAMP}");
-        }
-        
-        if (record.getDeleteAt() != null) {
-            sql.SET("delete_at = #{deleteAt,jdbcType=TIMESTAMP}");
+        if (record.getRegionId() != null) {
+            sql.SET("region_id = #{regionId,jdbcType=TINYINT}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");
@@ -236,7 +124,7 @@ public class SystemMenuSqlProvider {
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, SystemMenuExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, StockExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

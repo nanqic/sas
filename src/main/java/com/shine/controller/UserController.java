@@ -2,7 +2,7 @@ package com.shine.controller;
 
 import com.shine.model.User;
 import com.shine.service.UserService;
-import com.shine.vo.Result;
+import com.shine.model.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

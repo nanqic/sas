@@ -7,9 +7,9 @@ public class sale implements Serializable {
 
     private Integer pid;
 
-    private String area;
+    private String province;
 
-    private Integer saled;
+    private Integer sold;
 
     private Integer stock;
 
@@ -41,30 +41,30 @@ public class sale implements Serializable {
         this.pid = pid;
     }
 
-    public String getArea() {
-        return area;
+    public String getProvince() {
+        return province;
     }
 
-    public sale withArea(String area) {
-        this.setArea(area);
+    public sale withProvince(String province) {
+        this.setProvince(province);
         return this;
     }
 
-    public void setArea(String area) {
-        this.area = area;
+    public void setProvince(String province) {
+        this.province = province;
     }
 
-    public Integer getSaled() {
-        return saled;
+    public Integer getSold() {
+        return sold;
     }
 
-    public sale withSaled(Integer saled) {
-        this.setSaled(saled);
+    public sale withSold(Integer sold) {
+        this.setSold(sold);
         return this;
     }
 
-    public void setSaled(Integer saled) {
-        this.saled = saled;
+    public void setSold(Integer sold) {
+        this.sold = sold;
     }
 
     public Integer getStock() {
@@ -88,8 +88,8 @@ public class sale implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", pid=").append(pid);
-        sb.append(", area=").append(area);
-        sb.append(", saled=").append(saled);
+        sb.append(", province=").append(province);
+        sb.append(", sold=").append(sold);
         sb.append(", stock=").append(stock);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
@@ -110,8 +110,8 @@ public class sale implements Serializable {
         sale other = (sale) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
-            && (this.getArea() == null ? other.getArea() == null : this.getArea().equals(other.getArea()))
-            && (this.getSaled() == null ? other.getSaled() == null : this.getSaled().equals(other.getSaled()))
+            && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
+            && (this.getSold() == null ? other.getSold() == null : this.getSold().equals(other.getSold()))
             && (this.getStock() == null ? other.getStock() == null : this.getStock().equals(other.getStock()));
     }
 
@@ -121,8 +121,8 @@ public class sale implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
-        result = prime * result + ((getArea() == null) ? 0 : getArea().hashCode());
-        result = prime * result + ((getSaled() == null) ? 0 : getSaled().hashCode());
+        result = prime * result + ((getProvince() == null) ? 0 : getProvince().hashCode());
+        result = prime * result + ((getSold() == null) ? 0 : getSold().hashCode());
         result = prime * result + ((getStock() == null) ? 0 : getStock().hashCode());
         return result;
     }

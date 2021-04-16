@@ -1,15 +1,13 @@
 package com.shine.controller;
 
-import com.shine.vo.CodeMsg;
-import com.shine.vo.LoginVO;
-import com.shine.vo.Result;
+import com.shine.model.vo.CodeMsg;
+import com.shine.model.vo.LoginVO;
+import com.shine.model.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.Map;
 
 
 @RestController

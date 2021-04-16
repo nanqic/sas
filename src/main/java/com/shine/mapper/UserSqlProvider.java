@@ -39,6 +39,14 @@ public class UserSqlProvider {
             sql.VALUES("city", "#{city,jdbcType=VARCHAR}");
         }
         
+        if (record.getCounty() != null) {
+            sql.VALUES("county", "#{county,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getProvince() != null) {
+            sql.VALUES("province", "#{province,jdbcType=VARCHAR}");
+        }
+        
         if (record.getEmail() != null) {
             sql.VALUES("email", "#{email,jdbcType=VARCHAR}");
         }
@@ -68,6 +76,8 @@ public class UserSqlProvider {
         sql.SELECT("username");
         sql.SELECT("sex");
         sql.SELECT("city");
+        sql.SELECT("county");
+        sql.SELECT("province");
         sql.SELECT("email");
         sql.SELECT("phone");
         sql.SELECT("experience");
@@ -105,6 +115,14 @@ public class UserSqlProvider {
             sql.SET("city = #{record.city,jdbcType=VARCHAR}");
         }
         
+        if (record.getCounty() != null) {
+            sql.SET("county = #{record.county,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getProvince() != null) {
+            sql.SET("province = #{record.province,jdbcType=VARCHAR}");
+        }
+        
         if (record.getEmail() != null) {
             sql.SET("email = #{record.email,jdbcType=VARCHAR}");
         }
@@ -133,6 +151,8 @@ public class UserSqlProvider {
         sql.SET("username = #{record.username,jdbcType=VARCHAR}");
         sql.SET("sex = #{record.sex,jdbcType=VARCHAR}");
         sql.SET("city = #{record.city,jdbcType=VARCHAR}");
+        sql.SET("county = #{record.county,jdbcType=VARCHAR}");
+        sql.SET("province = #{record.province,jdbcType=VARCHAR}");
         sql.SET("email = #{record.email,jdbcType=VARCHAR}");
         sql.SET("phone = #{record.phone,jdbcType=VARCHAR}");
         sql.SET("experience = #{record.experience,jdbcType=INTEGER}");
@@ -157,6 +177,14 @@ public class UserSqlProvider {
         
         if (record.getCity() != null) {
             sql.SET("city = #{city,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getCounty() != null) {
+            sql.SET("county = #{county,jdbcType=VARCHAR}");
+        }
+        
+        if (record.getProvince() != null) {
+            sql.SET("province = #{province,jdbcType=VARCHAR}");
         }
         
         if (record.getEmail() != null) {

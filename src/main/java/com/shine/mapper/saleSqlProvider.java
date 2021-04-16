@@ -31,12 +31,12 @@ public class saleSqlProvider {
             sql.VALUES("pid", "#{pid,jdbcType=INTEGER}");
         }
         
-        if (record.getArea() != null) {
-            sql.VALUES("area", "#{area,jdbcType=VARCHAR}");
+        if (record.getProvince() != null) {
+            sql.VALUES("province", "#{province,jdbcType=VARCHAR}");
         }
         
-        if (record.getSaled() != null) {
-            sql.VALUES("saled", "#{saled,jdbcType=INTEGER}");
+        if (record.getSold() != null) {
+            sql.VALUES("sold", "#{sold,jdbcType=INTEGER}");
         }
         
         if (record.getStock() != null) {
@@ -54,8 +54,8 @@ public class saleSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("pid");
-        sql.SELECT("area");
-        sql.SELECT("saled");
+        sql.SELECT("province");
+        sql.SELECT("sold");
         sql.SELECT("stock");
         sql.FROM("t_sale");
         applyWhere(sql, example, false);
@@ -82,12 +82,12 @@ public class saleSqlProvider {
             sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         }
         
-        if (record.getArea() != null) {
-            sql.SET("area = #{record.area,jdbcType=VARCHAR}");
+        if (record.getProvince() != null) {
+            sql.SET("province = #{record.province,jdbcType=VARCHAR}");
         }
         
-        if (record.getSaled() != null) {
-            sql.SET("saled = #{record.saled,jdbcType=INTEGER}");
+        if (record.getSold() != null) {
+            sql.SET("sold = #{record.sold,jdbcType=INTEGER}");
         }
         
         if (record.getStock() != null) {
@@ -104,8 +104,8 @@ public class saleSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
-        sql.SET("area = #{record.area,jdbcType=VARCHAR}");
-        sql.SET("saled = #{record.saled,jdbcType=INTEGER}");
+        sql.SET("province = #{record.province,jdbcType=VARCHAR}");
+        sql.SET("sold = #{record.sold,jdbcType=INTEGER}");
         sql.SET("stock = #{record.stock,jdbcType=INTEGER}");
         
         saleExample example = (saleExample) parameter.get("example");
@@ -121,12 +121,12 @@ public class saleSqlProvider {
             sql.SET("pid = #{pid,jdbcType=INTEGER}");
         }
         
-        if (record.getArea() != null) {
-            sql.SET("area = #{area,jdbcType=VARCHAR}");
+        if (record.getProvince() != null) {
+            sql.SET("province = #{province,jdbcType=VARCHAR}");
         }
         
-        if (record.getSaled() != null) {
-            sql.SET("saled = #{saled,jdbcType=INTEGER}");
+        if (record.getSold() != null) {
+            sql.SET("sold = #{sold,jdbcType=INTEGER}");
         }
         
         if (record.getStock() != null) {

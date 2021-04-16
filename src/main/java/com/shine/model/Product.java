@@ -1,17 +1,24 @@
 package com.shine.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Product implements Serializable {
     private Integer id;
 
     private String name;
 
-    private String sort;
+    private Integer price;
+
+    private Byte sortId;
 
     private String img;
 
+    private String describes;
+
     private Boolean onSale;
+
+    private Date addedTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -41,17 +48,30 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getSort() {
-        return sort;
+    public Integer getPrice() {
+        return price;
     }
 
-    public Product withSort(String sort) {
-        this.setSort(sort);
+    public Product withPrice(Integer price) {
+        this.setPrice(price);
         return this;
     }
 
-    public void setSort(String sort) {
-        this.sort = sort;
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public Byte getSortId() {
+        return sortId;
+    }
+
+    public Product withSortId(Byte sortId) {
+        this.setSortId(sortId);
+        return this;
+    }
+
+    public void setSortId(Byte sortId) {
+        this.sortId = sortId;
     }
 
     public String getImg() {
@@ -67,6 +87,19 @@ public class Product implements Serializable {
         this.img = img;
     }
 
+    public String getDescribes() {
+        return describes;
+    }
+
+    public Product withDescribes(String describes) {
+        this.setDescribes(describes);
+        return this;
+    }
+
+    public void setDescribes(String describes) {
+        this.describes = describes;
+    }
+
     public Boolean getOnSale() {
         return onSale;
     }
@@ -80,6 +113,19 @@ public class Product implements Serializable {
         this.onSale = onSale;
     }
 
+    public Date getAddedTime() {
+        return addedTime;
+    }
+
+    public Product withAddedTime(Date addedTime) {
+        this.setAddedTime(addedTime);
+        return this;
+    }
+
+    public void setAddedTime(Date addedTime) {
+        this.addedTime = addedTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -88,9 +134,12 @@ public class Product implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", name=").append(name);
-        sb.append(", sort=").append(sort);
+        sb.append(", price=").append(price);
+        sb.append(", sortId=").append(sortId);
         sb.append(", img=").append(img);
+        sb.append(", describes=").append(describes);
         sb.append(", onSale=").append(onSale);
+        sb.append(", addedTime=").append(addedTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -110,9 +159,12 @@ public class Product implements Serializable {
         Product other = (Product) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getSort() == null ? other.getSort() == null : this.getSort().equals(other.getSort()))
+            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
+            && (this.getSortId() == null ? other.getSortId() == null : this.getSortId().equals(other.getSortId()))
             && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
-            && (this.getOnSale() == null ? other.getOnSale() == null : this.getOnSale().equals(other.getOnSale()));
+            && (this.getDescribes() == null ? other.getDescribes() == null : this.getDescribes().equals(other.getDescribes()))
+            && (this.getOnSale() == null ? other.getOnSale() == null : this.getOnSale().equals(other.getOnSale()))
+            && (this.getAddedTime() == null ? other.getAddedTime() == null : this.getAddedTime().equals(other.getAddedTime()));
     }
 
     @Override
@@ -121,9 +173,12 @@ public class Product implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getSort() == null) ? 0 : getSort().hashCode());
+        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
+        result = prime * result + ((getSortId() == null) ? 0 : getSortId().hashCode());
         result = prime * result + ((getImg() == null) ? 0 : getImg().hashCode());
+        result = prime * result + ((getDescribes() == null) ? 0 : getDescribes().hashCode());
         result = prime * result + ((getOnSale() == null) ? 0 : getOnSale().hashCode());
+        result = prime * result + ((getAddedTime() == null) ? 0 : getAddedTime().hashCode());
         return result;
     }
 }

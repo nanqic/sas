@@ -11,6 +11,10 @@ public class User implements Serializable {
 
     private String city;
 
+    private String county;
+
+    private String province;
+
     private String email;
 
     private String phone;
@@ -71,6 +75,32 @@ public class User implements Serializable {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public User withCounty(String county) {
+        this.setCounty(county);
+        return this;
+    }
+
+    public void setCounty(String county) {
+        this.county = county;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public User withProvince(String province) {
+        this.setProvince(province);
+        return this;
+    }
+
+    public void setProvince(String province) {
+        this.province = province;
     }
 
     public String getEmail() {
@@ -135,6 +165,8 @@ public class User implements Serializable {
         sb.append(", username=").append(username);
         sb.append(", sex=").append(sex);
         sb.append(", city=").append(city);
+        sb.append(", county=").append(county);
+        sb.append(", province=").append(province);
         sb.append(", email=").append(email);
         sb.append(", phone=").append(phone);
         sb.append(", experience=").append(experience);
@@ -160,6 +192,8 @@ public class User implements Serializable {
             && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
             && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
+            && (this.getCounty() == null ? other.getCounty() == null : this.getCounty().equals(other.getCounty()))
+            && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
             && (this.getEmail() == null ? other.getEmail() == null : this.getEmail().equals(other.getEmail()))
             && (this.getPhone() == null ? other.getPhone() == null : this.getPhone().equals(other.getPhone()))
             && (this.getExperience() == null ? other.getExperience() == null : this.getExperience().equals(other.getExperience()))
@@ -174,6 +208,8 @@ public class User implements Serializable {
         result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
         result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
         result = prime * result + ((getCity() == null) ? 0 : getCity().hashCode());
+        result = prime * result + ((getCounty() == null) ? 0 : getCounty().hashCode());
+        result = prime * result + ((getProvince() == null) ? 0 : getProvince().hashCode());
         result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         result = prime * result + ((getPhone() == null) ? 0 : getPhone().hashCode());
         result = prime * result + ((getExperience() == null) ? 0 : getExperience().hashCode());

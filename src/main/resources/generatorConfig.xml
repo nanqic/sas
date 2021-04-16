@@ -64,7 +64,7 @@
         <table tableName="t_sale" domainObjectName="sale">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
-        <table tableName="t_system_menu" domainObjectName="SystemMenu">
+        <table tableName="t_stock" domainObjectName="Stock">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
     </context>

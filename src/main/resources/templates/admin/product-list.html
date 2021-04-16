@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="layuimini-container">
-    <script type="text/html" id="toolbarDemo">
+    <script type="text/html" id="toolbarProduct">
         <div class="layui-btn-container">
             <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
             <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>
@@ -23,8 +23,22 @@
     <script type="text/html" id="currentTableBar">
         <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-    </script>
+        <a class="data-count-on-sale" lay-event="switch">
+            {{# if(d.onSale==true){ }}
+            <input type="checkbox" name="switch" lay-skin="switch" checked lay-text="下架|上架">
+            {{# } }}
+            {{# if(d.onSale==false){ }}
+            <input type="checkbox" name="switch" lay-skin="switch" lay-text="下架|上架">
+            {{# } }}
+        </a>
 
+    </script>
+    <script id="img" type="text/html">
+        <img id="img-label" src="http://localhost:81/upload/{{d.img}}" width="350"/>
+    </script>
+    <script id="date" type="text/html">
+        <div>{{layui.util.toDateString(d.addedTime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>
+    </script>
 </div>
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
@@ -33,25 +47,21 @@
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table;
-
         table.render({
             elem: '#currentTableId',
-            url: '/user',
-            toolbar: '#toolbarDemo',
-            defaultToolbar: ['filter', 'exports', 'print', {
-                title: '提示',
-                layEvent: 'LAYTABLE_TIPS',
-                icon: 'layui-icon-tips'
-            }],
+            url: '/product',
+            toolbar: '#toolbarProduct',
+            defaultToolbar: ['filter', 'exports', 'print'],
             cols: [[
                 {type: "checkbox", width: 50},
                 {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'username', width: 120, title: '用户名'},
-                {field: 'sex', width: 80, title: '性别', sort: true},
-                {field: 'city', width: 80, title: '城市'},
-                {field: 'phone', width: 80, title: '手机'},
-                {field: 'email', width: 80, title: '邮箱'},
-                {field: 'experience', width: 80, title: '积分', sort: true},
+                {field: 'name', width: 120, title: '商品名称'},
+                {field: 'price', width: 80, title: '价格'},
+                {field: 'sort', width: 80, title: '分类', sort: true},
+                {field: 'sortId', width: 0, hide: true},
+                {field: 'img', width: 120, title: '商品图片', templet: '#img'},
+                {field: 'describes', width: 180, title: '商品描述'},
+                {field: 'addedTime', width: 180, title: '上架时间', templet : '#date'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [5, 10, 15, 20],
@@ -66,13 +76,13 @@
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '添加用户',
+                    title: '添加商品',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: './table/user-add.html',
+                    content: './table/product-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -86,42 +96,49 @@
 
         //监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
-            // console.log(obj.data)
-            function getCheckedIds() {
+            console.log(obj.data)
+
+            function getCheckedData() {
                 var checkStatus = table.checkStatus('currentTableId')
                 var data = checkStatus.data;
                 var ids = [];
+                var paths = [];
                 data.forEach(function (v, i) {
                     ids.push(v.id)
+                    paths.push(v.img)
                 });
-                return ids;
+                var obj = {ids, paths}
+                return obj;
             }
 
-            var ids = getCheckedIds()
-            // console.log(ids)
+            var datas = getCheckedData()
+            // console.log(datas)
 
             $('.data-delete-btn').off("click").on("click", function () {
-                if (ids != null) {
+                if (datas != null) {
                     $.ajax({
                         type: 'delete',
                         contentType: "application/json;charset=utf-8",
-                        url: '/user/list?ids='+ids,
+                        url: '/product/list',
+                        data: JSON.stringify(datas),
+                        dataType: 'json'
                     })
                 }
             });
         });
+        // 编辑商品
         table.on('tool(currentTableFilter)', function (obj) {
-            // 对所选编辑行数据编码
-            var data = escape(JSON.stringify(obj.data));
             if (obj.event === 'edit') {
+                // 对所选编辑行数据编码
+                var data = encodeURI(JSON.stringify(obj.data));
                 var index = layer.open({
-                    title: '编辑用户',
+                    title: '编辑商品',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: './table/user-edit.html?' + data,
+                    content: './table/product-edit.html?' + data,
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
@@ -129,22 +146,21 @@
                 return false;
             } else if (obj.event === 'delete') {
                 var id = JSON.stringify(obj.data.id)
+                let path = obj.data.img
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         type: 'delete',
                         contentType: "application/json;charset=utf-8",
-                        url: '/user?id=' + id,
+                        url: '/product?id=' + id + "&path=" + path,
                         data: id,
                         dataType: 'json',
                         success: resp => {
                             // console.log(resp)
-                            var index = layer.alert("用户：" + id, {
+                            var index = layer.alert("商品：" + id, {
                                 title: '删除成功！'
                             }, function () {
-
                                 // 关闭弹出层
                                 layer.close(index);
-
                                 var iframeIndex = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(iframeIndex);
 
@@ -178,6 +194,13 @@
                     obj.del();
                     layer.close(index);
                 });
+            } else if (obj.event==='switch'){
+                $.ajax({
+                    type: 'patch',
+                    contentType: "application/json;charset=utf-8",
+                    url: '/product?pid='+obj.data.id+'&onSale='+!obj.data.onSale,
+                    dataType: 'json'
+                })
             }
         });
 

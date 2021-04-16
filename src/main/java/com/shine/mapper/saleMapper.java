@@ -31,10 +31,10 @@ public interface saleMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into t_sale (pid, area, ",
-        "saled, stock)",
-        "values (#{pid,jdbcType=INTEGER}, #{area,jdbcType=VARCHAR}, ",
-        "#{saled,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER})"
+        "insert into t_sale (pid, province, ",
+        "sold, stock)",
+        "values (#{pid,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, ",
+        "#{sold,jdbcType=INTEGER}, #{stock,jdbcType=INTEGER})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(sale record);
@@ -47,23 +47,23 @@ public interface saleMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="pid", property="pid", jdbcType=JdbcType.INTEGER),
-        @Result(column="area", property="area", jdbcType=JdbcType.VARCHAR),
-        @Result(column="saled", property="saled", jdbcType=JdbcType.INTEGER),
+        @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sold", property="sold", jdbcType=JdbcType.INTEGER),
         @Result(column="stock", property="stock", jdbcType=JdbcType.INTEGER)
     })
     List<sale> selectByExample(saleExample example);
 
     @Select({
         "select",
-        "id, pid, area, saled, stock",
+        "id, pid, province, sold, stock",
         "from t_sale",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="pid", property="pid", jdbcType=JdbcType.INTEGER),
-        @Result(column="area", property="area", jdbcType=JdbcType.VARCHAR),
-        @Result(column="saled", property="saled", jdbcType=JdbcType.INTEGER),
+        @Result(column="province", property="province", jdbcType=JdbcType.VARCHAR),
+        @Result(column="sold", property="sold", jdbcType=JdbcType.INTEGER),
         @Result(column="stock", property="stock", jdbcType=JdbcType.INTEGER)
     })
     sale selectByPrimaryKey(Integer id);
@@ -80,8 +80,8 @@ public interface saleMapper {
     @Update({
         "update t_sale",
         "set pid = #{pid,jdbcType=INTEGER},",
-          "area = #{area,jdbcType=VARCHAR},",
-          "saled = #{saled,jdbcType=INTEGER},",
+          "province = #{province,jdbcType=VARCHAR},",
+          "sold = #{sold,jdbcType=INTEGER},",
           "stock = #{stock,jdbcType=INTEGER}",
         "where id = #{id,jdbcType=INTEGER}"
     })

@@ -1,6 +1,7 @@
 package com.shine.model;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class OrderExample {
@@ -341,6 +342,66 @@ public class OrderExample {
 
         public Criteria andAmountNotBetween(Integer value1, Integer value2) {
             addCriterion("amount not between", value1, value2, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeIsNull() {
+            addCriterion("order_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeIsNotNull() {
+            addCriterion("order_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeEqualTo(Date value) {
+            addCriterion("order_time =", value, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeNotEqualTo(Date value) {
+            addCriterion("order_time <>", value, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeGreaterThan(Date value) {
+            addCriterion("order_time >", value, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("order_time >=", value, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeLessThan(Date value) {
+            addCriterion("order_time <", value, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeLessThanOrEqualTo(Date value) {
+            addCriterion("order_time <=", value, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeIn(List<Date> values) {
+            addCriterion("order_time in", values, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeNotIn(List<Date> values) {
+            addCriterion("order_time not in", values, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeBetween(Date value1, Date value2) {
+            addCriterion("order_time between", value1, value2, "orderTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrderTimeNotBetween(Date value1, Date value2) {
+            addCriterion("order_time not between", value1, value2, "orderTime");
             return (Criteria) this;
         }
     }

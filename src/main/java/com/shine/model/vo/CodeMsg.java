@@ -1,4 +1,4 @@
-package com.shine.vo;
+package com.shine.model.vo;
 
 public class CodeMsg {
 

@@ -5,8 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.shine.mapper.UserMapper;
 import com.shine.model.User;
 import com.shine.model.UserExample;
-import com.shine.vo.CodeMsg;
-import com.shine.vo.Result;
+import com.shine.model.vo.CodeMsg;
+import com.shine.model.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

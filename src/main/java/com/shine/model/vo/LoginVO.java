@@ -1,4 +1,4 @@
-package com.shine.vo;
+package com.shine.model.vo;
 
 import lombok.Data;
 

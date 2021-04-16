@@ -1,4 +1,4 @@
-package com.shine.vo;
+package com.shine.model.vo;
 
 /**
  * @description:封装json对象，所有返回结果都使用它

@@ -31,16 +31,28 @@ public class ProductSqlProvider {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.VALUES("sort", "#{sort,jdbcType=VARCHAR}");
+        if (record.getPrice() != null) {
+            sql.VALUES("price", "#{price,jdbcType=INTEGER}");
+        }
+        
+        if (record.getSortId() != null) {
+            sql.VALUES("sort_id", "#{sortId,jdbcType=TINYINT}");
         }
         
         if (record.getImg() != null) {
             sql.VALUES("img", "#{img,jdbcType=VARCHAR}");
         }
         
+        if (record.getDescribes() != null) {
+            sql.VALUES("describes", "#{describes,jdbcType=VARCHAR}");
+        }
+        
         if (record.getOnSale() != null) {
             sql.VALUES("on_sale", "#{onSale,jdbcType=BIT}");
+        }
+        
+        if (record.getAddedTime() != null) {
+            sql.VALUES("added_time", "#{addedTime,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
@@ -54,9 +66,12 @@ public class ProductSqlProvider {
             sql.SELECT("id");
         }
         sql.SELECT("name");
-        sql.SELECT("sort");
+        sql.SELECT("price");
+        sql.SELECT("sort_id");
         sql.SELECT("img");
+        sql.SELECT("describes");
         sql.SELECT("on_sale");
+        sql.SELECT("added_time");
         sql.FROM("t_product");
         applyWhere(sql, example, false);
         
@@ -82,16 +97,28 @@ public class ProductSqlProvider {
             sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{record.sort,jdbcType=VARCHAR}");
+        if (record.getPrice() != null) {
+            sql.SET("price = #{record.price,jdbcType=INTEGER}");
+        }
+        
+        if (record.getSortId() != null) {
+            sql.SET("sort_id = #{record.sortId,jdbcType=TINYINT}");
         }
         
         if (record.getImg() != null) {
             sql.SET("img = #{record.img,jdbcType=VARCHAR}");
         }
         
+        if (record.getDescribes() != null) {
+            sql.SET("describes = #{record.describes,jdbcType=VARCHAR}");
+        }
+        
         if (record.getOnSale() != null) {
             sql.SET("on_sale = #{record.onSale,jdbcType=BIT}");
+        }
+        
+        if (record.getAddedTime() != null) {
+            sql.SET("added_time = #{record.addedTime,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(sql, example, true);
@@ -104,9 +131,12 @@ public class ProductSqlProvider {
         
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
-        sql.SET("sort = #{record.sort,jdbcType=VARCHAR}");
+        sql.SET("price = #{record.price,jdbcType=INTEGER}");
+        sql.SET("sort_id = #{record.sortId,jdbcType=TINYINT}");
         sql.SET("img = #{record.img,jdbcType=VARCHAR}");
+        sql.SET("describes = #{record.describes,jdbcType=VARCHAR}");
         sql.SET("on_sale = #{record.onSale,jdbcType=BIT}");
+        sql.SET("added_time = #{record.addedTime,jdbcType=TIMESTAMP}");
         
         ProductExample example = (ProductExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -121,16 +151,28 @@ public class ProductSqlProvider {
             sql.SET("name = #{name,jdbcType=VARCHAR}");
         }
         
-        if (record.getSort() != null) {
-            sql.SET("sort = #{sort,jdbcType=VARCHAR}");
+        if (record.getPrice() != null) {
+            sql.SET("price = #{price,jdbcType=INTEGER}");
+        }
+        
+        if (record.getSortId() != null) {
+            sql.SET("sort_id = #{sortId,jdbcType=TINYINT}");
         }
         
         if (record.getImg() != null) {
             sql.SET("img = #{img,jdbcType=VARCHAR}");
         }
         
+        if (record.getDescribes() != null) {
+            sql.SET("describes = #{describes,jdbcType=VARCHAR}");
+        }
+        
         if (record.getOnSale() != null) {
             sql.SET("on_sale = #{onSale,jdbcType=BIT}");
+        }
+        
+        if (record.getAddedTime() != null) {
+            sql.SET("added_time = #{addedTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

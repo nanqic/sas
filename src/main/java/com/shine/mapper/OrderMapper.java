@@ -32,9 +32,9 @@ public interface OrderMapper {
 
     @Insert({
         "insert into t_order (uid, pid, ",
-        "amount)",
+        "amount, order_time)",
         "values (#{uid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, ",
-        "#{amount,jdbcType=INTEGER})"
+        "#{amount,jdbcType=INTEGER}, #{orderTime,jdbcType=TIMESTAMP})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(Order record);
@@ -48,13 +48,14 @@ public interface OrderMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="uid", property="uid", jdbcType=JdbcType.INTEGER),
         @Result(column="pid", property="pid", jdbcType=JdbcType.INTEGER),
-        @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER)
+        @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER),
+        @Result(column="order_time", property="orderTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<Order> selectByExample(OrderExample example);
 
     @Select({
         "select",
-        "id, uid, pid, amount",
+        "id, uid, pid, amount, order_time",
         "from t_order",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -62,7 +63,8 @@ public interface OrderMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="uid", property="uid", jdbcType=JdbcType.INTEGER),
         @Result(column="pid", property="pid", jdbcType=JdbcType.INTEGER),
-        @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER)
+        @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER),
+        @Result(column="order_time", property="orderTime", jdbcType=JdbcType.TIMESTAMP)
     })
     Order selectByPrimaryKey(Integer id);
 
@@ -79,7 +81,8 @@ public interface OrderMapper {
         "update t_order",
         "set uid = #{uid,jdbcType=INTEGER},",
           "pid = #{pid,jdbcType=INTEGER},",
-          "amount = #{amount,jdbcType=INTEGER}",
+          "amount = #{amount,jdbcType=INTEGER},",
+          "order_time = #{orderTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Order record);

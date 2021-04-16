@@ -31,10 +31,12 @@ public interface ProductMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into t_product (name, sort, ",
-        "img, on_sale)",
-        "values (#{name,jdbcType=VARCHAR}, #{sort,jdbcType=VARCHAR}, ",
-        "#{img,jdbcType=VARCHAR}, #{onSale,jdbcType=BIT})"
+        "insert into t_product (name, price, ",
+        "sort_id, img, describes, ",
+        "on_sale, added_time)",
+        "values (#{name,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, ",
+        "#{sortId,jdbcType=TINYINT}, #{img,jdbcType=VARCHAR}, #{describes,jdbcType=VARCHAR}, ",
+        "#{onSale,jdbcType=BIT}, #{addedTime,jdbcType=TIMESTAMP})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(Product record);
@@ -47,24 +49,30 @@ public interface ProductMapper {
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.VARCHAR),
+        @Result(column="price", property="price", jdbcType=JdbcType.INTEGER),
+        @Result(column="sort_id", property="sortId", jdbcType=JdbcType.TINYINT),
         @Result(column="img", property="img", jdbcType=JdbcType.VARCHAR),
-        @Result(column="on_sale", property="onSale", jdbcType=JdbcType.BIT)
+        @Result(column="describes", property="describes", jdbcType=JdbcType.VARCHAR),
+        @Result(column="on_sale", property="onSale", jdbcType=JdbcType.BIT),
+        @Result(column="added_time", property="addedTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<Product> selectByExample(ProductExample example);
 
     @Select({
         "select",
-        "id, name, sort, img, on_sale",
+        "id, name, price, sort_id, img, describes, on_sale, added_time",
         "from t_product",
         "where id = #{id,jdbcType=INTEGER}"
     })
     @Results({
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="name", property="name", jdbcType=JdbcType.VARCHAR),
-        @Result(column="sort", property="sort", jdbcType=JdbcType.VARCHAR),
+        @Result(column="price", property="price", jdbcType=JdbcType.INTEGER),
+        @Result(column="sort_id", property="sortId", jdbcType=JdbcType.TINYINT),
         @Result(column="img", property="img", jdbcType=JdbcType.VARCHAR),
-        @Result(column="on_sale", property="onSale", jdbcType=JdbcType.BIT)
+        @Result(column="describes", property="describes", jdbcType=JdbcType.VARCHAR),
+        @Result(column="on_sale", property="onSale", jdbcType=JdbcType.BIT),
+        @Result(column="added_time", property="addedTime", jdbcType=JdbcType.TIMESTAMP)
     })
     Product selectByPrimaryKey(Integer id);
 
@@ -80,9 +88,12 @@ public interface ProductMapper {
     @Update({
         "update t_product",
         "set name = #{name,jdbcType=VARCHAR},",
-          "sort = #{sort,jdbcType=VARCHAR},",
+          "price = #{price,jdbcType=INTEGER},",
+          "sort_id = #{sortId,jdbcType=TINYINT},",
           "img = #{img,jdbcType=VARCHAR},",
-          "on_sale = #{onSale,jdbcType=BIT}",
+          "describes = #{describes,jdbcType=VARCHAR},",
+          "on_sale = #{onSale,jdbcType=BIT},",
+          "added_time = #{addedTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Product record);
