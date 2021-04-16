@@ -10,7 +10,11 @@ public class Order implements Serializable {
 
     private Integer pid;
 
+    private Byte rid;
+
     private Integer amount;
+
+    private String remark;
 
     private Date orderTime;
 
@@ -55,6 +59,19 @@ public class Order implements Serializable {
         this.pid = pid;
     }
 
+    public Byte getRid() {
+        return rid;
+    }
+
+    public Order withRid(Byte rid) {
+        this.setRid(rid);
+        return this;
+    }
+
+    public void setRid(Byte rid) {
+        this.rid = rid;
+    }
+
     public Integer getAmount() {
         return amount;
     }
@@ -66,6 +83,19 @@ public class Order implements Serializable {
 
     public void setAmount(Integer amount) {
         this.amount = amount;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public Order withRemark(String remark) {
+        this.setRemark(remark);
+        return this;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Date getOrderTime() {
@@ -90,7 +120,9 @@ public class Order implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", uid=").append(uid);
         sb.append(", pid=").append(pid);
+        sb.append(", rid=").append(rid);
         sb.append(", amount=").append(amount);
+        sb.append(", remark=").append(remark);
         sb.append(", orderTime=").append(orderTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
@@ -112,7 +144,9 @@ public class Order implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
+            && (this.getRid() == null ? other.getRid() == null : this.getRid().equals(other.getRid()))
             && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
+            && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
             && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()));
     }
 
@@ -123,7 +157,9 @@ public class Order implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getUid() == null) ? 0 : getUid().hashCode());
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
+        result = prime * result + ((getRid() == null) ? 0 : getRid().hashCode());
         result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
+        result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getOrderTime() == null) ? 0 : getOrderTime().hashCode());
         return result;
     }

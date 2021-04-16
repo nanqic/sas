@@ -285,6 +285,66 @@ public class OrderExample {
             return (Criteria) this;
         }
 
+        public Criteria andRidIsNull() {
+            addCriterion("rid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidIsNotNull() {
+            addCriterion("rid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidEqualTo(Byte value) {
+            addCriterion("rid =", value, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidNotEqualTo(Byte value) {
+            addCriterion("rid <>", value, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidGreaterThan(Byte value) {
+            addCriterion("rid >", value, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidGreaterThanOrEqualTo(Byte value) {
+            addCriterion("rid >=", value, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidLessThan(Byte value) {
+            addCriterion("rid <", value, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidLessThanOrEqualTo(Byte value) {
+            addCriterion("rid <=", value, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidIn(List<Byte> values) {
+            addCriterion("rid in", values, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidNotIn(List<Byte> values) {
+            addCriterion("rid not in", values, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidBetween(Byte value1, Byte value2) {
+            addCriterion("rid between", value1, value2, "rid");
+            return (Criteria) this;
+        }
+
+        public Criteria andRidNotBetween(Byte value1, Byte value2) {
+            addCriterion("rid not between", value1, value2, "rid");
+            return (Criteria) this;
+        }
+
         public Criteria andAmountIsNull() {
             addCriterion("amount is null");
             return (Criteria) this;
@@ -342,6 +402,76 @@ public class OrderExample {
 
         public Criteria andAmountNotBetween(Integer value1, Integer value2) {
             addCriterion("amount not between", value1, value2, "amount");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNull() {
+            addCriterion("remark is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIsNotNull() {
+            addCriterion("remark is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkEqualTo(String value) {
+            addCriterion("remark =", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotEqualTo(String value) {
+            addCriterion("remark <>", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThan(String value) {
+            addCriterion("remark >", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
+            addCriterion("remark >=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThan(String value) {
+            addCriterion("remark <", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLessThanOrEqualTo(String value) {
+            addCriterion("remark <=", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkLike(String value) {
+            addCriterion("remark like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotLike(String value) {
+            addCriterion("remark not like", value, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkIn(List<String> values) {
+            addCriterion("remark in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotIn(List<String> values) {
+            addCriterion("remark not in", values, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkBetween(String value1, String value2) {
+            addCriterion("remark between", value1, value2, "remark");
+            return (Criteria) this;
+        }
+
+        public Criteria andRemarkNotBetween(String value1, String value2) {
+            addCriterion("remark not between", value1, value2, "remark");
             return (Criteria) this;
         }
 

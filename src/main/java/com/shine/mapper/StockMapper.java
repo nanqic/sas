@@ -32,9 +32,9 @@ public interface StockMapper {
 
     @Insert({
         "insert into t_stock (pid, amount, ",
-        "region_id)",
+        "rid)",
         "values (#{pid,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, ",
-        "#{regionId,jdbcType=TINYINT})"
+        "#{rid,jdbcType=TINYINT})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(Stock record);
@@ -48,13 +48,13 @@ public interface StockMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="pid", property="pid", jdbcType=JdbcType.INTEGER),
         @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER),
-        @Result(column="region_id", property="regionId", jdbcType=JdbcType.TINYINT)
+        @Result(column="rid", property="rid", jdbcType=JdbcType.TINYINT)
     })
     List<Stock> selectByExample(StockExample example);
 
     @Select({
         "select",
-        "id, pid, amount, region_id",
+        "id, pid, amount, rid",
         "from t_stock",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -62,7 +62,7 @@ public interface StockMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="pid", property="pid", jdbcType=JdbcType.INTEGER),
         @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER),
-        @Result(column="region_id", property="regionId", jdbcType=JdbcType.TINYINT)
+        @Result(column="rid", property="rid", jdbcType=JdbcType.TINYINT)
     })
     Stock selectByPrimaryKey(Integer id);
 
@@ -79,7 +79,7 @@ public interface StockMapper {
         "update t_stock",
         "set pid = #{pid,jdbcType=INTEGER},",
           "amount = #{amount,jdbcType=INTEGER},",
-          "region_id = #{regionId,jdbcType=TINYINT}",
+          "rid = #{rid,jdbcType=TINYINT}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Stock record);

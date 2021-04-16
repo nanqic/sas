@@ -284,63 +284,63 @@ public class StockExample {
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdIsNull() {
-            addCriterion("region_id is null");
+        public Criteria andRidIsNull() {
+            addCriterion("rid is null");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdIsNotNull() {
-            addCriterion("region_id is not null");
+        public Criteria andRidIsNotNull() {
+            addCriterion("rid is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdEqualTo(Byte value) {
-            addCriterion("region_id =", value, "regionId");
+        public Criteria andRidEqualTo(Byte value) {
+            addCriterion("rid =", value, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdNotEqualTo(Byte value) {
-            addCriterion("region_id <>", value, "regionId");
+        public Criteria andRidNotEqualTo(Byte value) {
+            addCriterion("rid <>", value, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdGreaterThan(Byte value) {
-            addCriterion("region_id >", value, "regionId");
+        public Criteria andRidGreaterThan(Byte value) {
+            addCriterion("rid >", value, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdGreaterThanOrEqualTo(Byte value) {
-            addCriterion("region_id >=", value, "regionId");
+        public Criteria andRidGreaterThanOrEqualTo(Byte value) {
+            addCriterion("rid >=", value, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdLessThan(Byte value) {
-            addCriterion("region_id <", value, "regionId");
+        public Criteria andRidLessThan(Byte value) {
+            addCriterion("rid <", value, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdLessThanOrEqualTo(Byte value) {
-            addCriterion("region_id <=", value, "regionId");
+        public Criteria andRidLessThanOrEqualTo(Byte value) {
+            addCriterion("rid <=", value, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdIn(List<Byte> values) {
-            addCriterion("region_id in", values, "regionId");
+        public Criteria andRidIn(List<Byte> values) {
+            addCriterion("rid in", values, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdNotIn(List<Byte> values) {
-            addCriterion("region_id not in", values, "regionId");
+        public Criteria andRidNotIn(List<Byte> values) {
+            addCriterion("rid not in", values, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdBetween(Byte value1, Byte value2) {
-            addCriterion("region_id between", value1, value2, "regionId");
+        public Criteria andRidBetween(Byte value1, Byte value2) {
+            addCriterion("rid between", value1, value2, "rid");
             return (Criteria) this;
         }
 
-        public Criteria andRegionIdNotBetween(Byte value1, Byte value2) {
-            addCriterion("region_id not between", value1, value2, "regionId");
+        public Criteria andRidNotBetween(Byte value1, Byte value2) {
+            addCriterion("rid not between", value1, value2, "rid");
             return (Criteria) this;
         }
     }

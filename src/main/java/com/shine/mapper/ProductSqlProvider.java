@@ -51,8 +51,8 @@ public class ProductSqlProvider {
             sql.VALUES("on_sale", "#{onSale,jdbcType=BIT}");
         }
         
-        if (record.getAddedTime() != null) {
-            sql.VALUES("added_time", "#{addedTime,jdbcType=TIMESTAMP}");
+        if (record.getOrderTime() != null) {
+            sql.VALUES("order_time", "#{orderTime,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
@@ -71,7 +71,7 @@ public class ProductSqlProvider {
         sql.SELECT("img");
         sql.SELECT("describes");
         sql.SELECT("on_sale");
-        sql.SELECT("added_time");
+        sql.SELECT("order_time");
         sql.FROM("t_product");
         applyWhere(sql, example, false);
         
@@ -117,8 +117,8 @@ public class ProductSqlProvider {
             sql.SET("on_sale = #{record.onSale,jdbcType=BIT}");
         }
         
-        if (record.getAddedTime() != null) {
-            sql.SET("added_time = #{record.addedTime,jdbcType=TIMESTAMP}");
+        if (record.getOrderTime() != null) {
+            sql.SET("order_time = #{record.orderTime,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(sql, example, true);
@@ -136,7 +136,7 @@ public class ProductSqlProvider {
         sql.SET("img = #{record.img,jdbcType=VARCHAR}");
         sql.SET("describes = #{record.describes,jdbcType=VARCHAR}");
         sql.SET("on_sale = #{record.onSale,jdbcType=BIT}");
-        sql.SET("added_time = #{record.addedTime,jdbcType=TIMESTAMP}");
+        sql.SET("order_time = #{record.orderTime,jdbcType=TIMESTAMP}");
         
         ProductExample example = (ProductExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -171,8 +171,8 @@ public class ProductSqlProvider {
             sql.SET("on_sale = #{onSale,jdbcType=BIT}");
         }
         
-        if (record.getAddedTime() != null) {
-            sql.SET("added_time = #{addedTime,jdbcType=TIMESTAMP}");
+        if (record.getOrderTime() != null) {
+            sql.SET("order_time = #{orderTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

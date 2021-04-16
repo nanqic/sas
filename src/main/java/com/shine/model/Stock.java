@@ -9,7 +9,7 @@ public class Stock implements Serializable {
 
     private Integer amount;
 
-    private Byte regionId;
+    private Byte rid;
 
     private static final long serialVersionUID = 1L;
 
@@ -52,17 +52,17 @@ public class Stock implements Serializable {
         this.amount = amount;
     }
 
-    public Byte getRegionId() {
-        return regionId;
+    public Byte getRid() {
+        return rid;
     }
 
-    public Stock withRegionId(Byte regionId) {
-        this.setRegionId(regionId);
+    public Stock withRid(Byte rid) {
+        this.setRid(rid);
         return this;
     }
 
-    public void setRegionId(Byte regionId) {
-        this.regionId = regionId;
+    public void setRid(Byte rid) {
+        this.rid = rid;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class Stock implements Serializable {
         sb.append(", id=").append(id);
         sb.append(", pid=").append(pid);
         sb.append(", amount=").append(amount);
-        sb.append(", regionId=").append(regionId);
+        sb.append(", rid=").append(rid);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -95,7 +95,7 @@ public class Stock implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
             && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
-            && (this.getRegionId() == null ? other.getRegionId() == null : this.getRegionId().equals(other.getRegionId()));
+            && (this.getRid() == null ? other.getRid() == null : this.getRid().equals(other.getRid()));
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Stock implements Serializable {
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
         result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
-        result = prime * result + ((getRegionId() == null) ? 0 : getRegionId().hashCode());
+        result = prime * result + ((getRid() == null) ? 0 : getRid().hashCode());
         return result;
     }
 }

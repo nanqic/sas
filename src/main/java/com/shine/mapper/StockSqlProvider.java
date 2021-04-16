@@ -35,8 +35,8 @@ public class StockSqlProvider {
             sql.VALUES("amount", "#{amount,jdbcType=INTEGER}");
         }
         
-        if (record.getRegionId() != null) {
-            sql.VALUES("region_id", "#{regionId,jdbcType=TINYINT}");
+        if (record.getRid() != null) {
+            sql.VALUES("rid", "#{rid,jdbcType=TINYINT}");
         }
         
         return sql.toString();
@@ -51,7 +51,7 @@ public class StockSqlProvider {
         }
         sql.SELECT("pid");
         sql.SELECT("amount");
-        sql.SELECT("region_id");
+        sql.SELECT("rid");
         sql.FROM("t_stock");
         applyWhere(sql, example, false);
         
@@ -81,8 +81,8 @@ public class StockSqlProvider {
             sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
         }
         
-        if (record.getRegionId() != null) {
-            sql.SET("region_id = #{record.regionId,jdbcType=TINYINT}");
+        if (record.getRid() != null) {
+            sql.SET("rid = #{record.rid,jdbcType=TINYINT}");
         }
         
         applyWhere(sql, example, true);
@@ -96,7 +96,7 @@ public class StockSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
-        sql.SET("region_id = #{record.regionId,jdbcType=TINYINT}");
+        sql.SET("rid = #{record.rid,jdbcType=TINYINT}");
         
         StockExample example = (StockExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -115,8 +115,8 @@ public class StockSqlProvider {
             sql.SET("amount = #{amount,jdbcType=INTEGER}");
         }
         
-        if (record.getRegionId() != null) {
-            sql.SET("region_id = #{regionId,jdbcType=TINYINT}");
+        if (record.getRid() != null) {
+            sql.SET("rid = #{rid,jdbcType=TINYINT}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

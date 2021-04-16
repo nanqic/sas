@@ -555,63 +555,63 @@ public class ProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeIsNull() {
-            addCriterion("added_time is null");
+        public Criteria andOrderTimeIsNull() {
+            addCriterion("order_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeIsNotNull() {
-            addCriterion("added_time is not null");
+        public Criteria andOrderTimeIsNotNull() {
+            addCriterion("order_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeEqualTo(Date value) {
-            addCriterion("added_time =", value, "addedTime");
+        public Criteria andOrderTimeEqualTo(Date value) {
+            addCriterion("order_time =", value, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeNotEqualTo(Date value) {
-            addCriterion("added_time <>", value, "addedTime");
+        public Criteria andOrderTimeNotEqualTo(Date value) {
+            addCriterion("order_time <>", value, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeGreaterThan(Date value) {
-            addCriterion("added_time >", value, "addedTime");
+        public Criteria andOrderTimeGreaterThan(Date value) {
+            addCriterion("order_time >", value, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("added_time >=", value, "addedTime");
+        public Criteria andOrderTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("order_time >=", value, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeLessThan(Date value) {
-            addCriterion("added_time <", value, "addedTime");
+        public Criteria andOrderTimeLessThan(Date value) {
+            addCriterion("order_time <", value, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeLessThanOrEqualTo(Date value) {
-            addCriterion("added_time <=", value, "addedTime");
+        public Criteria andOrderTimeLessThanOrEqualTo(Date value) {
+            addCriterion("order_time <=", value, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeIn(List<Date> values) {
-            addCriterion("added_time in", values, "addedTime");
+        public Criteria andOrderTimeIn(List<Date> values) {
+            addCriterion("order_time in", values, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeNotIn(List<Date> values) {
-            addCriterion("added_time not in", values, "addedTime");
+        public Criteria andOrderTimeNotIn(List<Date> values) {
+            addCriterion("order_time not in", values, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeBetween(Date value1, Date value2) {
-            addCriterion("added_time between", value1, value2, "addedTime");
+        public Criteria andOrderTimeBetween(Date value1, Date value2) {
+            addCriterion("order_time between", value1, value2, "orderTime");
             return (Criteria) this;
         }
 
-        public Criteria andAddedTimeNotBetween(Date value1, Date value2) {
-            addCriterion("added_time not between", value1, value2, "addedTime");
+        public Criteria andOrderTimeNotBetween(Date value1, Date value2) {
+            addCriterion("order_time not between", value1, value2, "orderTime");
             return (Criteria) this;
         }
     }

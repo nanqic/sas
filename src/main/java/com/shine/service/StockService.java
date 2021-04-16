@@ -26,11 +26,11 @@ public class StockService {
         return Result.success(list,info.getTotal());
     }
 
-    public Result add(int pid, int amount, byte regionId){
+    public Result add(int pid, int amount, byte rid){
         Stock stock = new Stock()
                 .withPid(pid)
                 .withAmount(amount)
-                .withRegionId(regionId);
+                .withRid(rid);
         mapper.insertSelective(stock);
         return Result.ok();
     }
@@ -41,4 +41,9 @@ public class StockService {
         mapper.updateByPrimaryKeySelective(stock);
         return Result.ok();
     }
+
+   public Result getAmount(int pid){
+        List<Stock> list = myStockMapper.findByPid(pid);
+        return Result.success(list,0);
+   }
 }

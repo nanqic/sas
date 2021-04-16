@@ -91,13 +91,19 @@
           "child": [
             {
               "title": "订单列表",
-              "href": "admin/product-list.html",
+              "href": "admin/order-list.html",
+              "icon": "fa fa-window-maximize",
+              "target": "_self"
+            },
+            {
+              "title": "新增订单",
+              "href": "admin/table/order-add.html",
               "icon": "fa fa-window-maximize",
               "target": "_self"
             },
             {
               "title": "历史订单",
-              "href": "admin/table/product-add.html",
+              "href": "admin/order-history.html",
               "icon": "fa fa-window-maximize",
               "target": "_self"
             }

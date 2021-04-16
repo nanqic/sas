@@ -35,8 +35,16 @@ public class OrderSqlProvider {
             sql.VALUES("pid", "#{pid,jdbcType=INTEGER}");
         }
         
+        if (record.getRid() != null) {
+            sql.VALUES("rid", "#{rid,jdbcType=TINYINT}");
+        }
+        
         if (record.getAmount() != null) {
             sql.VALUES("amount", "#{amount,jdbcType=INTEGER}");
+        }
+        
+        if (record.getRemark() != null) {
+            sql.VALUES("remark", "#{remark,jdbcType=VARCHAR}");
         }
         
         if (record.getOrderTime() != null) {
@@ -55,7 +63,9 @@ public class OrderSqlProvider {
         }
         sql.SELECT("uid");
         sql.SELECT("pid");
+        sql.SELECT("rid");
         sql.SELECT("amount");
+        sql.SELECT("remark");
         sql.SELECT("order_time");
         sql.FROM("t_order");
         applyWhere(sql, example, false);
@@ -86,8 +96,16 @@ public class OrderSqlProvider {
             sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         }
         
+        if (record.getRid() != null) {
+            sql.SET("rid = #{record.rid,jdbcType=TINYINT}");
+        }
+        
         if (record.getAmount() != null) {
             sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
+        }
+        
+        if (record.getRemark() != null) {
+            sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         }
         
         if (record.getOrderTime() != null) {
@@ -105,7 +123,9 @@ public class OrderSqlProvider {
         sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("uid = #{record.uid,jdbcType=INTEGER}");
         sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
+        sql.SET("rid = #{record.rid,jdbcType=TINYINT}");
         sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
+        sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("order_time = #{record.orderTime,jdbcType=TIMESTAMP}");
         
         OrderExample example = (OrderExample) parameter.get("example");
@@ -125,8 +145,16 @@ public class OrderSqlProvider {
             sql.SET("pid = #{pid,jdbcType=INTEGER}");
         }
         
+        if (record.getRid() != null) {
+            sql.SET("rid = #{rid,jdbcType=TINYINT}");
+        }
+        
         if (record.getAmount() != null) {
             sql.SET("amount = #{amount,jdbcType=INTEGER}");
+        }
+        
+        if (record.getRemark() != null) {
+            sql.SET("remark = #{remark,jdbcType=VARCHAR}");
         }
         
         if (record.getOrderTime() != null) {

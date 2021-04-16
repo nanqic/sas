@@ -28,4 +28,9 @@ public class StockController {
 
         return stockService.update(id,amount);
     }
+
+    @GetMapping("/amount")
+    Result getAmount(@RequestParam int pid){
+        return stockService.getAmount(pid);
+    }
 }

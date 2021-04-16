@@ -23,10 +23,6 @@
     <script type="text/html" id="currentTableBar">
         <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
         <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
-        <a class="data-count-on-sale" lay-event="swirch">
-            <input type="checkbox" name="switch" lay-skin="switch" checked lay-text="下架|上架">
-        </a>
-
     </script>
     <script id="img" type="text/html">
         <img id="img-label" src="http://localhost:81/upload/{{d.img}}" width="350"/>
@@ -41,23 +37,19 @@
             table = layui.table;
         table.render({
             elem: '#currentTableId',
-            url: '/product',
+            url: '/order',
             toolbar: '#toolbarProduct',
-            defaultToolbar: ['filter', 'exports', 'print', {
-                title: '提示',
-                layEvent: 'LAYTABLE_TIPS',
-                icon: 'layui-icon-tips'
-            }],
+            defaultToolbar: ['filter', 'exports', 'print'],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'id', width: 80, title: 'ID', sort: true},
-                {field: 'name', width: 120, title: '商品名称'},
-                {field: 'price', width: 80, title: '价格'},
-                {field: 'sort', width: 80, title: '分类', sort: true},
-                {field: 'sortId', width: 0, hide: true},
+                {field: 'id', width: 40, title: 'ID', sort: true},
+                {field: 'username', width: 120, title: '下单用户'},
+                {field: 'product', width: 120, title: '商品名称'},
                 {field: 'img', width: 120, title: '商品图片', templet: '#img'},
-                {field: 'describe', width: 120, title: '商品描述'},
-                {field: 'addedTime', width: 120, title: '上架时间'},
+                {field: 'amount', width: 40, title: '数量', sort: true},
+                {field: 'region', width: 120, title: '仓库'},
+                {field: 'remark', width: 180, title: '下单备注'},
+                {field: 'orderTime', width: 120, title: '下单时间'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [5, 10, 15, 20],
@@ -78,7 +70,7 @@
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: './table/product-add.html',
+                    content: './table/order-add.html',
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
