@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,6 +35,9 @@ public class ProductService {
         String newFileName = writeFile(img);
         product.withImg(newFileName);
 
+        Date utilDate  =new Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        product.withAddedTime(sqlDate);
         int row = mapper.insertSelective(product);
         if (row == 1) return Result.ok();
         return Result.error(CodeMsg.SERVER_ERROR);

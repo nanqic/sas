@@ -14,4 +14,5 @@ public class OrderView {
     private String region;
     private String remark;
     private Date orderTime;
+    private Byte status;
 }

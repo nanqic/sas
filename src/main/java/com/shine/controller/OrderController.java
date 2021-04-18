@@ -13,12 +13,22 @@ public class OrderController {
     private OrderService service;
 
     @GetMapping
-    Result all(@RequestParam int page,@RequestParam int limit){
-        return service.getPage(page,limit);
+    Result all(@RequestParam int page, @RequestParam int limit) {
+        return service.getPage(page, limit);
     }
+
+    @GetMapping("/history")
+    Result history(@RequestParam int page, @RequestParam int limit) {
+        return service.getHistoryPage(page, limit);
+    }
+
     @PostMapping
-    Result add(@RequestBody Order order){
+    Result add(@RequestBody Order order) {
         return service.add(order);
     }
 
+    @PatchMapping
+    Result cancel(@RequestParam int id) {
+        return service.cancel(id);
+    }
 }

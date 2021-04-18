@@ -14,7 +14,7 @@
         {
           "title": "系统首页",
           "href": "admin/index.html",
-          "icon": "fa fa-window-maximize",
+          "icon": "fa fa-home",
           "target": "_self"
         },
         {
@@ -77,7 +77,7 @@
             },
             {
               "title": "已售商品",
-              "href": "admin/table/sold-list.html",
+              "href": "admin/sold-list.html",
               "icon": "fa fa-window-maximize",
               "target": "_self"
             }
@@ -112,12 +112,12 @@
         {
           "title": "数据分析",
           "href": "",
-          "icon": "fa fa-home",
+          "icon": "fa fa-hourglass-end",
           "target": "_self",
           "child": [
             {
-              "title": "404页面",
-              "href": "page/404.html",
+              "title": "销量分析",
+              "href": "admin/sale-analysis.html",
               "icon": "fa fa-hourglass-end",
               "target": "_self"
             }

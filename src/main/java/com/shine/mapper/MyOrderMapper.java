@@ -8,6 +8,6 @@ import java.util.List;
 
 @Mapper
 public interface MyOrderMapper {
-    @Select("select *from v_order")
-    List<OrderView> findAll();
+    @Select("select *from ${order}")
+    List<OrderView> findAll(String order);
 }

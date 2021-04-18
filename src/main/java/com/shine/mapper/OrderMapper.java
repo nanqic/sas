@@ -33,10 +33,10 @@ public interface OrderMapper {
     @Insert({
         "insert into t_order (uid, pid, ",
         "rid, amount, remark, ",
-        "order_time)",
+        "order_time, status)",
         "values (#{uid,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, ",
         "#{rid,jdbcType=TINYINT}, #{amount,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}, ",
-        "#{orderTime,jdbcType=TIMESTAMP})"
+        "#{orderTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(Order record);
@@ -53,13 +53,14 @@ public interface OrderMapper {
         @Result(column="rid", property="rid", jdbcType=JdbcType.TINYINT),
         @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
-        @Result(column="order_time", property="orderTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="order_time", property="orderTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="status", property="status", jdbcType=JdbcType.TINYINT)
     })
     List<Order> selectByExample(OrderExample example);
 
     @Select({
         "select",
-        "id, uid, pid, rid, amount, remark, order_time",
+        "id, uid, pid, rid, amount, remark, order_time, status",
         "from t_order",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -70,7 +71,8 @@ public interface OrderMapper {
         @Result(column="rid", property="rid", jdbcType=JdbcType.TINYINT),
         @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER),
         @Result(column="remark", property="remark", jdbcType=JdbcType.VARCHAR),
-        @Result(column="order_time", property="orderTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="order_time", property="orderTime", jdbcType=JdbcType.TIMESTAMP),
+        @Result(column="status", property="status", jdbcType=JdbcType.TINYINT)
     })
     Order selectByPrimaryKey(Integer id);
 
@@ -90,7 +92,8 @@ public interface OrderMapper {
           "rid = #{rid,jdbcType=TINYINT},",
           "amount = #{amount,jdbcType=INTEGER},",
           "remark = #{remark,jdbcType=VARCHAR},",
-          "order_time = #{orderTime,jdbcType=TIMESTAMP}",
+          "order_time = #{orderTime,jdbcType=TIMESTAMP},",
+          "status = #{status,jdbcType=TINYINT}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Order record);

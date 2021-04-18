@@ -32,9 +32,9 @@ public interface StockMapper {
 
     @Insert({
         "insert into t_stock (pid, amount, ",
-        "rid)",
+        "rid, update_time)",
         "values (#{pid,jdbcType=INTEGER}, #{amount,jdbcType=INTEGER}, ",
-        "#{rid,jdbcType=TINYINT})"
+        "#{rid,jdbcType=TINYINT}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(Stock record);
@@ -48,13 +48,14 @@ public interface StockMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="pid", property="pid", jdbcType=JdbcType.INTEGER),
         @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER),
-        @Result(column="rid", property="rid", jdbcType=JdbcType.TINYINT)
+        @Result(column="rid", property="rid", jdbcType=JdbcType.TINYINT),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<Stock> selectByExample(StockExample example);
 
     @Select({
         "select",
-        "id, pid, amount, rid",
+        "id, pid, amount, rid, update_time",
         "from t_stock",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -62,7 +63,8 @@ public interface StockMapper {
         @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="pid", property="pid", jdbcType=JdbcType.INTEGER),
         @Result(column="amount", property="amount", jdbcType=JdbcType.INTEGER),
-        @Result(column="rid", property="rid", jdbcType=JdbcType.TINYINT)
+        @Result(column="rid", property="rid", jdbcType=JdbcType.TINYINT),
+        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
     })
     Stock selectByPrimaryKey(Integer id);
 
@@ -79,7 +81,8 @@ public interface StockMapper {
         "update t_stock",
         "set pid = #{pid,jdbcType=INTEGER},",
           "amount = #{amount,jdbcType=INTEGER},",
-          "rid = #{rid,jdbcType=TINYINT}",
+          "rid = #{rid,jdbcType=TINYINT},",
+          "update_time = #{updateTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Stock record);

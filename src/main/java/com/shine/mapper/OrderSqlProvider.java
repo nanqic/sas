@@ -51,6 +51,10 @@ public class OrderSqlProvider {
             sql.VALUES("order_time", "#{orderTime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getStatus() != null) {
+            sql.VALUES("status", "#{status,jdbcType=TINYINT}");
+        }
+        
         return sql.toString();
     }
 
@@ -67,6 +71,7 @@ public class OrderSqlProvider {
         sql.SELECT("amount");
         sql.SELECT("remark");
         sql.SELECT("order_time");
+        sql.SELECT("status");
         sql.FROM("t_order");
         applyWhere(sql, example, false);
         
@@ -112,6 +117,10 @@ public class OrderSqlProvider {
             sql.SET("order_time = #{record.orderTime,jdbcType=TIMESTAMP}");
         }
         
+        if (record.getStatus() != null) {
+            sql.SET("status = #{record.status,jdbcType=TINYINT}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -127,6 +136,7 @@ public class OrderSqlProvider {
         sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
         sql.SET("remark = #{record.remark,jdbcType=VARCHAR}");
         sql.SET("order_time = #{record.orderTime,jdbcType=TIMESTAMP}");
+        sql.SET("status = #{record.status,jdbcType=TINYINT}");
         
         OrderExample example = (OrderExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -159,6 +169,10 @@ public class OrderSqlProvider {
         
         if (record.getOrderTime() != null) {
             sql.SET("order_time = #{orderTime,jdbcType=TIMESTAMP}");
+        }
+        
+        if (record.getStatus() != null) {
+            sql.SET("status = #{status,jdbcType=TINYINT}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

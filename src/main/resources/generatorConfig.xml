@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <generatorConfiguration>
     <properties resource="db.properties"></properties>
-    <context id="MySQLTables" targetRuntime="MyBatis3">
+    <context id="MySQLTables" targetRuntime="MyBatis3" defaultModelType="flat">
         <!-- Fluent风格实体类 -->
         <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
         <!-- 使生成的 Model 实现 Serializable 接口  -->
@@ -61,8 +61,7 @@
         <table tableName="t_product" domainObjectName="Product">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
-        <table tableName="t_sale" domainObjectName="sale">
-            <generatedKey column="id" sqlStatement="JDBC"/>
+        <table tableName="t_sale" domainObjectName="Sale">
         </table>
         <table tableName="t_stock" domainObjectName="Stock">
             <generatedKey column="id" sqlStatement="JDBC"/>

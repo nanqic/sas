@@ -13,19 +13,21 @@
 <div class="layuimini-container">
     <script type="text/html" id="toolbarProduct">
         <div class="layui-btn-container">
-            <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 添加</button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger data-delete-btn" lay-event="delete"> 删除</button>
+            <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新增</button>
         </div>
     </script>
 
     <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
 
     <script type="text/html" id="currentTableBar">
-        <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
-        <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+<!--        <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>-->
+        <a class="layui-btn layui-btn-xs layui-btn-danger data-count-cancel" lay-event="cancel">取消</a>
     </script>
     <script id="img" type="text/html">
         <img id="img-label" src="http://localhost:81/upload/{{d.img}}" width="350"/>
+    </script>
+    <script id="date" type="text/html">
+    <div>{{layui.util.toDateString(d.addedTime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>
     </script>
 </div>
 </div>
@@ -41,15 +43,14 @@
             toolbar: '#toolbarProduct',
             defaultToolbar: ['filter', 'exports', 'print'],
             cols: [[
-                {type: "checkbox", width: 50},
-                {field: 'id', width: 40, title: 'ID', sort: true},
+                {field: 'id', width: 60, title: 'ID', sort: true},
                 {field: 'username', width: 120, title: '下单用户'},
                 {field: 'product', width: 120, title: '商品名称'},
                 {field: 'img', width: 120, title: '商品图片', templet: '#img'},
-                {field: 'amount', width: 40, title: '数量', sort: true},
-                {field: 'region', width: 120, title: '仓库'},
+                {field: 'amount', width: 80, title: '数量', sort: true},
+                {field: 'region', width: 80, title: '仓库'},
                 {field: 'remark', width: 180, title: '下单备注'},
-                {field: 'orderTime', width: 120, title: '下单时间'},
+                {field: 'orderTime', width: 180, title: '下单时间',templet : '#date'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [5, 10, 15, 20],
@@ -64,7 +65,7 @@
         table.on('toolbar(currentTableFilter)', function (obj) {
             if (obj.event === 'add') {  // 监听添加操作
                 var index = layer.open({
-                    title: '添加商品',
+                    title: '新增订单',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
@@ -75,80 +76,48 @@
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
-            } else if (obj.event === 'delete') {  // 监听删除操作
+            } else if (obj.event === 'cancel') {  // 监听取消操作
                 var checkStatus = table.checkStatus('currentTableId')
                     , data = checkStatus.data;
                 layer.alert(JSON.stringify(data));
             }
         });
 
-        //监听表格复选框选择
-        table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj.data)
-
-            function getCheckedData() {
-                var checkStatus = table.checkStatus('currentTableId')
-                var data = checkStatus.data;
-                var ids = [];
-                var paths = [];
-                data.forEach(function (v, i) {
-                    ids.push(v.id)
-                    paths.push(v.img)
-                });
-                var obj = {ids, paths}
-                return obj;
-            }
-
-            var datas = getCheckedData()
-            // console.log(datas)
-
-            $('.data-delete-btn').off("click").on("click", function () {
-                if (datas != null) {
-                    $.ajax({
-                        type: 'delete',
-                        contentType: "application/json;charset=utf-8",
-                        url: '/product/list',
-                        data: JSON.stringify(datas),
-                        dataType: 'json'
-                    })
-                }
-            });
-        });
         // 编辑商品
         table.on('tool(currentTableFilter)', function (obj) {
             if (obj.event === 'edit') {
                 // 对所选编辑行数据编码
-                var data = escape(JSON.stringify(obj.data));
+                var data = encodeURI(JSON.stringify(obj.data));
                 var index = layer.open({
-                    title: '编辑商品',
+                    title: '修改订单',
                     type: 2,
                     shade: 0.2,
                     maxmin: true,
                     shadeClose: true,
                     area: ['100%', '100%'],
-                    content: './table/product-edit.html?' + data,
+                    content: './table/order-edit.html?' + data,
                 });
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
                 return false;
-            } else if (obj.event === 'delete') {
+            } else if (obj.event === 'cancel') {
                 var id = JSON.stringify(obj.data.id)
-                let path = obj.data.img
-                layer.confirm('真的删除行么', function (index) {
+                layer.confirm('真的取消行么', function (index) {
                     $.ajax({
-                        type: 'delete',
+                        type: 'patch',
                         contentType: "application/json;charset=utf-8",
-                        url: '/product?id=' + id + "&path=" + path,
+                        url: '/order?id=' + id,
                         data: id,
                         dataType: 'json',
                         success: resp => {
                             // console.log(resp)
                             var index = layer.alert("商品：" + id, {
-                                title: '删除成功！'
+                                title: '取消成功！'
                             }, function () {
                                 // 关闭弹出层
                                 layer.close(index);
+                                window.parent.location.reload()
                                 var iframeIndex = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(iframeIndex);
 
@@ -156,7 +125,7 @@
                         },
                         error: (resp) => {
                             var index = layer.alert(resp, {
-                                title: '删除失败！'
+                                title: '取消失败！'
                             }, function () {
 
                                 // 关闭弹出层

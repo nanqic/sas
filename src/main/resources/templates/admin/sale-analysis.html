@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据分析</title>
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layui-card">
+        <div class="layui-card-header">销量分析</div>
+        <div class="">
+            <div class="layui-form layuimini-form">
+
+                <div class="layui-form-item layui-inline">
+                    <label class="layui-form-label">选择条件：</label>
+                    <div class="layui-input-inline">
+                        <select name="id" id="sortList" lay-verify="required">
+                            <option value="" disabled>按销售地区</option>
+                            <option value="1">华北</option>
+                            <option value="2">华南</option>
+                            <option value="3">华中</option>
+                            <option value="4">华东</option>
+
+                            <optgroup label="按商品类别">
+                                <option value="10">生铁</option>
+                                <option value="20">粗钢</option>
+                                <option value="30">钢材</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <p></p>
+                <div class="layui-form-item layui-input-inline">
+                    <label class="layui-form-label">开始时间：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="startTime"
+                               name="startTime"
+                               placeholder="请输入开始时间">
+                    </div>
+                </div>
+                <div class="layui-form-item layui-input-inline">
+                    <label class="layui-form-label">结束时间：</label>
+                    <div class="layui-input-inline">
+                        <input type="text" class="layui-input" id="endTime"
+                               name="endTime"
+                               placeholder="请输入结束时间">
+                    </div>
+                </div>
+                <div class="layui-input-inline" style="margin-left: 5%;margin-bottom: 14px">
+                    <button class="layui-btn" lay-submit lay-filter="saveBtn">查询</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-card-body">
+            <div id="EchartZhu" style="width: 500px;height: 500px;"></div>
+            <div>
+                <button class="layui-btn layui-btn-normal" id="btn-zhu">柱状图</button>
+                <button class="layui-btn layui-btn-normal" id="btn-zhe">折线图</button>
+                <button class="layui-btn layui-btn-normal" id="btn-bing">饼图</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    let chartData = {
+        bing: [],
+        x: [],
+        y: []
+    }
+
+    function renderChartData(data) {
+        chartData.bing = []
+        chartData.x = []
+        chartData.y = []
+        data.forEach(v => {
+            chartData.bing.push({
+                value: v.amount,
+                name: v.name
+            })
+            chartData.x.push(v.name)
+            chartData.y.push(v.amount)
+        })
+    }
+
+    //配置插件目录
+    layui.config({
+        version: 1,
+        base: 'http://localhost:81/js/lay-module/echarts/'
+    }).use(['form', 'echarts', 'laydate'], function () {
+
+        var echarts = layui.echarts,
+            $ = layui.$,
+            form = layui.form,
+            laydate = layui.laydate;
+
+        //日期时间选择器
+        laydate.render({
+            elem: '#startTime'
+            , value: '2021-1-1 00:08:08'
+            , type: 'datetime',
+            min: -180,
+            max: 0
+        });
+        //日期时间选择器
+        laydate.render({
+            elem: '#endTime'
+            , value: new Date()
+            , type: 'datetime',
+            min: -180,
+            max: 0
+        });
+
+        var chartZhu = echarts.init(document.getElementById('EchartZhu'))
+
+        function doRender(){
+            //指定图表配置项和数据
+            var optionchartZhu = {
+                title: {
+                    text: '钢铁销量分析'
+                },
+                tooltip: {},
+                legend: {
+                    data: ['销量']
+                },
+                xAxis: {
+                    data: chartData.x
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '销量',
+                    type: 'bar',
+                    data: chartData.y,
+                    itemStyle: {
+                        normal: {
+                            color: 'blue'
+                        }
+                    }
+                }]
+            };
+            var optionchartZhe = {
+                title: {
+                    text: '钢铁销量'
+                },
+                tooltip: {},
+                legend: { //顶部显示 与series中的数据类型的name一致
+                    data: ['销量']
+                },
+                xAxis: {
+                    type: 'category',
+                    boundaryGap: false, //从起点开始
+                    data: chartData.x
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [{
+                    name: '销量',
+                    type: 'line', //线性
+                    data: chartData.y,
+                }]
+            };
+            var optionchartBing = {
+                title: {
+                    text: '钢铁销量分析',
+                    // subtext: '按分类', //副标题
+                    x: 'center' //标题居中
+                },
+                tooltip: {
+                    trigger: 'item' //悬浮显示对比
+                },
+                legend: {
+                    orient: 'vertical', //类型垂直,默认水平
+                    left: 'left', //类型区分在左 默认居中
+                    data: ['生铁', '粗钢', '钢材', '产量']
+                },
+                series: [{
+                    type: 'pie', //饼状
+                    radius: '60%', //圆的大小
+                    center: ['50%', '50%'], //居中
+                    data: chartData.bing
+                }]
+            };
+            chartZhu.setOption(optionchartZhu, true);
+            $('#btn-zhu')[0].onclick = () => chartZhu.setOption(optionchartZhu, true)
+            $('#btn-zhe')[0].onclick = () => chartZhu.setOption(optionchartZhe, true)
+            $('#btn-bing')[0].onclick = () => chartZhu.setOption(optionchartBing, true)
+        }
+        form.on('submit(saveBtn)', function (data) {
+            let params = data.field
+            //执行实例
+            // console.log(params)
+            $.ajax({
+                type: 'get',
+                url: '/sale/ana?id=' + params.id + '&startTime=' + params.startTime + '&endTime=' + params.endTime,
+                dataType: 'json',
+                success: resp => {
+                    console.log(resp)
+                    renderChartData(resp.data)
+                    doRender()
+
+                }
+            })
+        })
+        $.ajax({
+            type: 'get',
+            url: '/sale/ana?id=1&startTime=2021-1-1 2:08:08&endTime=2021-4-20 20:08:08',
+            dataType: 'json',
+            success: resp => {
+                const data = resp.data
+                renderChartData(data)
+                doRender()
+            }
+        })
+    })
+
+
+</script>
+</body>
+</html>

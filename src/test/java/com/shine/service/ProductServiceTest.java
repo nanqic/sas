@@ -4,7 +4,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.Date;
+
 
 @SpringBootTest
 class ProductServiceTest {
@@ -14,5 +15,12 @@ class ProductServiceTest {
     @Test
     void getPage() {
         System.out.println(service.getPage(1,5));
+    }
+
+    @Test
+    void test(){
+        Date utilDate  = new Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        System.out.println("==========="+sqlDate);
     }
 }

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>历史订单</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+    <script id="img" type="text/html">
+        <img id="img-label" src="http://localhost:81/upload/{{d.img}}" width="350"/>
+    </script>
+    <script id="date" type="text/html">
+    <div>{{layui.util.toDateString(d.addedTime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>
+    </script>
+    <script id="status" type="text/html">
+        {{# if(d.status==2){ }}
+        <span class="layui-bg-blue" style="padding: 5px">已完成</span>
+        {{# } }}
+        {{# if(d.status==0){ }}
+        <span class="layui-bg-red" style="padding: 5px">已取消</span>
+        {{# } }}
+    </script>
+</div>
+</div>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+        table.render({
+            elem: '#currentTableId',
+            url: '/order/history',
+            defaultToolbar: ['filter', 'exports', 'print'],
+            cols: [[
+                {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'username', width: 120, title: '下单用户'},
+                {field: 'product', width: 120, title: '商品名称'},
+                {field: 'img', width: 120, title: '商品图片', templet: '#img'},
+                {field: 'amount', width: 80, title: '数量', sort: true},
+                {field: 'region', width: 80, title: '仓库'},
+                {field: 'remark', width: 180, title: '下单备注'},
+                {field: 'orderTime', width: 220, title: '下单时间',templet : '#date'},
+                {field: 'status', width: 180, title: '订单状态',templet: '#status'},
+            ]],
+            limits: [5, 10, 15, 20],
+            limit: 5,
+            page: true,
+            skin: 'line'
+        });
+    });
+</script>
+
+</body>
+</html>

@@ -39,6 +39,10 @@ public class StockSqlProvider {
             sql.VALUES("rid", "#{rid,jdbcType=TINYINT}");
         }
         
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         return sql.toString();
     }
 
@@ -52,6 +56,7 @@ public class StockSqlProvider {
         sql.SELECT("pid");
         sql.SELECT("amount");
         sql.SELECT("rid");
+        sql.SELECT("update_time");
         sql.FROM("t_stock");
         applyWhere(sql, example, false);
         
@@ -85,6 +90,10 @@ public class StockSqlProvider {
             sql.SET("rid = #{record.rid,jdbcType=TINYINT}");
         }
         
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
+        }
+        
         applyWhere(sql, example, true);
         return sql.toString();
     }
@@ -97,6 +106,7 @@ public class StockSqlProvider {
         sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         sql.SET("amount = #{record.amount,jdbcType=INTEGER}");
         sql.SET("rid = #{record.rid,jdbcType=TINYINT}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
         StockExample example = (StockExample) parameter.get("example");
         applyWhere(sql, example, true);
@@ -117,6 +127,10 @@ public class StockSqlProvider {
         
         if (record.getRid() != null) {
             sql.SET("rid = #{rid,jdbcType=TINYINT}");
+        }
+        
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
         sql.WHERE("id = #{id,jdbcType=INTEGER}");

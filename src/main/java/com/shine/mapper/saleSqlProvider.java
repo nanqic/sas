@@ -1,29 +1,29 @@
 package com.shine.mapper;
 
-import com.shine.model.sale;
-import com.shine.model.saleExample.Criteria;
-import com.shine.model.saleExample.Criterion;
-import com.shine.model.saleExample;
+import com.shine.model.Sale;
+import com.shine.model.SaleExample.Criteria;
+import com.shine.model.SaleExample.Criterion;
+import com.shine.model.SaleExample;
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.jdbc.SQL;
 
-public class saleSqlProvider {
-    public String countByExample(saleExample example) {
+public class SaleSqlProvider {
+    public String countByExample(SaleExample example) {
         SQL sql = new SQL();
         sql.SELECT("count(*)").FROM("t_sale");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String deleteByExample(saleExample example) {
+    public String deleteByExample(SaleExample example) {
         SQL sql = new SQL();
         sql.DELETE_FROM("t_sale");
         applyWhere(sql, example, false);
         return sql.toString();
     }
 
-    public String insertSelective(sale record) {
+    public String insertSelective(Sale record) {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_sale");
         
@@ -31,32 +31,31 @@ public class saleSqlProvider {
             sql.VALUES("pid", "#{pid,jdbcType=INTEGER}");
         }
         
-        if (record.getProvince() != null) {
-            sql.VALUES("province", "#{province,jdbcType=VARCHAR}");
+        if (record.getRid() != null) {
+            sql.VALUES("rid", "#{rid,jdbcType=TINYINT}");
         }
         
-        if (record.getSold() != null) {
-            sql.VALUES("sold", "#{sold,jdbcType=INTEGER}");
+        if (record.getSoldAmount() != null) {
+            sql.VALUES("sold_amount", "#{soldAmount,jdbcType=INTEGER}");
         }
         
-        if (record.getStock() != null) {
-            sql.VALUES("stock", "#{stock,jdbcType=INTEGER}");
+        if (record.getUpdateTime() != null) {
+            sql.VALUES("update_time", "#{updateTime,jdbcType=TIMESTAMP}");
         }
         
         return sql.toString();
     }
 
-    public String selectByExample(saleExample example) {
+    public String selectByExample(SaleExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("id");
+            sql.SELECT_DISTINCT("pid");
         } else {
-            sql.SELECT("id");
+            sql.SELECT("pid");
         }
-        sql.SELECT("pid");
-        sql.SELECT("province");
-        sql.SELECT("sold");
-        sql.SELECT("stock");
+        sql.SELECT("rid");
+        sql.SELECT("sold_amount");
+        sql.SELECT("update_time");
         sql.FROM("t_sale");
         applyWhere(sql, example, false);
         
@@ -68,30 +67,26 @@ public class saleSqlProvider {
     }
 
     public String updateByExampleSelective(Map<String, Object> parameter) {
-        sale record = (sale) parameter.get("record");
-        saleExample example = (saleExample) parameter.get("example");
+        Sale record = (Sale) parameter.get("record");
+        SaleExample example = (SaleExample) parameter.get("example");
         
         SQL sql = new SQL();
         sql.UPDATE("t_sale");
-        
-        if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=INTEGER}");
-        }
         
         if (record.getPid() != null) {
             sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         }
         
-        if (record.getProvince() != null) {
-            sql.SET("province = #{record.province,jdbcType=VARCHAR}");
+        if (record.getRid() != null) {
+            sql.SET("rid = #{record.rid,jdbcType=TINYINT}");
         }
         
-        if (record.getSold() != null) {
-            sql.SET("sold = #{record.sold,jdbcType=INTEGER}");
+        if (record.getSoldAmount() != null) {
+            sql.SET("sold_amount = #{record.soldAmount,jdbcType=INTEGER}");
         }
         
-        if (record.getStock() != null) {
-            sql.SET("stock = #{record.stock,jdbcType=INTEGER}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         }
         
         applyWhere(sql, example, true);
@@ -102,43 +97,35 @@ public class saleSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("t_sale");
         
-        sql.SET("id = #{record.id,jdbcType=INTEGER}");
         sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
-        sql.SET("province = #{record.province,jdbcType=VARCHAR}");
-        sql.SET("sold = #{record.sold,jdbcType=INTEGER}");
-        sql.SET("stock = #{record.stock,jdbcType=INTEGER}");
+        sql.SET("rid = #{record.rid,jdbcType=TINYINT}");
+        sql.SET("sold_amount = #{record.soldAmount,jdbcType=INTEGER}");
+        sql.SET("update_time = #{record.updateTime,jdbcType=TIMESTAMP}");
         
-        saleExample example = (saleExample) parameter.get("example");
+        SaleExample example = (SaleExample) parameter.get("example");
         applyWhere(sql, example, true);
         return sql.toString();
     }
 
-    public String updateByPrimaryKeySelective(sale record) {
+    public String updateByPrimaryKeySelective(Sale record) {
         SQL sql = new SQL();
         sql.UPDATE("t_sale");
         
-        if (record.getPid() != null) {
-            sql.SET("pid = #{pid,jdbcType=INTEGER}");
+        if (record.getSoldAmount() != null) {
+            sql.SET("sold_amount = #{soldAmount,jdbcType=INTEGER}");
         }
         
-        if (record.getProvince() != null) {
-            sql.SET("province = #{province,jdbcType=VARCHAR}");
+        if (record.getUpdateTime() != null) {
+            sql.SET("update_time = #{updateTime,jdbcType=TIMESTAMP}");
         }
         
-        if (record.getSold() != null) {
-            sql.SET("sold = #{sold,jdbcType=INTEGER}");
-        }
-        
-        if (record.getStock() != null) {
-            sql.SET("stock = #{stock,jdbcType=INTEGER}");
-        }
-        
-        sql.WHERE("id = #{id,jdbcType=INTEGER}");
+        sql.WHERE("pid = #{pid,jdbcType=INTEGER}");
+        sql.WHERE("rid = #{rid,jdbcType=TINYINT}");
         
         return sql.toString();
     }
 
-    protected void applyWhere(SQL sql, saleExample example, boolean includeExamplePhrase) {
+    protected void applyWhere(SQL sql, SaleExample example, boolean includeExamplePhrase) {
         if (example == null) {
             return;
         }

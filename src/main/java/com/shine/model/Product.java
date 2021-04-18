@@ -18,7 +18,7 @@ public class Product implements Serializable {
 
     private Boolean onSale;
 
-    private Date orderTime;
+    private Date addedTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -113,17 +113,17 @@ public class Product implements Serializable {
         this.onSale = onSale;
     }
 
-    public Date getOrderTime() {
-        return orderTime;
+    public Date getAddedTime() {
+        return addedTime;
     }
 
-    public Product withOrderTime(Date orderTime) {
-        this.setOrderTime(orderTime);
+    public Product withAddedTime(Date addedTime) {
+        this.setAddedTime(addedTime);
         return this;
     }
 
-    public void setOrderTime(Date orderTime) {
-        this.orderTime = orderTime;
+    public void setAddedTime(Date addedTime) {
+        this.addedTime = addedTime;
     }
 
     @Override
@@ -139,7 +139,7 @@ public class Product implements Serializable {
         sb.append(", img=").append(img);
         sb.append(", describes=").append(describes);
         sb.append(", onSale=").append(onSale);
-        sb.append(", orderTime=").append(orderTime);
+        sb.append(", addedTime=").append(addedTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -164,7 +164,7 @@ public class Product implements Serializable {
             && (this.getImg() == null ? other.getImg() == null : this.getImg().equals(other.getImg()))
             && (this.getDescribes() == null ? other.getDescribes() == null : this.getDescribes().equals(other.getDescribes()))
             && (this.getOnSale() == null ? other.getOnSale() == null : this.getOnSale().equals(other.getOnSale()))
-            && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()));
+            && (this.getAddedTime() == null ? other.getAddedTime() == null : this.getAddedTime().equals(other.getAddedTime()));
     }
 
     @Override
@@ -178,7 +178,7 @@ public class Product implements Serializable {
         result = prime * result + ((getImg() == null) ? 0 : getImg().hashCode());
         result = prime * result + ((getDescribes() == null) ? 0 : getDescribes().hashCode());
         result = prime * result + ((getOnSale() == null) ? 0 : getOnSale().hashCode());
-        result = prime * result + ((getOrderTime() == null) ? 0 : getOrderTime().hashCode());
+        result = prime * result + ((getAddedTime() == null) ? 0 : getAddedTime().hashCode());
         return result;
     }
 }

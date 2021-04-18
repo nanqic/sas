@@ -33,10 +33,10 @@ public interface ProductMapper {
     @Insert({
         "insert into t_product (name, price, ",
         "sort_id, img, describes, ",
-        "on_sale, order_time)",
+        "on_sale, added_time)",
         "values (#{name,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, ",
         "#{sortId,jdbcType=TINYINT}, #{img,jdbcType=VARCHAR}, #{describes,jdbcType=VARCHAR}, ",
-        "#{onSale,jdbcType=BIT}, #{orderTime,jdbcType=TIMESTAMP})"
+        "#{onSale,jdbcType=BIT}, #{addedTime,jdbcType=TIMESTAMP})"
     })
     @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(Product record);
@@ -54,13 +54,13 @@ public interface ProductMapper {
         @Result(column="img", property="img", jdbcType=JdbcType.VARCHAR),
         @Result(column="describes", property="describes", jdbcType=JdbcType.VARCHAR),
         @Result(column="on_sale", property="onSale", jdbcType=JdbcType.BIT),
-        @Result(column="order_time", property="orderTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="added_time", property="addedTime", jdbcType=JdbcType.TIMESTAMP)
     })
     List<Product> selectByExample(ProductExample example);
 
     @Select({
         "select",
-        "id, name, price, sort_id, img, describes, on_sale, order_time",
+        "id, name, price, sort_id, img, describes, on_sale, added_time",
         "from t_product",
         "where id = #{id,jdbcType=INTEGER}"
     })
@@ -72,7 +72,7 @@ public interface ProductMapper {
         @Result(column="img", property="img", jdbcType=JdbcType.VARCHAR),
         @Result(column="describes", property="describes", jdbcType=JdbcType.VARCHAR),
         @Result(column="on_sale", property="onSale", jdbcType=JdbcType.BIT),
-        @Result(column="order_time", property="orderTime", jdbcType=JdbcType.TIMESTAMP)
+        @Result(column="added_time", property="addedTime", jdbcType=JdbcType.TIMESTAMP)
     })
     Product selectByPrimaryKey(Integer id);
 
@@ -93,7 +93,7 @@ public interface ProductMapper {
           "img = #{img,jdbcType=VARCHAR},",
           "describes = #{describes,jdbcType=VARCHAR},",
           "on_sale = #{onSale,jdbcType=BIT},",
-          "order_time = #{orderTime,jdbcType=TIMESTAMP}",
+          "added_time = #{addedTime,jdbcType=TIMESTAMP}",
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(Product record);

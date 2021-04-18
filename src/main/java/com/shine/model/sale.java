@@ -1,38 +1,24 @@
 package com.shine.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
-public class sale implements Serializable {
-    private Integer id;
-
+public class Sale implements Serializable {
     private Integer pid;
 
-    private String province;
+    private Byte rid;
 
-    private Integer sold;
+    private Integer soldAmount;
 
-    private Integer stock;
+    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public sale withId(Integer id) {
-        this.setId(id);
-        return this;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getPid() {
         return pid;
     }
 
-    public sale withPid(Integer pid) {
+    public Sale withPid(Integer pid) {
         this.setPid(pid);
         return this;
     }
@@ -41,43 +27,43 @@ public class sale implements Serializable {
         this.pid = pid;
     }
 
-    public String getProvince() {
-        return province;
+    public Byte getRid() {
+        return rid;
     }
 
-    public sale withProvince(String province) {
-        this.setProvince(province);
+    public Sale withRid(Byte rid) {
+        this.setRid(rid);
         return this;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setRid(Byte rid) {
+        this.rid = rid;
     }
 
-    public Integer getSold() {
-        return sold;
+    public Integer getSoldAmount() {
+        return soldAmount;
     }
 
-    public sale withSold(Integer sold) {
-        this.setSold(sold);
+    public Sale withSoldAmount(Integer soldAmount) {
+        this.setSoldAmount(soldAmount);
         return this;
     }
 
-    public void setSold(Integer sold) {
-        this.sold = sold;
+    public void setSoldAmount(Integer soldAmount) {
+        this.soldAmount = soldAmount;
     }
 
-    public Integer getStock() {
-        return stock;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public sale withStock(Integer stock) {
-        this.setStock(stock);
+    public Sale withUpdateTime(Date updateTime) {
+        this.setUpdateTime(updateTime);
         return this;
     }
 
-    public void setStock(Integer stock) {
-        this.stock = stock;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     @Override
@@ -86,11 +72,10 @@ public class sale implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", pid=").append(pid);
-        sb.append(", province=").append(province);
-        sb.append(", sold=").append(sold);
-        sb.append(", stock=").append(stock);
+        sb.append(", rid=").append(rid);
+        sb.append(", soldAmount=").append(soldAmount);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -107,23 +92,21 @@ public class sale implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        sale other = (sale) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
-            && (this.getProvince() == null ? other.getProvince() == null : this.getProvince().equals(other.getProvince()))
-            && (this.getSold() == null ? other.getSold() == null : this.getSold().equals(other.getSold()))
-            && (this.getStock() == null ? other.getStock() == null : this.getStock().equals(other.getStock()));
+        Sale other = (Sale) that;
+        return (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
+            && (this.getRid() == null ? other.getRid() == null : this.getRid().equals(other.getRid()))
+            && (this.getSoldAmount() == null ? other.getSoldAmount() == null : this.getSoldAmount().equals(other.getSoldAmount()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
-        result = prime * result + ((getProvince() == null) ? 0 : getProvince().hashCode());
-        result = prime * result + ((getSold() == null) ? 0 : getSold().hashCode());
-        result = prime * result + ((getStock() == null) ? 0 : getStock().hashCode());
+        result = prime * result + ((getRid() == null) ? 0 : getRid().hashCode());
+        result = prime * result + ((getSoldAmount() == null) ? 0 : getSoldAmount().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
     }
 }

@@ -18,6 +18,8 @@ public class Order implements Serializable {
 
     private Date orderTime;
 
+    private Byte status;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -111,6 +113,19 @@ public class Order implements Serializable {
         this.orderTime = orderTime;
     }
 
+    public Byte getStatus() {
+        return status;
+    }
+
+    public Order withStatus(Byte status) {
+        this.setStatus(status);
+        return this;
+    }
+
+    public void setStatus(Byte status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -124,6 +139,7 @@ public class Order implements Serializable {
         sb.append(", amount=").append(amount);
         sb.append(", remark=").append(remark);
         sb.append(", orderTime=").append(orderTime);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -147,7 +163,8 @@ public class Order implements Serializable {
             && (this.getRid() == null ? other.getRid() == null : this.getRid().equals(other.getRid()))
             && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
             && (this.getRemark() == null ? other.getRemark() == null : this.getRemark().equals(other.getRemark()))
-            && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()));
+            && (this.getOrderTime() == null ? other.getOrderTime() == null : this.getOrderTime().equals(other.getOrderTime()))
+            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()));
     }
 
     @Override
@@ -161,6 +178,7 @@ public class Order implements Serializable {
         result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
         result = prime * result + ((getRemark() == null) ? 0 : getRemark().hashCode());
         result = prime * result + ((getOrderTime() == null) ? 0 : getOrderTime().hashCode());
+        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         return result;
     }
 }

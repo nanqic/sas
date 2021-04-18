@@ -1,6 +1,7 @@
 package com.shine.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Stock implements Serializable {
     private Integer id;
@@ -10,6 +11,8 @@ public class Stock implements Serializable {
     private Integer amount;
 
     private Byte rid;
+
+    private Date updateTime;
 
     private static final long serialVersionUID = 1L;
 
@@ -65,6 +68,19 @@ public class Stock implements Serializable {
         this.rid = rid;
     }
 
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public Stock withUpdateTime(Date updateTime) {
+        this.setUpdateTime(updateTime);
+        return this;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -75,6 +91,7 @@ public class Stock implements Serializable {
         sb.append(", pid=").append(pid);
         sb.append(", amount=").append(amount);
         sb.append(", rid=").append(rid);
+        sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
@@ -95,7 +112,8 @@ public class Stock implements Serializable {
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
             && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
-            && (this.getRid() == null ? other.getRid() == null : this.getRid().equals(other.getRid()));
+            && (this.getRid() == null ? other.getRid() == null : this.getRid().equals(other.getRid()))
+            && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()));
     }
 
     @Override
@@ -106,6 +124,7 @@ public class Stock implements Serializable {
         result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
         result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
         result = prime * result + ((getRid() == null) ? 0 : getRid().hashCode());
+        result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         return result;
     }
 }

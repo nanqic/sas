@@ -5,10 +5,9 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class StockVO {
-    private Integer id;
+public class SaleView {
     private String product;
-    private Integer amount;
     private String region;
+    private Integer soldAmount;
     private Date updateTime;
 }
