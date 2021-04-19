@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Data
 public class ProductVO {
-    private Integer id;
+    private Integer pid;
 
     private String name;
 

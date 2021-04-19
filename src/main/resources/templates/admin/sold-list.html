@@ -11,12 +11,14 @@
 </head>
 <body>
 <div class="layuimini-container">
+    <script type="text/html" id="toolbarDemo">
+    </script>
     <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
     <script id="img" type="text/html">
         <img id="img-label" src="http://localhost:81/upload/{{d.img}}" width="350"/>
     </script>
     <script id="date" type="text/html">
-        <div>{{layui.util.toDateString(d.addedTime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>
+        <div>{{layui.util.toDateString(d.updateTime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>
     </script>
 </div>
 </div>
@@ -28,6 +30,7 @@
         table.render({
             elem: '#currentTableId',
             url: '/sale',
+            toolbar: '#toolbarDemo',
             defaultToolbar: ['filter', 'exports'],
             cols: [[
                 {field: 'product', width: 120, title: '商品名称'},

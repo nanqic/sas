@@ -54,7 +54,7 @@
             defaultToolbar: ['filter', 'exports', 'print'],
             cols: [[
                 {type: "checkbox", width: 50},
-                {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'pid', width: 80, title: 'ID', sort: true},
                 {field: 'name', width: 120, title: '商品名称'},
                 {field: 'price', width: 80, title: '价格'},
                 {field: 'sort', width: 80, title: '分类', sort: true},
@@ -104,7 +104,7 @@
                 var ids = [];
                 var paths = [];
                 data.forEach(function (v, i) {
-                    ids.push(v.id)
+                    ids.push(v.pid)
                     paths.push(v.img)
                 });
                 var obj = {ids, paths}
@@ -121,7 +121,9 @@
                         contentType: "application/json;charset=utf-8",
                         url: '/product/list',
                         data: JSON.stringify(datas),
-                        dataType: 'json'
+                        dataType: 'json',
+                        success: ()=> window.parent.location.reload()
+
                     })
                 }
             });
@@ -145,18 +147,17 @@
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                var id = JSON.stringify(obj.data.id)
+                var pid = JSON.stringify(obj.data.pid)
                 let path = obj.data.img
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         type: 'delete',
                         contentType: "application/json;charset=utf-8",
-                        url: '/product?id=' + id + "&path=" + path,
-                        data: id,
+                        url: '/product?pid=' + pid + "&path=" + path,
                         dataType: 'json',
                         success: resp => {
                             // console.log(resp)
-                            var index = layer.alert("商品：" + id, {
+                            var index = layer.alert("商品：" + pid, {
                                 title: '删除成功！'
                             }, function () {
                                 // 关闭弹出层
@@ -167,7 +168,7 @@
                             });
                         },
                         error: (resp) => {
-                            var index = layer.alert(resp, {
+                            var index = layer.alert(JSON.stringify(resp), {
                                 title: '删除失败！'
                             }, function () {
 
@@ -180,7 +181,7 @@
                             });
                         }
                     })
-                    var index = layer.alert(id, {
+                    var index = layer.alert(pid, {
                         title: '最终的提交信息'
                     }, function () {
 

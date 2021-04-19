@@ -3,7 +3,7 @@ package com.shine.model;
 import java.io.Serializable;
 
 public class User implements Serializable {
-    private Integer id;
+    private Integer uid;
 
     private String username;
 
@@ -25,17 +25,17 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
-        return id;
+    public Integer getUid() {
+        return uid;
     }
 
-    public User withId(Integer id) {
-        this.setId(id);
+    public User withUid(Integer uid) {
+        this.setUid(uid);
         return this;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 
     public String getUsername() {
@@ -161,7 +161,7 @@ public class User implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
+        sb.append(", uid=").append(uid);
         sb.append(", username=").append(username);
         sb.append(", sex=").append(sex);
         sb.append(", city=").append(city);
@@ -188,7 +188,7 @@ public class User implements Serializable {
             return false;
         }
         User other = (User) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+        return (this.getUid() == null ? other.getUid() == null : this.getUid().equals(other.getUid()))
             && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getSex() == null ? other.getSex() == null : this.getSex().equals(other.getSex()))
             && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
@@ -204,7 +204,7 @@ public class User implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getUid() == null) ? 0 : getUid().hashCode());
         result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
         result = prime * result + ((getSex() == null) ? 0 : getSex().hashCode());
         result = prime * result + ((getCity() == null) ? 0 : getCity().hashCode());

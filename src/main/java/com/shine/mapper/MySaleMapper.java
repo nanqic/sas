@@ -17,11 +17,11 @@ public interface MySaleMapper {
     @Insert("INSERT INTO t_sale(pid,rid,sold_amount) VALUES(#{pid},#{rid},#{soldAmount}) ON DUPLICATE KEY UPDATE sold_amount=sold_amount+VALUES(sold_amount)")
     int insertOrUpdate(int pid, int rid, int soldAmount);
 
-    @Select("SELECT `t_region`.`name`, sum( `t_sale`.`sold_amount` ) AS `amount` FROM ( `t_sale` JOIN `t_region` ON (( `t_region`.`id` = `t_sale`.`rid` ))) \n" +
+    @Select("SELECT `t_region`.`name`, sum( `t_sale`.`sold_amount` ) AS `amount` FROM ( `t_sale` JOIN `t_region` ON (( `t_region`.`rid` = `t_sale`.`rid` ))) \n" +
             "WHERE\n" +
             "\t`t_sale`.`pid` IN (\n" +
             "\tSELECT\n" +
-            "\t\t`t_product`.`id` \n" +
+            "\t\t`t_product`.`pid` \n" +
             "\tFROM\n" +
             "\t\t`t_product` \n" +
             "\tWHERE\n" +
@@ -38,16 +38,16 @@ public interface MySaleMapper {
             "\t((\n" +
             "\t\t\t`t_sort`\n" +
             "\t\t\tJOIN `t_product` `p` ON ((\n" +
-            "\t\t\t\t\t`t_sort`.`id` = `p`.`sort_id` \n" +
+            "\t\t\t\t\t`t_sort`.`sid` = `p`.`sort_id` \n" +
             "\t\t\t\t)))\n" +
             "\t\tJOIN `t_sale` ON ((\n" +
-            "\t\t\t\t`p`.`id` = `t_sale`.`pid` \n" +
+            "\t\t\t\t`p`.`pid` = `t_sale`.`pid` \n" +
             "\t\t\t))) \n" +
             "WHERE\n" +
             "\t((\n" +
             "\t\t\t`t_sale`.`rid` = 1 \n" +
             "\t\t\t) \n" +
-            "\t\tAND `p`.`id` IN (\n" +
+            "\t\tAND `p`.`pid` IN (\n" +
             "\t\tSELECT\n" +
             "\t\t\t`t_sale`.`pid` \n" +
             "\t\tFROM\n" +

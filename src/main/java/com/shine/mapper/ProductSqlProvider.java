@@ -27,6 +27,10 @@ public class ProductSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_product");
         
+        if (record.getPid() != null) {
+            sql.VALUES("pid", "#{pid,jdbcType=INTEGER}");
+        }
+        
         if (record.getName() != null) {
             sql.VALUES("name", "#{name,jdbcType=VARCHAR}");
         }
@@ -61,9 +65,9 @@ public class ProductSqlProvider {
     public String selectByExample(ProductExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("id");
+            sql.SELECT_DISTINCT("pid");
         } else {
-            sql.SELECT("id");
+            sql.SELECT("pid");
         }
         sql.SELECT("name");
         sql.SELECT("price");
@@ -89,8 +93,8 @@ public class ProductSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("t_product");
         
-        if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        if (record.getPid() != null) {
+            sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         }
         
         if (record.getName() != null) {
@@ -129,7 +133,7 @@ public class ProductSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("t_product");
         
-        sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("pid = #{record.pid,jdbcType=INTEGER}");
         sql.SET("name = #{record.name,jdbcType=VARCHAR}");
         sql.SET("price = #{record.price,jdbcType=INTEGER}");
         sql.SET("sort_id = #{record.sortId,jdbcType=TINYINT}");
@@ -175,7 +179,7 @@ public class ProductSqlProvider {
             sql.SET("added_time = #{addedTime,jdbcType=TIMESTAMP}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=INTEGER}");
+        sql.WHERE("pid = #{pid,jdbcType=INTEGER}");
         
         return sql.toString();
     }

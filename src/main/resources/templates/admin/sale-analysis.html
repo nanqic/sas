@@ -12,7 +12,6 @@
         <div class="layui-card-header">销量分析</div>
         <div class="">
             <div class="layui-form layuimini-form">
-
                 <div class="layui-form-item layui-inline">
                     <label class="layui-form-label">选择条件：</label>
                     <div class="layui-input-inline">
@@ -22,7 +21,6 @@
                             <option value="2">华南</option>
                             <option value="3">华中</option>
                             <option value="4">华东</option>
-
                             <optgroup label="按商品类别">
                                 <option value="10">生铁</option>
                                 <option value="20">粗钢</option>
@@ -53,25 +51,37 @@
                 </div>
             </div>
         </div>
-        <div class="layui-card-body">
-            <div id="EchartZhu" style="width: 500px;height: 500px;"></div>
-            <div>
-                <button class="layui-btn layui-btn-normal" id="btn-zhu">柱状图</button>
-                <button class="layui-btn layui-btn-normal" id="btn-zhe">折线图</button>
-                <button class="layui-btn layui-btn-normal" id="btn-bing">饼图</button>
+        <div class="layui-card-body" style="position: absolute">
+            <i id="bar" style="display: inline-block;width: 18px;height: 16px; position: relative; z-index: 1; left: 496px;top: 30px"></i>
+            <i id="line" style="display: inline-block;width: 18px;height: 16px;position: relative; z-index: 1; left: 445px;top: 30px"></i>
+            <i id="pie" style="display: inline-block;width: 18px;height: 16px; position: relative; z-index: 1; left: 478px;top: 30px"></i>
+            <div id="EchartZhu" style="width: 600px;height: 400px;">
             </div>
         </div>
     </div>
+
 </div>
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script src="http://localhost:81/js/echarts.min.js"></script>
 <script>
     let chartData = {
+        toolbox:{
+        show: true,
+            feature: {
+            dataZoom: {
+                yAxisIndex: 'none'
+            },
+            dataView: {readOnly: false},
+            magicType: {type: ['line', 'bar','pie','stack', 'tiled']},
+            restore: {},
+            saveAsImage: {}
+        }
+    },
         bing: [],
         x: [],
         y: []
     }
-
     function renderChartData(data) {
         chartData.bing = []
         chartData.x = []
@@ -85,15 +95,11 @@
             chartData.y.push(v.amount)
         })
     }
+    let myEcharts =  echarts.init(document.getElementById('EchartZhu'))
 
-    //配置插件目录
-    layui.config({
-        version: 1,
-        base: 'http://localhost:81/js/lay-module/echarts/'
-    }).use(['form', 'echarts', 'laydate'], function () {
+        layui.use(['form', 'laydate'], function () {
 
-        var echarts = layui.echarts,
-            $ = layui.$,
+        var $ = layui.$,
             form = layui.form,
             laydate = layui.laydate;
 
@@ -114,14 +120,14 @@
             max: 0
         });
 
-        var chartZhu = echarts.init(document.getElementById('EchartZhu'))
 
-        function doRender(){
+        function doRender() {
             //指定图表配置项和数据
             var optionchartZhu = {
                 title: {
                     text: '钢铁销量分析'
                 },
+                toolbox: chartData.toolbox,
                 tooltip: {},
                 legend: {
                     data: ['销量']
@@ -147,6 +153,7 @@
                 title: {
                     text: '钢铁销量'
                 },
+                toolbox: chartData.toolbox,
                 tooltip: {},
                 legend: { //顶部显示 与series中的数据类型的name一致
                     data: ['销量']
@@ -171,6 +178,7 @@
                     // subtext: '按分类', //副标题
                     x: 'center' //标题居中
                 },
+                toolbox: chartData.toolbox,
                 tooltip: {
                     trigger: 'item' //悬浮显示对比
                 },
@@ -186,11 +194,13 @@
                     data: chartData.bing
                 }]
             };
-            chartZhu.setOption(optionchartZhu, true);
-            $('#btn-zhu')[0].onclick = () => chartZhu.setOption(optionchartZhu, true)
-            $('#btn-zhe')[0].onclick = () => chartZhu.setOption(optionchartZhe, true)
-            $('#btn-bing')[0].onclick = () => chartZhu.setOption(optionchartBing, true)
+            myEcharts.setOption(optionchartZhu, true);
+
+            $('#bar')[0].onclick = () => myEcharts.setOption(optionchartZhu, true)
+            $('#line')[0].onclick = () => myEcharts.setOption(optionchartZhe, true)
+            $('#pie')[0].onclick = () => myEcharts.setOption(optionchartBing, true)
         }
+
         form.on('submit(saveBtn)', function (data) {
             let params = data.field
             //执行实例
@@ -200,7 +210,7 @@
                 url: '/sale/ana?id=' + params.id + '&startTime=' + params.startTime + '&endTime=' + params.endTime,
                 dataType: 'json',
                 success: resp => {
-                    console.log(resp)
+                    // console.log(resp)
                     renderChartData(resp.data)
                     doRender()
 

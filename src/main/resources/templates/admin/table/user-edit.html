@@ -119,6 +119,7 @@
         form.on('submit(saveBtn)', function (data) {
             data.field.id = rawData.id
             var datas = JSON.stringify(data.field)
+            // console.log(datas)
             $.ajax({
                 type: 'patch',
                 contentType: "application/json;charset=utf-8",

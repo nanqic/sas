@@ -10,7 +10,7 @@ import java.util.List;
 
 @Mapper
 public interface MyStockMapper {
-    @Select("select s.id, p.name as product, s.amount,r.name as region ,s.update_time from (t_product p JOIN t_stock s ON p.id=s.pid) JOIN t_region r ON s.rid=r.id")
+    @Select("select s.id, p.name as product, s.amount,r.name as region ,s.update_time from (t_product p JOIN t_stock s ON p.pid=s.pid) JOIN t_region r ON s.rid=r.rid")
     List<StockVO> findAll();
 
     @Select("SELECT rid,amount FROM t_stock WHERE pid=#{pid}")

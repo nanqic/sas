@@ -87,7 +87,7 @@
 
                 data.forEach(row => {
                     let optc = opt.cloneNode(opt)
-                    optc.value = row.id
+                    optc.value = row.uid
                     optc.innerHTML = row.username
                     productList.appendChild(optc)
                 })
@@ -103,11 +103,12 @@
                 const data = resp.data
                 let productList = $('#productList')[0]
                 let opt = document.createElement('option')
+                // console.log(data)
 
                 data.forEach(row => {
                     if(row.onSale){
                         let optc = opt.cloneNode(opt)
-                        optc.value = row.id
+                        optc.value = row.pid
                         optc.innerHTML = row.name
                         productList.appendChild(optc)
                     }

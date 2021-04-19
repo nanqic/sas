@@ -32,17 +32,17 @@ public class ProductController {
     }
 
     @DeleteMapping
-    Result delete(@RequestParam int id, @RequestParam String path) {
-        return service.delete(id, path);
+    Result delete(@RequestParam int pid, @RequestParam String path) {
+        return service.delete(pid, path);
     }
 
     @PutMapping
-    Result update(@RequestParam int id,
+    Result update(@RequestParam int pid,
                   @RequestParam String name, @RequestParam int price,
                   @RequestParam byte sortId, @RequestParam String describe,
                   @RequestParam(required = false) MultipartFile file) throws IOException {
         Product product = new Product();
-        product.withId(id).withName(name).withPrice(price).withSortId(sortId).withDescribes(describe);
+        product.withPid(pid).withName(name).withPrice(price).withSortId(sortId).withDescribes(describe);
         return service.update(product, file);
     }
 

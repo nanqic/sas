@@ -97,7 +97,7 @@
 
         // 编辑页解码，得到原始对象
         var rawData = JSON.parse(decodeURI(location.search).replace('?', ''))
-        // console.log(rawData)
+        console.log(rawData)
         $("input[name='name']")[0].value = rawData.name
         $("input[name='price']")[0].value = rawData.price
         $('#img-pre')[0].src = 'http://localhost:81/upload/' + rawData.img
@@ -120,7 +120,7 @@
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             let datas = new FormData()
-            datas.append("id", rawData.id)
+            datas.append("pid", rawData.pid)
             datas.append("name", data.field.name)
             datas.append("price", data.field.price)
             datas.append("sortId", data.field.sort_id)
@@ -128,6 +128,7 @@
             let img = $('#file')[0].files[0]
             if (img != null)
                 datas.append("file", img)
+
             $.ajax({
                 type: 'put',
                 contentType: "application/json;charset=utf-8",

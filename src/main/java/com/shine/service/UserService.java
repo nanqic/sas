@@ -26,7 +26,7 @@ public class UserService {
     public Result updateById(int id){
 //        int row = mapper.deleteByPrimaryKey(id);
         User user = new User()
-                .withId(id)
+                .withUid(id)
                 .withEnabled(false);
         // 禁用用户，而不是物理删除
         int row = mapper.updateByPrimaryKeySelective(user);
@@ -56,7 +56,7 @@ public class UserService {
         user.withEnabled(false);
         UserExample example = new UserExample();
         example.createCriteria()
-        .andIdIn(ids);
+        .andUidIn(ids);
         mapper.updateByExampleSelective(user,example);
         return Result.ok();
     }

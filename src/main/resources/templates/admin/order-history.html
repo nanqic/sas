@@ -11,12 +11,14 @@
 </head>
 <body>
 <div class="layuimini-container">
+    <script type="text/html" id="toolbarDemo">
+    </script>
     <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
     <script id="img" type="text/html">
         <img id="img-label" src="http://localhost:81/upload/{{d.img}}" width="350"/>
     </script>
     <script id="date" type="text/html">
-    <div>{{layui.util.toDateString(d.addedTime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>
+    <div>{{layui.util.toDateString(d.orderTime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>
     </script>
     <script id="status" type="text/html">
         {{# if(d.status==2){ }}
@@ -36,6 +38,8 @@
             table = layui.table;
         table.render({
             elem: '#currentTableId',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports'],
             url: '/order/history',
             defaultToolbar: ['filter', 'exports', 'print'],
             cols: [[

@@ -63,7 +63,7 @@ public class ProductService {
         if (file[0]!=null) {
             String newFileName = writeFile(file[0]);
             product.withImg(newFileName);
-            String oldImg = mapper.selectByPrimaryKey(product.getId()).getImg();
+            String oldImg = mapper.selectByPrimaryKey(product.getPid()).getImg();
             File imgFile = new File(filePath + oldImg);
             deleteFile(imgFile);
         }
@@ -79,7 +79,7 @@ public class ProductService {
         // 删除数据
         ProductExample example = new ProductExample();
         example.createCriteria()
-                .andIdIn(ids);
+                .andPidIn(ids);
         mapper.deleteByExample(example);
         // 删除文件
         for (String path : paths) {
@@ -90,7 +90,7 @@ public class ProductService {
 
     public Result switchOnSale(int pid, Boolean onSale) {
         Product product = new Product()
-                .withId(pid).withOnSale(onSale);
+                .withPid(pid).withOnSale(onSale);
         mapper.updateByPrimaryKeySelective(product);
         return Result.ok();
     }

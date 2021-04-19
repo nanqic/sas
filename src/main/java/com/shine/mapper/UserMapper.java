@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.DeleteProvider;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.InsertProvider;
-import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -26,30 +25,30 @@ public interface UserMapper {
 
     @Delete({
         "delete from t_user",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where uid = #{uid,jdbcType=INTEGER}"
     })
-    int deleteByPrimaryKey(Integer id);
+    int deleteByPrimaryKey(Integer uid);
 
     @Insert({
-        "insert into t_user (username, sex, ",
-        "city, county, province, ",
-        "email, phone, experience, ",
+        "insert into t_user (uid, username, ",
+        "sex, city, county, ",
+        "province, email, ",
+        "phone, experience, ",
         "enabled)",
-        "values (#{username,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, ",
-        "#{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, ",
-        "#{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{experience,jdbcType=INTEGER}, ",
+        "values (#{uid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, ",
+        "#{sex,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, ",
+        "#{province,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, ",
+        "#{phone,jdbcType=VARCHAR}, #{experience,jdbcType=INTEGER}, ",
         "#{enabled,jdbcType=BIT})"
     })
-    @Options(useGeneratedKeys=true,keyProperty="id")
     int insert(User record);
 
     @InsertProvider(type=UserSqlProvider.class, method="insertSelective")
-    @Options(useGeneratedKeys=true,keyProperty="id")
     int insertSelective(User record);
 
     @SelectProvider(type=UserSqlProvider.class, method="selectByExample")
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="uid", property="uid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="sex", property="sex", jdbcType=JdbcType.VARCHAR),
         @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
@@ -64,12 +63,12 @@ public interface UserMapper {
 
     @Select({
         "select",
-        "id, username, sex, city, county, province, email, phone, experience, enabled",
+        "uid, username, sex, city, county, province, email, phone, experience, enabled",
         "from t_user",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where uid = #{uid,jdbcType=INTEGER}"
     })
     @Results({
-        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="uid", property="uid", jdbcType=JdbcType.INTEGER, id=true),
         @Result(column="username", property="username", jdbcType=JdbcType.VARCHAR),
         @Result(column="sex", property="sex", jdbcType=JdbcType.VARCHAR),
         @Result(column="city", property="city", jdbcType=JdbcType.VARCHAR),
@@ -80,7 +79,7 @@ public interface UserMapper {
         @Result(column="experience", property="experience", jdbcType=JdbcType.INTEGER),
         @Result(column="enabled", property="enabled", jdbcType=JdbcType.BIT)
     })
-    User selectByPrimaryKey(Integer id);
+    User selectByPrimaryKey(Integer uid);
 
     @UpdateProvider(type=UserSqlProvider.class, method="updateByExampleSelective")
     int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
@@ -102,7 +101,7 @@ public interface UserMapper {
           "phone = #{phone,jdbcType=VARCHAR},",
           "experience = #{experience,jdbcType=INTEGER},",
           "enabled = #{enabled,jdbcType=BIT}",
-        "where id = #{id,jdbcType=INTEGER}"
+        "where uid = #{uid,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(User record);
 }

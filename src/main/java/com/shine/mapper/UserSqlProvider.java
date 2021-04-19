@@ -27,6 +27,10 @@ public class UserSqlProvider {
         SQL sql = new SQL();
         sql.INSERT_INTO("t_user");
         
+        if (record.getUid() != null) {
+            sql.VALUES("uid", "#{uid,jdbcType=INTEGER}");
+        }
+        
         if (record.getUsername() != null) {
             sql.VALUES("username", "#{username,jdbcType=VARCHAR}");
         }
@@ -69,9 +73,9 @@ public class UserSqlProvider {
     public String selectByExample(UserExample example) {
         SQL sql = new SQL();
         if (example != null && example.isDistinct()) {
-            sql.SELECT_DISTINCT("id");
+            sql.SELECT_DISTINCT("uid");
         } else {
-            sql.SELECT("id");
+            sql.SELECT("uid");
         }
         sql.SELECT("username");
         sql.SELECT("sex");
@@ -99,8 +103,8 @@ public class UserSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("t_user");
         
-        if (record.getId() != null) {
-            sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        if (record.getUid() != null) {
+            sql.SET("uid = #{record.uid,jdbcType=INTEGER}");
         }
         
         if (record.getUsername() != null) {
@@ -147,7 +151,7 @@ public class UserSqlProvider {
         SQL sql = new SQL();
         sql.UPDATE("t_user");
         
-        sql.SET("id = #{record.id,jdbcType=INTEGER}");
+        sql.SET("uid = #{record.uid,jdbcType=INTEGER}");
         sql.SET("username = #{record.username,jdbcType=VARCHAR}");
         sql.SET("sex = #{record.sex,jdbcType=VARCHAR}");
         sql.SET("city = #{record.city,jdbcType=VARCHAR}");
@@ -203,7 +207,7 @@ public class UserSqlProvider {
             sql.SET("enabled = #{enabled,jdbcType=BIT}");
         }
         
-        sql.WHERE("id = #{id,jdbcType=INTEGER}");
+        sql.WHERE("uid = #{uid,jdbcType=INTEGER}");
         
         return sql.toString();
     }

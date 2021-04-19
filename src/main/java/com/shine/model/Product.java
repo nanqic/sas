@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Product implements Serializable {
-    private Integer id;
+    private Integer pid;
 
     private String name;
 
@@ -22,17 +22,17 @@ public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
-        return id;
+    public Integer getPid() {
+        return pid;
     }
 
-    public Product withId(Integer id) {
-        this.setId(id);
+    public Product withPid(Integer pid) {
+        this.setPid(pid);
         return this;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPid(Integer pid) {
+        this.pid = pid;
     }
 
     public String getName() {
@@ -132,7 +132,7 @@ public class Product implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
+        sb.append(", pid=").append(pid);
         sb.append(", name=").append(name);
         sb.append(", price=").append(price);
         sb.append(", sortId=").append(sortId);
@@ -157,7 +157,7 @@ public class Product implements Serializable {
             return false;
         }
         Product other = (Product) that;
-        return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
+        return (this.getPid() == null ? other.getPid() == null : this.getPid().equals(other.getPid()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
             && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()))
             && (this.getSortId() == null ? other.getSortId() == null : this.getSortId().equals(other.getSortId()))
@@ -171,7 +171,7 @@ public class Product implements Serializable {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
+        result = prime * result + ((getPid() == null) ? 0 : getPid().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
         result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
         result = prime * result + ((getSortId() == null) ? 0 : getSortId().hashCode());
