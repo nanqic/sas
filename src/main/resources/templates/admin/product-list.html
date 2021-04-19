@@ -199,7 +199,7 @@
                 $.ajax({
                     type: 'patch',
                     contentType: "application/json;charset=utf-8",
-                    url: '/product?pid='+obj.data.id+'&onSale='+!obj.data.onSale,
+                    url: '/product?pid='+obj.data.pid+'&onSale='+!obj.data.onSale,
                     dataType: 'json'
                 })
             }
