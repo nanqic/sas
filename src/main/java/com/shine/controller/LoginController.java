@@ -23,7 +23,7 @@ public class LoginController {
     Result doLogin(@RequestBody LoginVO vo) {
         if (vo.getUsername().equals(user) && vo.getPassword().equals(pass)) {
             session.setAttribute("user", vo.getUsername());
-            System.out.println(session.getAttribute("user"));
+//            System.out.println(session.getAttribute("user"));
             return Result.ok();
         }
 

@@ -22,6 +22,7 @@
     <script type="text/html" id="currentTableBar">
 <!--        <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">修改</a>-->
         <a class="layui-btn layui-btn-xs layui-btn-danger data-count-cancel" lay-event="cancel">取消</a>
+        <a class="layui-btn layui-btn-xs layui-btn data-count-complete" lay-event="complete">完成</a>
     </script>
     <script id="img" type="text/html">
         <img id="img-label" src="http://localhost:81/upload/{{d.img}}" width="350"/>
@@ -108,7 +109,6 @@
                         type: 'patch',
                         contentType: "application/json;charset=utf-8",
                         url: '/order?id=' + id,
-                        data: id,
                         dataType: 'json',
                         success: resp => {
                             // console.log(resp)
@@ -124,7 +124,7 @@
                             });
                         },
                         error: (resp) => {
-                            var index = layer.alert(resp, {
+                            var index = layer.alert( {
                                 title: '取消失败！'
                             }, function () {
 
@@ -157,6 +157,26 @@
                     contentType: "application/json;charset=utf-8",
                     url: '/product?pid='+obj.data.id+'&onSale='+!obj.data.onSale,
                     dataType: 'json'
+                })
+            } else if (obj.event === 'complete'){
+                $.ajax({
+                    type: 'patch',
+                    contentType: "application/json;charset=utf-8",
+                    url: '/order/complete?id='+obj.data.id,
+                    dataType: 'json',
+                    success: ()=>{
+                        var index = layer.alert("订单"+obj.data.id+" 已完成!", {
+                            title: '完成订单'
+                        }, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                            window.location.reload()
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+
+                        });
+                    }
+
                 })
             }
         });

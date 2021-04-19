@@ -31,4 +31,7 @@ public class OrderController {
     Result cancel(@RequestParam int id) {
         return service.cancel(id);
     }
+
+    @PatchMapping("/complete")
+    Result complete(@RequestParam int id){return  service.complete(id);}
 }

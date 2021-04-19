@@ -65,4 +65,10 @@ public class OrderService {
         orderMapper.updateByPrimaryKeySelective(order);
         return Result.ok();
     }
+    public Result complete(int id){
+        Byte s=2;
+        Order order = new Order().withId(id).withStatus(s);
+        orderMapper.updateByPrimaryKeySelective(order);
+        return Result.ok();
+    }
 }

@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @DeleteMapping
-    Result delete(@RequestParam int id) {
-        return service.updateById(id);
+    Result delete(@RequestParam int uid) {
+        return service.updateById(uid);
     }
     @DeleteMapping("/list")
     Result deleteByIds(@RequestParam List<Integer> ids){

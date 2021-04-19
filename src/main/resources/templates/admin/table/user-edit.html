@@ -85,7 +85,7 @@
         , version: '1.0'
     });
     // 编辑页解码，得到原始对象
-    var rawData = JSON.parse(unescape(location.search).replace('?', ''))
+    var rawData = JSON.parse(decodeURI(location.search).replace('?', ''))
     layui.use(['layer', 'form', 'layarea'], function () {
         var form = layui.form,
             layer = layui.layer,
@@ -117,7 +117,7 @@
 
         //监听提交
         form.on('submit(saveBtn)', function (data) {
-            data.field.id = rawData.id
+            data.field.uid = rawData.uid
             var datas = JSON.stringify(data.field)
             // console.log(datas)
             $.ajax({

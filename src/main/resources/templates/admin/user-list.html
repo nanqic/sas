@@ -110,7 +110,7 @@
         });
         table.on('tool(currentTableFilter)', function (obj) {
             // 对所选编辑行数据编码
-            var data = escape(JSON.stringify(obj.data));
+            var data = encodeURI(JSON.stringify(obj.data));
             if (obj.event === 'edit') {
                 var index = layer.open({
                     title: '编辑用户',
@@ -126,17 +126,16 @@
                 });
                 return false;
             } else if (obj.event === 'delete') {
-                var id = JSON.stringify(obj.data.id)
+                var uid = JSON.stringify(obj.data.uid)
                 layer.confirm('真的删除行么', function (index) {
                     $.ajax({
                         type: 'delete',
                         contentType: "application/json;charset=utf-8",
-                        url: '/user?id=' + id,
-                        data: id,
+                        url: '/user?uid=' + uid,
                         dataType: 'json',
                         success: resp => {
                             // console.log(resp)
-                            var index = layer.alert("用户：" + id, {
+                            var index = layer.alert("用户：" + uid, {
                                 title: '删除成功！'
                             }, function () {
 
@@ -162,7 +161,7 @@
                             });
                         }
                     })
-                    var index = layer.alert(id, {
+                    var index = layer.alert(uid, {
                         title: '最终的提交信息'
                     }, function () {
 
