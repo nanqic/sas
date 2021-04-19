@@ -1,4 +1,6 @@
+# 配置图片存储路径，需要把/src/main/resources/static/upload/路径换成你项目位置的跟路径，upload后面'/'不可省略
 upload-path: /Users/nanqic/Codespace/steel-analysis/src/main/resources/static/upload/
+# 配置管理员账号
 admin:
   user: admin
   pass: 123456
