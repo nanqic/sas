@@ -34,15 +34,14 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">手机</label>
         <div class="layui-input-block">
-            <input type="tel" name="phone" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机" value=""
-                   class="layui-input"
+            <input type="tel" name="phone" lay-verify='required|phone' lay-reqtext="手机不能为空" placeholder="请输入手机" class="layui-input"
             maxlength="11">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">邮箱</label>
         <div class="layui-input-block">
-            <input type="email" name="email" placeholder="请输入邮箱" value="" class="layui-input">
+            <input type="email" lay-verify='email' name="email" placeholder="请输入邮箱" value="" class="layui-input">
         </div>
     </div>
 

@@ -16,11 +16,13 @@
                     <label class="layui-form-label">选择条件：</label>
                     <div class="layui-input-inline">
                         <select name="id" id="sortList" lay-verify="required">
-                            <option value="" disabled>按销售地区</option>
-                            <option value="1">华北</option>
-                            <option value="2">华南</option>
-                            <option value="3">华中</option>
-                            <option value="4">华东</option>
+                            <option value="">请选择</option>
+                            <optgroup label="按销售地区">
+                                <option value="2">华南</option>
+                                <option value="3">华中</option>
+                                <option value="4">华东</option>
+                                <option value="1">华北</option>
+                            </optgroup>
                             <optgroup label="按商品类别">
                                 <option value="10">生铁</option>
                                 <option value="20">粗钢</option>
@@ -52,9 +54,12 @@
             </div>
         </div>
         <div class="layui-card-body" style="position: absolute">
-            <i id="bar" style="display: inline-block;width: 18px;height: 16px; position: relative; z-index: 1; left: 496px;top: 30px"></i>
-            <i id="line" style="display: inline-block;width: 18px;height: 16px;position: relative; z-index: 1; left: 445px;top: 30px"></i>
-            <i id="pie" style="display: inline-block;width: 18px;height: 16px; position: relative; z-index: 1; left: 478px;top: 30px"></i>
+            <i id="line"
+               style="display: inline-block;width: 18px;height: 16px;position: relative; z-index: 1; left: 496px;top: 30px"></i>
+            <i id="bar"
+               style="display: inline-block;width: 18px;height: 16px; position: relative; z-index: 1; left: 500px;top: 30px"></i>
+            <i id="pie"
+               style="display: inline-block;width: 18px;height: 16px; position: relative; z-index: 1; left: 506px;top: 30px"></i>
             <div id="EchartZhu" style="width: 600px;height: 400px;">
             </div>
         </div>
@@ -66,22 +71,20 @@
 <script src="http://localhost:81/js/echarts.min.js"></script>
 <script>
     let chartData = {
-        toolbox:{
-        show: true,
+        toolbox: {
+            show: true,
             feature: {
-            dataZoom: {
-                yAxisIndex: 'none'
-            },
-            dataView: {readOnly: false},
-            magicType: {type: ['line', 'bar','pie','stack', 'tiled']},
-            restore: {},
-            saveAsImage: {}
-        }
-    },
+
+                dataView: {readOnly: false},
+                magicType: {type: ['line', 'bar', 'stack' ]},
+                saveAsImage: {}
+            }
+        },
         bing: [],
         x: [],
         y: []
     }
+
     function renderChartData(data) {
         chartData.bing = []
         chartData.x = []
@@ -95,9 +98,10 @@
             chartData.y.push(v.amount)
         })
     }
-    let myEcharts =  echarts.init(document.getElementById('EchartZhu'))
 
-        layui.use(['form', 'laydate'], function () {
+    let myEcharts = echarts.init(document.getElementById('EchartZhu'))
+
+    layui.use(['form', 'laydate'], function () {
 
         var $ = layui.$,
             form = layui.form,
@@ -106,8 +110,8 @@
         //日期时间选择器
         laydate.render({
             elem: '#startTime'
-            , value: '2021-1-1 00:08:08'
-            , type: 'datetime',
+            , value: '2021-1-1 '
+            , type: 'date',
             min: -180,
             max: 0
         });
@@ -115,7 +119,7 @@
         laydate.render({
             elem: '#endTime'
             , value: new Date()
-            , type: 'datetime',
+            , type: 'date',
             min: -180,
             max: 0
         });

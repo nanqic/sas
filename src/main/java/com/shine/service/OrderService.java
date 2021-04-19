@@ -43,7 +43,7 @@ public class OrderService {
 
 
     public Result add(Order order) {
-        Date utilDate  =new Date();
+        Date utilDate  = new Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         order.setOrderTime(sqlDate);
         int row = orderMapper.insertSelective(order);
@@ -66,9 +66,11 @@ public class OrderService {
         return Result.ok();
     }
     public Result complete(int id){
-        Byte s=2;
-        Order order = new Order().withId(id).withStatus(s);
+
+        Byte status=2;
+        Order order = new Order().withId(id).withStatus(status);
         orderMapper.updateByPrimaryKeySelective(order);
+        myOrderMapper.updateExp(id);
         return Result.ok();
     }
 }
