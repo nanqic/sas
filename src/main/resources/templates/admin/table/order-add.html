@@ -32,15 +32,7 @@
             </select>
         </div>
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label required">请输入商品数量</label>
-        <div class="layui-input-inline">
-            <input type="number" name="amount" lay-verify="required|amount" lay-reqtext="商品数量不能为空"
-                   placeholder="请输入商品数量"
-                   maxlength="3"
-                   class="layui-input">
-        </div>
-    </div>
+
     <div class="layui-form-item">
         <label class="layui-form-label required">请选择库存地区</label>
         <div class="layui-input-inline">
@@ -51,6 +43,15 @@
                 <option value="3">华中 库存：0</option>
                 <option value="4">华东 库存：0</option>
             </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">请输入商品数量</label>
+        <div class="layui-input-inline">
+            <input type="number" name="amount" lay-verify="required|amount" lay-reqtext="商品数量不能为空"
+                   placeholder="请输入商品数量"
+                   maxlength="3"
+                   class="layui-input">
         </div>
     </div>
     <div class="layui-input-item" style="width: 50%;margin-left: 40px">
@@ -106,6 +107,7 @@
                 // console.log(data)
 
                 data.forEach(row => {
+                    // console.log(row);
                     if(row.onSale){
                         let optc = opt.cloneNode(opt)
                         optc.value = row.pid
@@ -128,19 +130,19 @@
                 success: resp => {
                     // console.log(resp.data.length)
                     let regions = $('#regionList')[0]
+                    regions.children[1].innerHTML = '华北 库存：0'
+                    regions.children[2].innerHTML = '华南 库存：0'
+                    regions.children[3].innerHTML = '华中 库存：0'
+                    regions.children[4].innerHTML = '华东 库存：0'
                     if (resp.data.length != 0) {
                         resp.data.forEach((row) => {
+                            // console.log(row);
                             for (let i = 0; i <= 4; i++) {
                                 if (regions.children[i].value == row.rid) {
                                     regions.children[i].innerHTML = regions.children[i].innerText.replaceAll(/\d+/g, '') + row.amount
                                 }
                             }
                         })
-                    } else {
-                        regions.children[1].innerHTML = '华北 库存：0'
-                        regions.children[2].innerHTML = '华南 库存：0'
-                        regions.children[3].innerHTML = '华中 库存：0'
-                        regions.children[4].innerHTML = '华东 库存：0'
                     }
                     form.render()
                 }
@@ -174,7 +176,7 @@
                     var index = layer.alert("订单已提交", {
                         title: '提交成功！'
                     }, function () {
-                        window.parent.location.reload()
+                        window.location.replace('/admin/order-list.html')
                         // 关闭弹出层
                         layer.close(index);
 

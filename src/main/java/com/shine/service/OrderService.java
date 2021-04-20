@@ -34,6 +34,7 @@ public class OrderService {
         PageInfo info = new PageInfo(list);
         return Result.success(list, info.getTotal());
     }
+
     public Result getHistoryPage(int page, int limit) {
         PageHelper.startPage(page, limit);
         List<OrderView> list = myOrderMapper.findAll("v_order_history");
@@ -43,34 +44,40 @@ public class OrderService {
 
 
     public Result add(Order order) {
-        Date utilDate  = new Date();
+        Date utilDate = new Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         order.setOrderTime(sqlDate);
         int row = orderMapper.insertSelective(order);
         if (row == 1) {
             int row2 = myStockMapper.updateAmount(order.getPid(), order.getRid(), -order.getAmount());
-            if (row2==1){
-                int row3 = mySaleMapper.insertOrUpdate(order.getPid(),order.getRid(),order.getAmount());
-                if (row3==1)return Result.ok();
-            }
+            if (row2 == 1) return Result.ok();
         }
         return Result.error(CodeMsg.SERVER_ERROR);
     }
-    public Result cancel(int id){
+
+    public Result cancel(int id) {
         Order oldOrder = orderMapper.selectByPrimaryKey(id);
-        mySaleMapper.insertOrUpdate(oldOrder.getPid(),oldOrder.getRid(),-oldOrder.getAmount());
-        myStockMapper.updateAmount(oldOrder.getPid(),oldOrder.getRid(),+oldOrder.getAmount());
+        mySaleMapper.insertOrUpdate(oldOrder.getPid(), oldOrder.getRid(), -oldOrder.getAmount());
+        myStockMapper.updateAmount(oldOrder.getPid(), oldOrder.getRid(), +oldOrder.getAmount());
         Byte status = 0;
         Order order = new Order().withId(id).withStatus(status);
         orderMapper.updateByPrimaryKeySelective(order);
         return Result.ok();
     }
-    public Result complete(int id){
 
-        Byte status=2;
+    public Result complete(int id) {
+
+        Byte status = 2;
         Order order = new Order().withId(id).withStatus(status);
-        orderMapper.updateByPrimaryKeySelective(order);
-        myOrderMapper.updateExp(id);
-        return Result.ok();
+        int row = orderMapper.updateByPrimaryKeySelective(order);
+        if (row == 1) {
+            int row2 = myOrderMapper.updateExp(id);
+            if (row2 == 1) {
+                Order order1  = orderMapper.selectByPrimaryKey(id);
+                int row3 = mySaleMapper.insertOrUpdate(order1.getPid(), order1.getRid(), order1.getAmount());
+                if(row3==1)        return Result.ok();
+            }
+        }
+        return Result.error(CodeMsg.SERVER_ERROR);
     }
 }
