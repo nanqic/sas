@@ -9,25 +9,52 @@
     <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
 </head>
 <body>
-<div><h1 style="text-align: center">钢铁销量管理分析管理系统</h1>
+<div><h1 style="text-align: center;margin-bottom: 100px">钢铁销量管理分析管理系统</h1>
     <div class="layui-container">
-        <ul>
-            主要功能模块
-            <li>一、用户管理
-            </li>
-            <li>
-                二、产品管理
-            </li>
-            <li>
-                三、销售管理
-            </li>
-            <li>
-                四、订单管理
-            </li>
-            <li>五、数据分析</li>
-        </ul>
-        <h2 style="margin-top: 50px">数据分析</h2>
-        <p class="layui-bg-cyan">数据分析可以根据起始日期进行查询钢铁的销售数据，销售数据可以根据不同地区不同类型的钢铁销售情况，同一地区不同钢铁的销售情况，统计图可实现三种统计图的互相转换。</p>
+        <div class="layui-row">
+            <div class="layui-col-md6">
+                <ul>
+                    <h2>主要功能模块</h2>
+                    <li>一、用户管理
+                    </li>
+                    <li>
+                        二、产品管理
+                    </li>
+                    <li>
+                        三、销售管理
+                    </li>
+                    <li> 四、分类管理</li>
+                    <li> 五、仓库管理</li>
+                    <li> 六、订单管理</li>
+                    <li> 七、数据分析</li>
+                    <li> 八、管理员登录</li>
+                </ul>
+                <h2 style="margin-top: 50px">数据分析</h2>
+                <p class="layui-bg-cyan" style="width: 70%">数据分析可以根据起始日期进行查询钢铁的销售数据，
+                    销售数据可以根据不同地区不同类型的钢铁销售情况，同一地区不同钢铁的销售情况
+                    ，统计图可实现三种统计图的互相转换。</p>
+            </div>
+            <div class="layui-col-md6">
+                <ul>
+                    <h2>主要特色技术</h2>
+                    <li>一、前后端分离，后端统一返回json数据，无论请求失败还是成功都返回json类型的Result。
+                    </li>
+                    <li>
+                        二、前端采用流行的iframe单页模式，而不是传统的多页面跳转，单页可最多打开20个选项卡
+                    </li>
+                    <li>
+                        三、上传图片实时显示，把用户提交的图片用js原生接口转成base64编码的文件，达到不调用后台接口就可以预览图片
+                    </li>
+                    <li>
+                        四、用户地址动态选择 省市区三级联动选择，实时更新选项
+                    </li>
+                    <li>五、下单时根据用户选择的商品，实时查询库存剩余</li>
+                    <li>六、后端统一接口拦截，未登录不能访问登录之外的接口，自定义错误处理页面</li>
+                    <li>七、数据库用到视图和联合主键，表的设计既考虑性能又减少冗余</li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 </div>
 </body>

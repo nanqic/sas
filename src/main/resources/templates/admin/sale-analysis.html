@@ -13,39 +13,32 @@
         <div class="">
             <div class="layui-form layuimini-form">
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">选择条件：</label>
+                    <label class="layui-form-label required">选择条件：</label>
                     <div class="layui-input-inline">
-                        <select name="id" id="sortList" lay-verify="required">
+                        <select lay-filter="selectType" lay-verify="required">
                             <option value="">请选择</option>
-                            <optgroup label="按销售地区">
-                                <option value="2">华南</option>
-                                <option value="3">华中</option>
-                                <option value="4">华东</option>
-                                <option value="1">华北</option>
-                            </optgroup>
-                            <optgroup label="按商品类别">
-                                <option value="10">生铁</option>
-                                <option value="20">粗钢</option>
-                                <option value="30">钢材</option>
-                            </optgroup>
+                            <option value="1">按商品分类</option>
+                            <option value="2">按仓库地区</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select name="id" id="selects" lay-verify="required">
+                            <option value="">请选择</option>
                         </select>
                     </div>
                 </div>
                 <p></p>
                 <div class="layui-form-item layui-input-inline">
-                    <label class="layui-form-label">开始时间：</label>
+                    <label class="layui-form-label">起始时间：</label>
                     <div class="layui-input-inline">
                         <input type="text" class="layui-input" id="startTime"
-                               name="startTime"
-                               placeholder="请输入开始时间">
+                               name="startTime">
                     </div>
                 </div>
                 <div class="layui-form-item layui-input-inline">
-                    <label class="layui-form-label">结束时间：</label>
                     <div class="layui-input-inline">
                         <input type="text" class="layui-input" id="endTime"
-                               name="endTime"
-                               placeholder="请输入结束时间">
+                               name="endTime">
                     </div>
                 </div>
                 <div class="layui-input-inline" style="margin-left: 5%;margin-bottom: 14px">
@@ -204,14 +197,55 @@
             $('#line')[0].onclick = () => myEcharts.setOption(optionchartZhe, true)
             $('#pie')[0].onclick = () => myEcharts.setOption(optionchartBing, true)
         }
+        // 监听选择类型
+        let type
+        form.on('select(selectType)', function (data){
+            // console.log(data)
+            let _url
+            if (data.value==1) {
+                _url = '/sort?page=1&limit=0'
+                type = 1
+            }
 
+            if (data.value==2) {
+                _url = '/region?page=1&limit=0'
+                type = 2
+            }
+
+
+            $.ajax({
+                type: 'get',
+                url: _url,
+                dataType: 'json',
+                success: resp => {
+                    let selects = $('#selects')[0]
+                    $('#selects').empty()
+                    const opt = document.createElement('option')
+                    const results = resp.data
+                    // console.log(results)
+                    results.forEach(row => {
+                        let option = opt.cloneNode()
+                        if(type==1){
+                            option.value = row.sid
+                        }else {
+                            option.value = row.rid
+                        }
+                        option.innerHTML = row.name
+                        selects.appendChild(option)
+                    })
+                    layui.form.render()
+                }
+            })
+        })
         form.on('submit(saveBtn)', function (data) {
             let params = data.field
             //执行实例
             // console.log(params)
+            let urlPre = '/sortAna?id='
+            if (type==2) urlPre = '/regionAna?id='
             $.ajax({
                 type: 'get',
-                url: '/sale/ana?id=' + params.id + '&startTime=' + params.startTime + '&endTime=' + params.endTime,
+                url: urlPre + params.id + '&startTime=' + params.startTime + '&endTime=' + params.endTime,
                 dataType: 'json',
                 success: resp => {
                     // console.log(resp)
@@ -221,9 +255,10 @@
                 }
             })
         })
+
         $.ajax({
             type: 'get',
-            url: '/sale/ana?id=1&startTime=2021-1-1 2:08:08&endTime=2021-4-20 20:08:08',
+            url: 'http://localhost:81/sortAna?id=1&startTime=2021-01-01&endTime=2021-04-22',
             dataType: 'json',
             success: resp => {
                 const data = resp.data

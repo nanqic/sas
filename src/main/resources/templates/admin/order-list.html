@@ -33,9 +33,17 @@
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form', 'table'], function () {
+    //配置插件目录
+    layui.config({
+        base: ['http://localhost:81/js/lay-module/']
+        , version: '1.0'
+    }).extend({ //设定模块别名
+        miniTab: 'layuimini/miniTab'
+    });
+    layui.use(['form', 'table','miniTab'], function () {
         var $ = layui.jquery,
             form = layui.form,
+            miniTab = layui.miniTab,
             table = layui.table;
         table.render({
             elem: '#currentTableId',
@@ -116,7 +124,12 @@
                             }, function () {
                                 // 关闭弹出层
                                 layer.close(index);
-                                window.parent.location.reload()
+
+                                miniTab.openNewTabByIframe({
+                                    href: "admin/order-history.html",
+                                    title: "历史订单"
+                                });
+                                miniTab.delete('admin/order-list.html',true)
                                 var iframeIndex = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(iframeIndex);
 
@@ -169,7 +182,11 @@
                         }, function () {
                             // 关闭弹出层
                             layer.close(index);
-                            window.location.reload()
+                            miniTab.openNewTabByIframe({
+                                href: "admin/order-history.html",
+                                title: "历史订单"
+                            });
+                            miniTab.delete('admin/order-list.html',true)
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
 

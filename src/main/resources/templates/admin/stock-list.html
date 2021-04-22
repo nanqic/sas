@@ -32,7 +32,14 @@
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form', 'table'], function () {
+    //配置插件目录
+    layui.config({
+        base: ['http://localhost:81/js/lay-module/']
+        , version: '1.0'
+    }).extend({ //设定模块别名
+        miniTab: 'layuimini/miniTab'
+    });
+    layui.use(['form', 'table','miniTab'], function () {
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table;

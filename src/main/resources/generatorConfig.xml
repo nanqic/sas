@@ -61,6 +61,15 @@
         <table tableName="t_product" domainObjectName="Product">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
+        <table tableName="t_sort" domainObjectName="Sort">
+            <generatedKey column="sid" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="t_region" domainObjectName="Region">
+            <generatedKey column="rid" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="t_product" domainObjectName="Product">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
         <table tableName="t_sale" domainObjectName="Sale">
         </table>
         <table tableName="t_stock" domainObjectName="Stock">

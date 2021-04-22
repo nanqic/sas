@@ -58,6 +58,46 @@
           ]
         },
         {
+          "title": "分类管理",
+          "href": "",
+          "icon": "fa fa-sitemap",
+          "target": "_self",
+          "child": [
+            {
+              "title": "分类列表",
+              "href": "admin/sort-list.html",
+              "icon": "fa fa-tasks",
+              "target": "_self"
+            },
+            {
+              "title": "添加分类",
+              "href": "admin/table/sort-add.html",
+              "icon": "fa fa-plus",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "仓库管理",
+          "href": "",
+          "icon": "fa fa-sitemap",
+          "target": "_self",
+          "child": [
+            {
+              "title": "仓库地区列表",
+              "href": "admin/region-list.html",
+              "icon": "fa fa-tasks",
+              "target": "_self"
+            },
+            {
+              "title": "添加仓库地区",
+              "href": "admin/table/region-add.html",
+              "icon": "fa fa-plus",
+              "target": "_self"
+            }
+          ]
+        },
+        {
           "title": "销售管理",
           "href": "",
           "icon": "fa fa-server",

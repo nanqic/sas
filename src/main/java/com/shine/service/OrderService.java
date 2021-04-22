@@ -29,14 +29,14 @@ public class OrderService {
     private MySaleMapper mySaleMapper;
 
     public Result getPage(int page, int limit) {
-        PageHelper.startPage(page, limit);
+        if(limit!=0)PageHelper.startPage(page, limit);
         List<OrderView> list = myOrderMapper.findAll("v_order");
         PageInfo info = new PageInfo(list);
         return Result.success(list, info.getTotal());
     }
 
     public Result getHistoryPage(int page, int limit) {
-        PageHelper.startPage(page, limit);
+        if(limit!=0)PageHelper.startPage(page, limit);
         List<OrderView> list = myOrderMapper.findAll("v_order_history");
         PageInfo info = new PageInfo(list);
         return Result.success(list, info.getTotal());

@@ -17,7 +17,7 @@ public class SaleService {
     private MySaleMapper mySaleMapper;
 
     public Result getPage(int page,int limit){
-        PageHelper.startPage(page,limit);
+        if(limit!=0)PageHelper.startPage(page,limit);
         List<SaleView> list = mySaleMapper.findAll();
         PageInfo info = new PageInfo(list);
 

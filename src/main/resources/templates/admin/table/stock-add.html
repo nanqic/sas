@@ -17,9 +17,9 @@
 <body>
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">
-        <label class="layui-form-label">请选择商品</label>
+        <label class="layui-form-label required">请选择商品</label>
         <div class="layui-input-inline">
-            <select name="pid" id="productList">
+            <select name="pid" id="productList"  lay-verify="required" lay-reqtext="商品不能为空">
                 <option value=""></option>
             </select>
         </div>
@@ -33,14 +33,10 @@
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">请选择库存地区</label>
+        <label class="layui-form-label required">请选择库存地区</label>
         <div class="layui-input-inline">
-            <select name="rid" id="regionList">
+            <select name="rid" id="regionList"  lay-verify="required" lay-reqtext="请选择库存地区">
                 <option value=""></option>
-                <option value="1" selected="">华北</option>
-                <option value="2">华南</option>
-                <option value="3">华中</option>
-                <option value="4">华东</option>
             </select>
         </div>
     </div>
@@ -53,9 +49,17 @@
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form'], function () {
+    //配置插件目录
+    layui.config({
+        base: ['http://localhost:81/js/lay-module/']
+        , version: '1.0'
+    }).extend({ //设定模块别名
+         miniTab: 'layuimini/miniTab'
+    });
+    layui.use(['form','miniTab'], function () {
         var form = layui.form,
             layer = layui.layer,
+            miniTab = layui.miniTab,
             $ = layui.$;
 
         // 动态生成商品选项
@@ -78,7 +82,25 @@
 
             }
         })
-
+        // 动态生成地区列表
+        $.ajax({
+            ContentType: "application/json;charset=utf-8",
+            type: 'get',
+            url: '/region?page=1&limit=0',
+            dataType: 'json',
+            success: resp => {
+                const data = resp.data
+                let regionList = $('#regionList')[0]
+                let opt = document.createElement('option')
+                data.forEach(row =>{
+                    let opt2 = opt.cloneNode()
+                    opt2.value = row.rid
+                    opt2.innerHTML = row.name
+                    regionList.appendChild(opt2)
+                })
+                form.render()
+            }
+        })
         layui.form.render()
         //监听提交
         form.on('submit(saveBtn)', function (data) {
@@ -93,11 +115,17 @@
                 dataType: 'json',
                 success: resp => {
                     // console.log(resp)
-                    var index = layer.alert("商品已添加",{
+                    var index = layer.alert("商品库存已添加",{
                         title: '添加成功！'
                     }, function () {
-                        window.parent.location.reload()
+
                         // 关闭弹出层
+                        miniTab.openNewTabByIframe({
+                            href: "admin/stock-list.html",
+                            title: "商品库存"
+                        });
+                        window.parent.location.reload()
+                        miniTab.delete('admin/table/stock-add.html',true)
                         layer.close(index);
 
                         var iframeIndex = parent.layer.getFrameIndex(window.name);

@@ -24,7 +24,7 @@ public class StockController {
     }
 
     @PatchMapping
-    Result update(int id, int amount){
+    Result update(@RequestParam int id, @RequestParam int amount){
 
         return stockService.update(id,amount);
     }

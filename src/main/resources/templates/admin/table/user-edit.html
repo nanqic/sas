@@ -81,9 +81,12 @@
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
+    //配置插件目录
     layui.config({
-        base: 'http://localhost:81/mods/'
+        base: ['http://localhost:81/js/lay-module/']
         , version: '1.0'
+    }).extend({ //设定模块别名
+        layarea: 'layarea/layarea'
     });
     // 编辑页解码，得到原始对象
     var rawData = JSON.parse(decodeURI(location.search).replace('?', ''))
@@ -92,6 +95,8 @@
             layer = layui.layer,
             layarea = layui.layarea,
             $ = layui.$;
+
+
         $("select[name='province']").attr("data-value", rawData.province)
         $("select[name='city']").attr("data-value", rawData.city)
         $("select[name='county']").attr("data-value", rawData.county)

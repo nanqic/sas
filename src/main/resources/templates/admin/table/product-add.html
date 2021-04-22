@@ -34,26 +34,35 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">分类</label>
         <div class="layui-input-block">
-            <input type="radio" name="sortId" value="1" title="生铁" checked="true">
-            <input type="radio" name="sortId" value="2" title="粗钢">
-            <input type="radio" name="sortId" value="3" title="钢材">
+            <select name="sortId" id="sortList" lay-verify="required">
+                <option value="">请选择</option>
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">
+
+        <label class="layui-form-label required">
+            <div style="width: 478px;display: flex;justify-content: space-around">
+                <span>商品图片 </span>
+                <em>(支持png、jpg格式，最大2M)</em>
+            </div>
             <div class="layui-input-block">
                 <div class="layui-upload">
                     <div class="layui-inline">
-                        <input type="file" class="layui-btn" id="file" accept="image/png,image/jpeg">
-                        <span>支持png、jpg格式，最大2M</span>
+                        <input type="file" lay-verify="required" class="layui-btn" id="file"
+                               accept="image/png,image/jpeg">
                     </div>
+
                     <img class="layui-upload-img" id="img-pre" width="500">
                 </div>
             </div>
         </label>
     </div>
-    <div class="layui-input-item" style="width: 90%;margin-left: 80px"><textarea name="describe" maxlength="140" required lay-verify="required" placeholder="请输入商品描述，最长140个字" class="layui-textarea"></textarea></div>
-
+    <div class="layui-form-item">
+        <label class="layui-form-label required">商品描述</label>
+        <textarea style="width: 80%;margin-left: 160px" name="describe" maxlength="140" required lay-verify="required"
+                  placeholder="请输入商品描述，最长140个字" class="layui-textarea"></textarea>
+    </div>
     <div class="layui-form-item" style="margin-top: 80px">
         <div class="layui-input-block">
             <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认提交</button>
@@ -62,10 +71,39 @@
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form'], function () {
+    //配置插件目录
+    layui.config({
+        base: ['http://localhost:81/js/lay-module/']
+        , version: '1.0'
+    }).extend({ //设定模块别名
+        miniTab: 'layuimini/miniTab'
+    });
+    layui.use(['form', 'miniTab'], function () {
         var form = layui.form,
             layer = layui.layer,
+            miniTab = layui.miniTab,
             $ = layui.$;
+        // 动态生成分类列表
+        $.ajax({
+            ContentType: "application/json;charset=utf-8",
+            type: 'get',
+            url: '/sort?page=1&limit=0',
+            dataType: 'json',
+            success: resp => {
+                const data = resp.data
+                let sortList = $('#sortList')[0]
+                let opt = document.createElement('option')
+                data.forEach(row =>{
+                    let opt2 = opt.cloneNode()
+                    opt2.value = row.sid
+                    opt2.innerHTML = row.name
+                    sortList.appendChild(opt2)
+                })
+                form.render()
+            }
+        })
+
+
         /**
          * 上传图片预览
          */
@@ -73,7 +111,7 @@
         file.onchange = () => {
             let img = $('#file')[0].files[0]
             // console.log(img.size)
-            if (img.size>2*1024*1024){
+            if (img.size > 2 * 1024 * 1024) {
                 alert("图片大小超过限制，请上传不超过2M的图片！")
                 // 清空input里上传的文件
                 file.value = ''
@@ -113,9 +151,15 @@
                     var index = layer.alert("商品：" + data.field.name, {
                         title: '添加成功！'
                     }, function () {
+
                         // 关闭弹出层
                         layer.close(index);
+                        miniTab.openNewTabByIframe({
+                            href: "admin/product-list.html",
+                            title: "产品列表"
+                        });
                         window.parent.location.reload()
+                        miniTab.delete('admin/table/product-add.html', true)
                         var iframeIndex = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(iframeIndex);
 

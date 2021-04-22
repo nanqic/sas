@@ -34,8 +34,9 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">手机</label>
         <div class="layui-input-block">
-            <input type="tel" name="phone" lay-verify='required|phone' lay-reqtext="手机不能为空" placeholder="请输入手机" class="layui-input"
-            maxlength="11">
+            <input type="tel" name="phone" lay-verify='required|phone' lay-reqtext="手机不能为空" placeholder="请输入手机"
+                   class="layui-input"
+                   maxlength="11">
         </div>
     </div>
     <div class="layui-form-item">
@@ -75,21 +76,19 @@
 <script>
     //配置插件目录
     layui.config({
-        base: 'http://localhost:81/mods/'
+        base: ['http://localhost:81/js/lay-module/']
         , version: '1.0'
+    }).extend({ //设定模块别名
+        layarea: 'layarea/layarea'
+        , miniTab: 'layuimini/miniTab'
     });
-    layui.use(['layer', 'form', 'layarea'], function () {
+    layui.use(['layer', 'form', 'layarea', 'miniTab',], function () {
         var form = layui.form,
             layer = layui.layer,
             layarea = layui.layarea,
+            miniTab = layui.miniTab,
             $ = layui.$;
-
-        layarea.render({
-            elem: '#area-picker',
-            change: () => {
-            }
-        });
-
+        layarea.render({elem: '#area-picker',});
         //监听提交
         form.on('submit(saveBtn)', function (data) {
             var datas = JSON.stringify(data.field)
@@ -107,7 +106,12 @@
 
                         // 关闭弹出层
                         layer.close(index);
-
+                        miniTab.openNewTabByIframe({
+                            href: "admin/user-list.html",
+                            title: "用户列表"
+                        });
+                        window.parent.location.reload()
+                        miniTab.delete('admin/table/user-add.html',true)
                         var iframeIndex = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(iframeIndex);
 

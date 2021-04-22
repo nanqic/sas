@@ -34,9 +34,9 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">分类</label>
         <div class="layui-input-block">
-            <input type="radio" name="sort_id" value="1" title="生铁">
-            <input type="radio" name="sort_id" value="2" title="粗钢">
-            <input type="radio" name="sort_id" value="3" title="钢材">
+            <select name="sortId" id="sortList" lay-verify="required">
+                <option value="">请选择</option>
+            </select>
         </div>
     </div>
     <div class="layui-form-item">
@@ -71,6 +71,38 @@
         var form = layui.form,
             layer = layui.layer,
             $ = layui.$;
+
+        // 编辑页解码，得到原始对象
+        var rawData = JSON.parse(decodeURI(location.search).replace('?', ''))
+        // console.log(rawData)
+        $("input[name='name']")[0].value = rawData.name
+        $("input[name='price']")[0].value = rawData.price
+        $('#img-pre')[0].src = 'http://localhost:81/upload/' + rawData.img
+        $("textarea[name='describe']")[0].value = rawData.describes
+
+        // 动态生成分类列表
+        $.ajax({
+            ContentType: "application/json;charset=utf-8",
+            type: 'get',
+            url: '/sort?page=1&limit=0',
+            dataType: 'json',
+            success: resp => {
+                const data = resp.data
+                let sortList = $('#sortList')[0]
+                let opt = document.createElement('option')
+                data.forEach(row =>{
+                    let opt2 = opt.cloneNode()
+                    opt2.value = row.sid
+                    opt2.innerHTML = row.name
+                    if(row.sid==rawData.sortId) {
+                        opt2.selected = true
+                    }
+                    sortList.appendChild(opt2)
+                })
+                console.log(sortList)
+                form.render()
+            }
+        })
         /**
          * 上传图片预览
          */
@@ -95,25 +127,9 @@
             };
         }
 
-        // 编辑页解码，得到原始对象
-        var rawData = JSON.parse(decodeURI(location.search).replace('?', ''))
-        console.log(rawData)
-        $("input[name='name']")[0].value = rawData.name
-        $("input[name='price']")[0].value = rawData.price
-        $('#img-pre')[0].src = 'http://localhost:81/upload/' + rawData.img
-        $("textarea[name='describe']")[0].value = rawData.describes
-        let sorts = $("input[name='sort_id']")
-        switch (rawData.sortId) {
-            case 1:
-                sorts[0].checked = true
-                break
-            case 2:
-                sorts[1].checked = true
-                break
-            case 3:
-                sorts[2].checked = true
-                break
-        }
+
+
+
         layui.form.render()
 
 
@@ -123,7 +139,7 @@
             datas.append("pid", rawData.pid)
             datas.append("name", data.field.name)
             datas.append("price", data.field.price)
-            datas.append("sortId", data.field.sort_id)
+            datas.append("sortId", data.field.sortId)
             datas.append("describe", data.field.describe)
             let img = $('#file')[0].files[0]
             if (img != null)

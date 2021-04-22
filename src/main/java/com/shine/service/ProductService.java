@@ -35,7 +35,7 @@ public class ProductService {
         String newFileName = writeFile(img);
         product.withImg(newFileName);
 
-        Date utilDate  =new Date();
+        Date utilDate  = new Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         product.withAddedTime(sqlDate);
         int row = mapper.insertSelective(product);
@@ -44,7 +44,7 @@ public class ProductService {
     }
 
     public Result getPage(int page, int size) {
-        PageHelper.startPage(page, size);
+        if (size!=0) PageHelper.startPage(page, size);
         List<ProductVO> list = myProductMapper.findAll();
         PageInfo info = new PageInfo(list);
 

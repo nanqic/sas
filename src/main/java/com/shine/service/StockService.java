@@ -6,6 +6,7 @@ import com.shine.mapper.MyStockMapper;
 import com.shine.mapper.StockMapper;
 import com.shine.model.Stock;
 import com.shine.model.StockExample;
+import com.shine.model.vo.RegionStockVO;
 import com.shine.model.vo.Result;
 import com.shine.model.vo.StockVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class StockService {
     private MyStockMapper myStockMapper;
 
     public Result getPage(int page, int limit) {
-        PageHelper.startPage(page, limit);
+        if(limit!=0)PageHelper.startPage(page, limit);
         List<StockVO> list = myStockMapper.findAll();
         PageInfo info = new PageInfo(list);
         return Result.success(list, info.getTotal());
@@ -54,7 +55,7 @@ public class StockService {
     }
 
     public Result getAmount(int pid) {
-        List<Stock> list = myStockMapper.findByPid(pid);
+        List<RegionStockVO> list = myStockMapper.findByPid(pid);
         return Result.success(list, 0);
     }
 }

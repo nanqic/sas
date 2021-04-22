@@ -45,7 +45,7 @@ public class UserService {
         example.createCriteria()
                 .andEnabledNotEqualTo(false)
                 .getAllCriteria();
-        PageHelper.startPage(page,size);
+        if(size!=0)PageHelper.startPage(page,size);
         List<User> list =  mapper.selectByExample(example);
         PageInfo pageInfo = new PageInfo(list);
         long count = pageInfo.getTotal();

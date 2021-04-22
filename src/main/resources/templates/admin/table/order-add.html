@@ -36,12 +36,8 @@
     <div class="layui-form-item">
         <label class="layui-form-label required">请选择库存地区</label>
         <div class="layui-input-inline">
-            <select name="rid" id="regionList" lay-verify="required">
+            <select name="rid" id="regionList" lay-verify="required" lay-reqtext="请选择库存地区">
                 <option value=""></option>
-                <option value="1">华北 库存：0</option>
-                <option value="2">华南 库存：0</option>
-                <option value="3">华中 库存：0</option>
-                <option value="4">华东 库存：0</option>
             </select>
         </div>
     </div>
@@ -71,16 +67,24 @@
 </div>
 <script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
 <script>
-    layui.use(['form'], function () {
+    //配置插件目录
+    layui.config({
+        base: ['http://localhost:81/js/lay-module/']
+        , version: '1.0'
+    }).extend({ //设定模块别名
+        miniTab: 'layuimini/miniTab'
+    });
+    layui.use(['form', 'miniTab'], function () {
         var form = layui.form,
             layer = layui.layer,
-            $ = layui.$;
+            miniTab = layui.miniTab
+        $ = layui.$;
 
         // 动态生成用户选项
         $.ajax({
             type: 'get',
             contentType: "application/json;charset=utf-8",
-            url: 'http://localhost:81/user?page=1&limit=99',
+            url: 'http://localhost:81/user?page=1&limit=0',
             success: resp => {
                 const data = resp.data
                 let productList = $('#userList')[0]
@@ -99,7 +103,7 @@
         $.ajax({
             type: 'get',
             contentType: "application/json;charset=utf-8",
-            url: 'http://localhost:81/product?page=1&limit=99',
+            url: 'http://localhost:81/product?page=1&limit=0',
             success: resp => {
                 const data = resp.data
                 let productList = $('#productList')[0]
@@ -108,7 +112,7 @@
 
                 data.forEach(row => {
                     // console.log(row);
-                    if(row.onSale){
+                    if (row.onSale) {
                         let optc = opt.cloneNode(opt)
                         optc.value = row.pid
                         optc.innerHTML = row.name
@@ -118,32 +122,24 @@
                 layui.form.render()
             }
         })
-
         // 动态查询商品库存
         form.on('select(productList)', function (data) {
-            // layui.layer.msg(data.value);//得到被选中的值
             $.ajax({
-                ontentType: "application/json;charset=utf-8",
+                ContentType: "application/json;charset=utf-8",
                 type: 'get',
                 url: '/stock/amount?pid=' + data.value,
                 dataType: 'json',
                 success: resp => {
-                    // console.log(resp.data.length)
-                    let regions = $('#regionList')[0]
-                    regions.children[1].innerHTML = '华北 库存：0'
-                    regions.children[2].innerHTML = '华南 库存：0'
-                    regions.children[3].innerHTML = '华中 库存：0'
-                    regions.children[4].innerHTML = '华东 库存：0'
-                    if (resp.data.length != 0) {
-                        resp.data.forEach((row) => {
-                            // console.log(row);
-                            for (let i = 0; i <= 4; i++) {
-                                if (regions.children[i].value == row.rid) {
-                                    regions.children[i].innerHTML = regions.children[i].innerText.replaceAll(/\d+/g, '') + row.amount
-                                }
-                            }
-                        })
-                    }
+                    const data = resp.data
+                    let regionList = $('#regionList')[0]
+                    $('#regionList').empty()
+                    const opt = document.createElement('option')
+                    data.forEach(row=>{
+                        let option = opt.cloneNode()
+                        option.value = row.rid
+                        option.innerHTML = row.name+'： 库存'+row.amount
+                        regionList.appendChild(option)
+                    })
                     form.render()
                 }
 
@@ -176,10 +172,15 @@
                     var index = layer.alert("订单已提交", {
                         title: '提交成功！'
                     }, function () {
-                        window.location.replace('/admin/order-list.html')
+
                         // 关闭弹出层
                         layer.close(index);
-
+                        miniTab.openNewTabByIframe({
+                            href: "admin/order-list.html",
+                            title: "订单列表"
+                        });
+                        window.parent.location.reload()
+                        miniTab.delete('admin/table/order-add.html', true)
                         var iframeIndex = parent.layer.getFrameIndex(window.name);
                         parent.layer.close(iframeIndex);
 
