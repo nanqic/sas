@@ -1,0 +1,169 @@
+{
+  "homeInfo": {
+    "title": "首页",
+    "href": "admin/home.html"
+  },
+  "logoInfo": {
+    "title": "系统后台",
+    "image": "images/logo.png",
+    "href": ""
+  },
+  "menuInfo": [
+    {
+      "child": [
+        {
+          "title": "系统首页",
+          "href": "admin/home.html",
+          "icon": "fa fa-home",
+          "target": "_self"
+        },
+        {
+          "title": "用户管理",
+          "href": "",
+          "icon": "fa fa-users",
+          "target": "_self",
+          "child": [
+            {
+              "title": "用户列表",
+              "href": "admin/user-list.html",
+              "icon": "fa fa-user",
+              "target": "_self"
+            },
+            {
+              "title": "新增用户",
+              "href": "admin/table/user-add.html",
+              "icon": "fa fa-user-plus",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "产品管理",
+          "href": "",
+          "icon": "fa fa-sitemap",
+          "target": "_self",
+          "child": [
+            {
+              "title": "产品列表",
+              "href": "admin/product-list.html",
+              "icon": "fa fa-tasks",
+              "target": "_self"
+            },
+            {
+              "title": "添加产品",
+              "href": "admin/table/product-add.html",
+              "icon": "fa fa-plus",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "分类管理",
+          "href": "",
+          "icon": "fa fa-sitemap",
+          "target": "_self",
+          "child": [
+            {
+              "title": "分类列表",
+              "href": "admin/sort-list.html",
+              "icon": "fa fa-tasks",
+              "target": "_self"
+            },
+            {
+              "title": "添加分类",
+              "href": "admin/table/sort-add.html",
+              "icon": "fa fa-plus",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "仓库管理",
+          "href": "",
+          "icon": "fa fa-sitemap",
+          "target": "_self",
+          "child": [
+            {
+              "title": "仓库地区列表",
+              "href": "admin/region-list.html",
+              "icon": "fa fa-tasks",
+              "target": "_self"
+            },
+            {
+              "title": "添加仓库地区",
+              "href": "admin/table/region-add.html",
+              "icon": "fa fa-plus",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "销售管理",
+          "href": "",
+          "icon": "fa fa-server",
+          "target": "_self",
+          "child": [
+            {
+              "title": "商品库存",
+              "href": "admin/stock-list.html",
+              "icon": "fa fa-university",
+              "target": "_self"
+            },
+            {
+              "title": "新增库存",
+              "href": "admin/table/stock-add.html",
+              "icon": "fa fa-plus",
+              "target": "_self"
+            },
+            {
+              "title": "已售商品",
+              "href": "admin/sold-list.html",
+              "icon": "fa fa-window-maximize",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "订单管理",
+          "href": "",
+          "icon": "fa fa-window-maximize",
+          "target": "_self",
+          "child": [
+            {
+              "title": "订单列表",
+              "href": "admin/order-list.html",
+              "icon": "fa fa-shopping-cart",
+              "target": "_self"
+            },
+            {
+              "title": "新增订单",
+              "href": "admin/table/order-add.html",
+              "icon": "fa fa-suitcase",
+              "target": "_self"
+            },
+            {
+              "title": "历史订单",
+              "href": "admin/order-history.html",
+              "icon": "fa fa-trash",
+              "target": "_self"
+            }
+          ]
+        },
+        {
+          "title": "数据分析",
+          "href": "",
+          "icon": "fa fa-line-chart",
+          "target": "_self",
+          "child": [
+            {
+              "title": "销量分析",
+              "href": "admin/sale-analysis.html",
+              "icon": "fa fa-line-chart",
+              "target": "_self"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

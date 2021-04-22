@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>订单列表</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/lib/layui-v2.5.5/css/layui.css" media="all">
+    <link rel="stylesheet" href="/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <script type="text/html" id="toolbarProduct">
+        <div class="layui-btn-container">
+            <button class="layui-btn layui-btn-normal layui-btn-sm data-add-btn" lay-event="add"> 新增</button>
+        </div>
+    </script>
+
+    <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+    <script type="text/html" id="currentTableBar">
+        <a class="layui-btn layui-btn-xs layui-btn-danger data-count-cancel" lay-event="cancel">取消</a>
+        <a class="layui-btn layui-btn-xs layui-btn data-count-complete" lay-event="complete">完成</a>
+    </script>
+    <script id="img" type="text/html">
+        <img id="img-label" src="http://localhost:81/upload/{{d.img}}" width="350"/>
+    </script>
+    <script id="date" type="text/html">
+    <div>{{layui.util.toDateString(d.orderTime, 'yyyy年-MM月-dd日 HH:mm:ss')}}</div>
+    </script>
+</div>
+</div>
+<script src="/lib/layui-v2.5.5/layui.js" charset="utf-8"></script>
+<script>
+    //配置插件目录
+    layui.config({
+        base: ['http://localhost:81/js/lay-module/']
+        , version: '1.0'
+    }).extend({ //设定模块别名
+        miniTab: 'layuimini/miniTab'
+    });
+    layui.use(['form', 'table','miniTab'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            miniTab = layui.miniTab,
+            table = layui.table;
+        table.render({
+            elem: '#currentTableId',
+            url: '/order',
+            toolbar: '#toolbarProduct',
+            defaultToolbar: ['filter', 'exports', 'print'],
+            cols: [[
+                {field: 'id', width: 60, title: 'ID', sort: true},
+                {field: 'username', width: 120, title: '下单用户'},
+                {field: 'product', width: 120, title: '商品名称'},
+                {field: 'img', width: 120, title: '商品图片', templet: '#img'},
+                {field: 'amount', width: 80, title: '数量', sort: true},
+                {field: 'region', width: 80, title: '仓库'},
+                {field: 'remark', width: 180, title: '下单备注'},
+                {field: 'orderTime', width: 220, title: '下单时间',templet : '#date'},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ]],
+            limits: [5, 10, 15, 20],
+            limit: 5,
+            page: true,
+            skin: 'line'
+        });
+
+        /**
+         * toolbar监听事件
+         */
+        table.on('toolbar(currentTableFilter)', function (obj) {
+            if (obj.event === 'add') {  // 监听添加操作
+                var index = layer.open({
+                    title: '新增订单',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: './table/order-add.html',
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+            } else if (obj.event === 'cancel') {  // 监听取消操作
+                var checkStatus = table.checkStatus('currentTableId')
+                    , data = checkStatus.data;
+                layer.alert(JSON.stringify(data));
+            }
+        });
+
+        // 编辑商品
+        table.on('tool(currentTableFilter)', function (obj) {
+            if (obj.event === 'edit') {
+                // 对所选编辑行数据编码
+                var data = encodeURI(JSON.stringify(obj.data));
+                var index = layer.open({
+                    title: '修改订单',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin: true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: './table/order-edit.html?' + data,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            } else if (obj.event === 'cancel') {
+                var id = JSON.stringify(obj.data.id)
+                layer.confirm('真的取消行么', function (index) {
+                    $.ajax({
+                        type: 'patch',
+                        contentType: "application/json;charset=utf-8",
+                        url: '/order?id=' + id,
+                        dataType: 'json',
+                        success: resp => {
+                            // console.log(resp)
+                            var index = layer.alert("商品：" + id, {
+                                title: '取消成功！'
+                            }, function () {
+                                // 关闭弹出层
+                                layer.close(index);
+
+                                miniTab.openNewTabByIframe({
+                                    href: "admin/order-history.html",
+                                    title: "历史订单"
+                                });
+                                miniTab.delete('admin/order-list.html',true)
+                                var iframeIndex = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(iframeIndex);
+
+                            });
+                        },
+                        error: (resp) => {
+                            var index = layer.alert( {
+                                title: '取消失败！'
+                            }, function () {
+
+                                // 关闭弹出层
+                                layer.close(index);
+
+                                var iframeIndex = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(iframeIndex);
+
+                            });
+                        }
+                    })
+                    var index = layer.alert(id, {
+                        title: '最终的提交信息'
+                    }, function () {
+
+                        // 关闭弹出层
+                        layer.close(index);
+
+                        var iframeIndex = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(iframeIndex);
+
+                    });
+                    obj.del();
+                    layer.close(index);
+                });
+            } else if (obj.event==='switch'){
+                $.ajax({
+                    type: 'patch',
+                    contentType: "application/json;charset=utf-8",
+                    url: '/product?pid='+obj.data.id+'&onSale='+!obj.data.onSale,
+                    dataType: 'json'
+                })
+            } else if (obj.event === 'complete'){
+                $.ajax({
+                    type: 'patch',
+                    contentType: "application/json;charset=utf-8",
+                    url: '/order/complete?id='+obj.data.id,
+                    dataType: 'json',
+                    success: ()=>{
+                        var index = layer.alert("订单"+obj.data.id+" 已完成!", {
+                            title: '完成订单'
+                        }, function () {
+                            // 关闭弹出层
+                            layer.close(index);
+                            miniTab.openNewTabByIframe({
+                                href: "admin/order-history.html",
+                                title: "历史订单"
+                            });
+                            miniTab.delete('admin/order-list.html',true)
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+
+                        });
+                    }
+
+                })
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>

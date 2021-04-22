@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <properties resource="db.properties"></properties>
+    <context id="MySQLTables" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!-- Fluent风格实体类 -->
+        <plugin type="org.mybatis.generator.plugins.FluentBuilderMethodsPlugin"/>
+        <!-- 使生成的 Model 实现 Serializable 接口  -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!--  为生成的 Model 覆写 toString() 方法 -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <!--  为生成的 Model 覆写 equals() 和 hashCode() 方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin"/>
+        <commentGenerator>
+            <!--  不生成所有注释，默认为 false  -->
+            <property name="suppressAllComments" value="true"/>
+            <!--  生成的注释中不包含时间信息，默认为 false -->
+            <property name="suppressDate" value="true"/>
+            <!--  生成的注释中，时间的显示格式 -->
+            <property name="dateFormat" value="yyyy/MM/dd"/>
+            <!-- 是否添加数据库表中字段的注释，默认为 false  -->
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+        <jdbcConnection
+                driverClass="${jdbc.driverClass}"
+                connectionURL="${jdbc.connectionURL}"
+                userId="${jdbc.userId}"
+                password="${jdbc.password}"
+        >
+            <!--高版本的 mysql-connector-java 需要设置 nullCatalogMeansCurrent=true-->
+            <property name="nullCatalogMeansCurrent" value="true"/>
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="com.shine.model"
+                            targetProject="./src/main/java">
+            <!-- 生成的 Java 文件的编码   -->
+            <property name="JavaFileEncoding" value="UTF-8"/>
+            <!-- 格式化 Java 代码 -->
+            <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        </javaModelGenerator>
+        <!-- SQL Map 的 xml 文件生成器 -->
+        <sqlMapGenerator targetPackage="com.shine.mapper" targetProject="./src/main/java">
+            <!-- 格式化 XML 代码 -->
+            <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+
+        <javaClientGenerator type="ANNOTATEDMAPPER"
+                             targetPackage="com.shine.mapper"
+                             targetProject="./src/main/java">
+        </javaClientGenerator>
+        <table tableName="t_user" domainObjectName="User">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="t_order" domainObjectName="Order">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="t_product" domainObjectName="Product">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="t_sort" domainObjectName="Sort">
+            <generatedKey column="sid" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="t_region" domainObjectName="Region">
+            <generatedKey column="rid" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="t_product" domainObjectName="Product">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+        <table tableName="t_sale" domainObjectName="Sale">
+        </table>
+        <table tableName="t_stock" domainObjectName="Stock">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+    </context>
+</generatorConfiguration>
