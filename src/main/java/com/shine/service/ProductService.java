@@ -3,7 +3,9 @@ package com.shine.service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.shine.mapper.MyProductMapper;
+import com.shine.mapper.OrderMapper;
 import com.shine.mapper.ProductMapper;
+import com.shine.model.OrderExample;
 import com.shine.model.Product;
 import com.shine.model.ProductExample;
 import com.shine.model.vo.CodeMsg;
@@ -27,6 +29,8 @@ public class ProductService {
     ProductMapper mapper;
     @Autowired
     MyProductMapper myProductMapper;
+    @Autowired
+    OrderMapper orderMapper;
     @Value("${upload-path}")
     private String filePath;
 
@@ -35,7 +39,7 @@ public class ProductService {
         String newFileName = writeFile(img);
         product.withImg(newFileName);
 
-        Date utilDate  = new Date();
+        Date utilDate = new Date();
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
         product.withAddedTime(sqlDate);
         int row = mapper.insertSelective(product);
@@ -44,23 +48,17 @@ public class ProductService {
     }
 
     public Result getPage(int page, int size) {
-        if (size!=0) PageHelper.startPage(page, size);
+        if (size != 0) PageHelper.startPage(page, size);
         List<ProductVO> list = myProductMapper.findAll();
         PageInfo info = new PageInfo(list);
 
         return Result.success(list, info.getTotal());
     }
 
-    public Result delete(int id, String path) {
-        mapper.deleteByPrimaryKey(id);
-        File file = new File(filePath + path);
-        deleteFile(file);
-        return Result.ok();
-    }
 
     public Result update(Product product, MultipartFile... file) throws IOException {
 
-        if (file[0]!=null) {
+        if (file[0] != null) {
             String newFileName = writeFile(file[0]);
             product.withImg(newFileName);
             String oldImg = mapper.selectByPrimaryKey(product.getPid()).getImg();
@@ -73,8 +71,30 @@ public class ProductService {
         return Result.ok();
     }
 
+    public Result deleteOne(int id, String path) {
+        OrderExample example = new OrderExample();
+        example.createCriteria().andPidEqualTo(id);
+        Long count = orderMapper.countByExample(example);
+        if (count > 0) return Result.error(CodeMsg.DELETE_ERROR);
+
+        mapper.deleteByPrimaryKey(id);
+        File file = new File(filePath + path);
+        deleteFile(file);
+        return Result.ok();
+    }
+
     public Result deleteList(DelProdVO vo) {
         List<Integer> ids = vo.getIds();
+        for(int id:ids){
+            OrderExample example = new OrderExample();
+            example.createCriteria().andPidEqualTo(id);
+            Long count = orderMapper.countByExample(example);
+            if (count > 0) return Result.error(CodeMsg.DELETE_ERROR);
+        }
+        ids.forEach(id->{
+            System.out.println(id);
+        });
+
         String[] paths = vo.getPaths();
         // 删除数据
         ProductExample example = new ProductExample();

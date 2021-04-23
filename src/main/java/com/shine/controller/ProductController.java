@@ -33,7 +33,7 @@ public class ProductController {
 
     @DeleteMapping
     Result delete(@RequestParam int pid, @RequestParam String path) {
-        return service.delete(pid, path);
+        return service.deleteOne(pid, path);
     }
 
     @PutMapping

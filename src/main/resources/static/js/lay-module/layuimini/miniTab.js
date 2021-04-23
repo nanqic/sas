@@ -387,6 +387,8 @@ layui.define(["element", "layer", "jquery"], function (exports) {
                     } else {
                         miniTab.listenSwitchSingleModule(tabId);
                     }
+                    // 切换tab页面刷新
+                    $('.layui-tab-item.layui-show').find('iframe')[0].contentWindow.location.reload
                 }
                 miniTab.rollPosition();
             });

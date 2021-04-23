@@ -50,7 +50,7 @@
     }).extend({ //设定模块别名
         miniTab: 'layuimini/miniTab'
     });
-    layui.use(['form', 'table','miniTab'], function () {
+    layui.use(['form', 'table', 'miniTab'], function () {
         var $ = layui.jquery,
             form = layui.form,
             table = layui.table;
@@ -68,7 +68,7 @@
                 {field: 'sortId', width: 0, hide: true},
                 {field: 'img', width: 120, title: '商品图片', templet: '#img'},
                 {field: 'describes', width: 180, title: '商品描述'},
-                {field: 'addedTime', width: 220, title: '上架时间', templet : '#date'},
+                {field: 'addedTime', width: 220, title: '上架时间', templet: '#date'},
                 {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
             ]],
             limits: [5, 10, 15, 20],
@@ -94,16 +94,12 @@
                 $(window).on("resize", function () {
                     layer.full(index);
                 });
-            } else if (obj.event === 'delete') {  // 监听删除操作
-                var checkStatus = table.checkStatus('currentTableId')
-                    , data = checkStatus.data;
-                layer.alert(JSON.stringify(data));
             }
         });
 
         //监听表格复选框选择
         table.on('checkbox(currentTableFilter)', function (obj) {
-            console.log(obj.data)
+            // console.log(obj.data)
 
             function getCheckedData() {
                 var checkStatus = table.checkStatus('currentTableId')
@@ -129,7 +125,23 @@
                         url: '/product/list',
                         data: JSON.stringify(datas),
                         dataType: 'json',
-                        success: ()=> window.parent.location.reload()
+                        success: resp => {
+                            let msg = "产品已删除"
+                            if (resp.code == 105) {
+                                msg = resp.msg
+                            } else if (resp.code == 200) {
+                                obj.del()
+                            }
+                            var index = layer.alert(msg, {
+                                title: '删除结果'
+                            }, function () {
+                                // 关闭弹出层
+                                layer.close(index);
+                                var iframeIndex = parent.layer.getFrameIndex(window.name);
+                                parent.layer.close(iframeIndex);
+                                location.reload()
+                            });
+                        }
 
                     })
                 }
@@ -163,15 +175,19 @@
                         url: '/product?pid=' + pid + "&path=" + path,
                         dataType: 'json',
                         success: resp => {
-                            // console.log(resp)
-                            var index = layer.alert("商品：" + pid, {
-                                title: '删除成功！'
+                            let msg = "产品已删除"
+                            if (resp.code == 105) {
+                                msg = resp.msg
+                            } else if (resp.code == 200) {
+                                obj.del()
+                            }
+                            var index = layer.alert(msg, {
+                                title: '删除结果'
                             }, function () {
                                 // 关闭弹出层
                                 layer.close(index);
                                 var iframeIndex = parent.layer.getFrameIndex(window.name);
                                 parent.layer.close(iframeIndex);
-
                             });
                         },
                         error: (resp) => {
@@ -199,14 +215,14 @@
                         parent.layer.close(iframeIndex);
 
                     });
-                    obj.del();
+                    // obj.del();
                     layer.close(index);
                 });
-            } else if (obj.event==='switch'){
+            } else if (obj.event === 'switch') {
                 $.ajax({
                     type: 'patch',
                     contentType: "application/json;charset=utf-8",
-                    url: '/product?pid='+obj.data.pid+'&onSale='+!obj.data.onSale,
+                    url: '/product?pid=' + obj.data.pid + '&onSale=' + !obj.data.onSale,
                     dataType: 'json'
                 })
             }

@@ -18,7 +18,7 @@
 <div class="layui-form layuimini-form">
     <div class="layui-form-item">
         <label class="layui-form-label required">商品名称</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="text" name="name" lay-verify="required" lay-reqtext="商品名不能为空" placeholder="请输入商品名" value=""
                    class="layui-input">
             <tip>填写商品名称。</tip>
@@ -26,14 +26,14 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">价格</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <input type="number" name="price" lay-verify="required" lay-reqtext="价格不能为空" placeholder="请输入价格"
                    class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">分类</label>
-        <div class="layui-input-block">
+        <div class="layui-input-inline">
             <select name="sortId" id="sortList" lay-verify="required">
                 <option value="">请选择</option>
             </select>
@@ -49,7 +49,7 @@
             <div class="layui-input-block">
                 <div class="layui-upload">
                     <div class="layui-inline">
-                        <input type="file" lay-verify="required" class="layui-btn" id="file"
+                        <input type="file" style="margin-left: 30px" lay-verify="required" class="layui-btn" id="file"
                                accept="image/png,image/jpeg">
                     </div>
 
@@ -60,7 +60,7 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label required">商品描述</label>
-        <textarea style="width: 80%;margin-left: 160px" name="describe" maxlength="140" required lay-verify="required"
+        <textarea style="width: 50%;margin-left: 160px" name="describe" maxlength="140" required lay-verify="required"
                   placeholder="请输入商品描述，最长140个字" class="layui-textarea"></textarea>
     </div>
     <div class="layui-form-item" style="margin-top: 80px">
@@ -110,22 +110,25 @@
         let file = $('#file')[0]
         file.onchange = () => {
             let img = $('#file')[0].files[0]
-            // console.log(img.size)
-            if (img.size > 2 * 1024 * 1024) {
-                alert("图片大小超过限制，请上传不超过2M的图片！")
-                // 清空input里上传的文件
-                file.value = ''
-                return;
+            // console.log(img)
+            if(img != undefined ){
+                if (img.size > 2 * 1024 * 1024) {
+                    alert("图片大小超过限制，请上传不超过2M的图片！")
+                    // 清空input里上传的文件
+                    file.value = ''
+                    return;
+                }
+                // 使用 FileReader 读取文件对象
+                const reader = new FileReader()
+                // 把文件对象作为一个 dataURL 读入
+                reader.readAsDataURL(img);
+                // console.log(reader)
+                // 读取完毕后获取结果
+                reader.onload = (e) => {
+                    $('#img-pre')[0].src = e.target.result
+                };
             }
-            // 使用 FileReader 读取文件对象
-            const reader = new FileReader()
-            // 把文件对象作为一个 dataURL 读入
-            reader.readAsDataURL(img);
-            // console.log(reader)
-            // 读取完毕后获取结果
-            reader.onload = (e) => {
-                $('#img-pre')[0].src = e.target.result
-            };
+
         }
 
 

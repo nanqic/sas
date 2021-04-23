@@ -186,6 +186,7 @@
                                 href: "admin/order-history.html",
                                 title: "历史订单"
                             });
+                            window.parent.location.reload()
                             miniTab.delete('admin/order-list.html',true)
                             var iframeIndex = parent.layer.getFrameIndex(window.name);
                             parent.layer.close(iframeIndex);
