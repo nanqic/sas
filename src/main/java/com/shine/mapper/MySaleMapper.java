@@ -24,7 +24,7 @@ public interface MySaleMapper {
      * @param endTime 结束时间
      * @return AnalysisVO[] 返回名称和数量结果集
      */
-    @Select("SELECT r.name, SUM(o.amount) as amount FROM t_order o JOIN t_product p ON o.pid=p.pid JOIN t_region r ON r.rid=o.rid WHERE p.pid IN (SELECT pid FROM t_product WHERE sort_id = #{sid}) AND o.order_time BETWEEN #{startTime} AND #{endTime} GROUP BY r.`name`")
+    @Select("SELECT r.name, SUM(o.amount) as amount FROM t_order o JOIN t_product p ON o.pid=p.pid JOIN t_region r ON r.rid=o.rid WHERE o.`status`= 2 AND  p.pid IN (SELECT pid FROM t_product WHERE sort_id = #{sid}) AND o.order_time BETWEEN #{startTime} AND #{endTime} GROUP BY r.`name`")
     AnalysisVO[] getAnaBySid(Byte sid, String startTime, String endTime);
 
     /**
