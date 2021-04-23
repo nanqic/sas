@@ -30,6 +30,13 @@ public interface MySaleMapper {
             "\t`t_region`.`name`")
     AnalysisVO[] getAnaBySid(Byte sid, String startTime, String endTime);
 
+    /**
+     *
+     * @param rid
+     * @param startTime
+     * @param endTime
+     * @return
+     *
     @Select("\n" +
             "SELECT\n" +
             "\t`t_sort`.`name` AS `name`,\n" +
@@ -56,5 +63,26 @@ public interface MySaleMapper {
             "\t( `t_sale`.`rid` = #{rid} )))\n" +
             "AND update_time BETWEEN #{startTime} AND #{endTime}" +
             "GROUP BY t_sort.`name`")
+    */
+    @Select("SELECT\n" +
+            "\t`t_sort`.`name` AS `name`,\n" +
+            "\tSUM( `t_sale`.`sold_amount` ) AS `amount` \n" +
+            "FROM\n" +
+            "\t((\n" +
+            "\t\t\t`t_sort`\n" +
+            "\t\t\tJOIN `t_product` `p` ON ((\n" +
+            "\t\t\t\t\t`t_sort`.`sid` = `p`.`sort_id` \n" +
+            "\t\t\t\t)))\n" +
+            "\t\tJOIN `t_sale` ON ((\n" +
+            "\t\t\t\t`p`.`pid` = `t_sale`.`pid` \n" +
+            "\t\t\t))) \n" +
+            "WHERE\n" +
+            "\t((\n" +
+            "\t\t\t`t_sale`.`rid` = #{rid}\n" +
+            "\t\t\t) \n" +
+            "\t\t) \n" +
+            "AND update_time BETWEEN #{startTime} AND #{endTime}"+
+            "GROUP BY\n" +
+            "\tt_sort.`name`")
     AnalysisVO[] getAnaByRegion(Byte rid, String startTime, String endTime);
 }
