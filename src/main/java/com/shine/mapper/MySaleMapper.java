@@ -32,57 +32,12 @@ public interface MySaleMapper {
 
     /**
      *
-     * @param rid
-     * @param startTime
-     * @param endTime
+     * @param rid 地区id
+     * @param startTime 订单的开始时间
+     * @param endTime 结束时间
      * @return
      *
-    @Select("\n" +
-            "SELECT\n" +
-            "\t`t_sort`.`name` AS `name`,\n" +
-            "\tSUM(`t_sale`.`sold_amount`) AS `amount`\n" +
-            "FROM\n" +
-            "\t((\n" +
-            "\t\t\t`t_sort`\n" +
-            "\t\t\tJOIN `t_product` `p` ON ((\n" +
-            "\t\t\t\t\t`t_sort`.`sid` = `p`.`sort_id` \n" +
-            "\t\t\t\t)))\n" +
-            "\t\tJOIN `t_sale` ON ((\n" +
-            "\t\t\t\t`p`.`pid` = `t_sale`.`pid` \n" +
-            "\t\t\t))) \n" +
-            "WHERE\n" +
-            "\t((\n" +
-            "\t\t\t`t_sale`.`rid` = #{rid} \n" +
-            "\t\t\t) \n" +
-            "\t\tAND `p`.`pid` IN (\n" +
-            "\t\tSELECT\n" +
-            "\t\t\t`t_sale`.`pid` \n" +
-            "\t\tFROM\n" +
-            "\t\t\t`t_sale` \n" +
-            "\tWHERE\n" +
-            "\t( `t_sale`.`rid` = #{rid} )))\n" +
-            "AND update_time BETWEEN #{startTime} AND #{endTime}" +
-            "GROUP BY t_sort.`name`")
     */
-    @Select("SELECT\n" +
-            "\t`t_sort`.`name` AS `name`,\n" +
-            "\tSUM( `t_sale`.`sold_amount` ) AS `amount` \n" +
-            "FROM\n" +
-            "\t((\n" +
-            "\t\t\t`t_sort`\n" +
-            "\t\t\tJOIN `t_product` `p` ON ((\n" +
-            "\t\t\t\t\t`t_sort`.`sid` = `p`.`sort_id` \n" +
-            "\t\t\t\t)))\n" +
-            "\t\tJOIN `t_sale` ON ((\n" +
-            "\t\t\t\t`p`.`pid` = `t_sale`.`pid` \n" +
-            "\t\t\t))) \n" +
-            "WHERE\n" +
-            "\t((\n" +
-            "\t\t\t`t_sale`.`rid` = #{rid}\n" +
-            "\t\t\t) \n" +
-            "\t\t) \n" +
-            "AND update_time BETWEEN #{startTime} AND #{endTime}"+
-            "GROUP BY\n" +
-            "\tt_sort.`name`")
+    @Select("SELECT st.`name`,rid,SUM(o.amount) AS amount FROM t_order o JOIN t_product p ON o.pid=p.pid JOIN t_sort st ON p.sort_id=st.sid  WHERE o.`status`=2 AND rid=#{rid} AND o.order_time BETWEEN #{startTime} AND #{endTime} GROUP BY `name`")
     AnalysisVO[] getAnaByRegion(Byte rid, String startTime, String endTime);
 }

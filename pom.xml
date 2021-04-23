@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.shine</groupId>
     <artifactId>steel-analysis</artifactId>
-    <version>1.5.3</version>
+    <version>1.5.5</version>
     <name>steel-analysis</name>
     <description>Steel sales and analysis system project for Spring Boot</description>
     <properties>
