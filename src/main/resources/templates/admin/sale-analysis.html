@@ -103,8 +103,8 @@
         //日期时间选择器
         laydate.render({
             elem: '#startTime'
-            , value: '2021-1-1 '
-            , type: 'date',
+            , value: '2021-1-1 00:00:00'
+            , type: 'datetime',
             min: -180,
             max: 0
         });
@@ -112,7 +112,7 @@
         laydate.render({
             elem: '#endTime'
             , value: new Date()
-            , type: 'date',
+            , type: 'datetime',
             min: -180,
             max: 0
         });

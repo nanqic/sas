@@ -45,7 +45,7 @@ public interface MySaleMapper {
             "\t\t\t))) \n" +
             "WHERE\n" +
             "\t((\n" +
-            "\t\t\t`t_sale`.`rid` = 1 \n" +
+            "\t\t\t`t_sale`.`rid` = #{rid} \n" +
             "\t\t\t) \n" +
             "\t\tAND `p`.`pid` IN (\n" +
             "\t\tSELECT\n" +
